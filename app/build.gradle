@@ -34,9 +34,15 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
 
     //Android Annotations
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     kapt "org.androidannotations:androidannotations:$rootProject.ext.android_annotations_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation "org.androidannotations:androidannotations-api:$rootProject.ext.android_annotations_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

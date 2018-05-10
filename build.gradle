@@ -6,6 +6,8 @@ project.ext {
     target_sdk_version = 27
     support_version = '27.1.1'
     android_annotations_version = '4.4.0'
+    retrofit_version = '2.4.0'
+    okhttp_version = '3.8.1'
 }
 
 buildscript {
