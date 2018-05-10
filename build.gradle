@@ -8,6 +8,8 @@ project.ext {
     android_annotations_version = '4.4.0'
     retrofit_version = '2.4.0'
     okhttp_version = '3.8.1'
+    glide_version = '4.7.1'
+
 }
 
 buildscript {
