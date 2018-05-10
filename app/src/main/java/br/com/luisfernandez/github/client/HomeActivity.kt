@@ -7,6 +7,7 @@ import android.util.Log
 import br.com.luisfernandez.github.client.android.RepoListAdapter
 import br.com.luisfernandez.github.client.http.CallbackRequest
 import br.com.luisfernandez.github.client.http.GitHubService
+import br.com.luisfernandez.github.client.http.ServiceFactory
 import br.com.luisfernandez.github.client.model.RepoListResponse
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
@@ -15,6 +16,11 @@ import org.androidannotations.annotations.EActivity
 import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Retrofit
+import rx.android.schedulers.AndroidSchedulers
+import rx.functions.Action1
+import rx.schedulers.Schedulers
+import rx.internal.operators.OperatorReplay.observeOn
+
 
 
 
@@ -28,29 +34,14 @@ class HomeActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
-
-
-        val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.github.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-        val service = retrofit.create(GitHubService::class.java)
-        service.listRepos().enqueue(object: CallbackRequest<RepoListResponse>() {
-            override fun success(response: Response<RepoListResponse>) {
-                Log.d("", "")
-                ensureUi(response.body())
-            }
-
-            override fun failureHttp(response: Response<RepoListResponse>) {
-
-            }
-
-            override fun failure(throwable: Throwable) {
-
-            }
-        })
-
+        
+        val retrofitService = ServiceFactory.createRetrofitService(GitHubService::class.java)
+        val listRepos = retrofitService.listRepos()
+        listRepos.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({repoListResponse ->
+                    ensureUi(repoListResponse)
+                })
     }
 
     fun ensureUi(body: RepoListResponse?) {
