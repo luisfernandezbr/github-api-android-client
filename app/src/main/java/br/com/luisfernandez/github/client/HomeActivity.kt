@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import br.com.luisfernandez.github.client.http.CallbackRequest
 import br.com.luisfernandez.github.client.http.GitHubService
+import br.com.luisfernandez.github.client.model.RepoListResponse
 import br.com.luisfernandez.github.client.model.Result
 import kotlinx.android.synthetic.main.activity_home.*
 import org.androidannotations.annotations.AfterViews
@@ -35,12 +36,12 @@ class HomeActivity : AppCompatActivity() {
                 .build()
 
         val service = retrofit.create(GitHubService::class.java)
-        service.listRepos().enqueue(object: CallbackRequest<Result>() {
-            override fun success(response: Response<Result>) {
+        service.listRepos().enqueue(object: CallbackRequest<RepoListResponse>() {
+            override fun success(response: Response<RepoListResponse>) {
                 Log.d("", "")
             }
 
-            override fun failureHttp(response: Response<Result>) {
+            override fun failureHttp(response: Response<RepoListResponse>) {
 
             }
 
