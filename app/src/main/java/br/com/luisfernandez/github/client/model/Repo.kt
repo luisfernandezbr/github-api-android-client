@@ -1,6 +1,7 @@
 package br.com.luisfernandez.github.client.model
 
 import com.google.gson.annotations.SerializedName
+
 data class Repo(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
