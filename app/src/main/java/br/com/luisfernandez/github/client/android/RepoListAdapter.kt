@@ -27,6 +27,11 @@ class RepoListAdapter(private val repoList: List<Repo>) :
         val repo = repoList[position]
 
         holder.textRepoName.text = repo.name
+        holder.textRepoDescription.text = repo.description
+        holder.textRepoAuthor.text = repo.owner.login
+
+        holder.textStartCount.text = repo.stargazersCount.toString()
+        holder.textForksCount.text = repo.forksCount.toString()
     }
 
 
