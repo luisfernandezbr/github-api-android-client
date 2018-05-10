@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.luisfernandez.github.client.R
+import br.com.luisfernandez.github.client.misc.ImageLoader
 import br.com.luisfernandez.github.client.model.Repo
 import kotlinx.android.synthetic.main.item_repository_list.view.*
 
@@ -29,9 +30,10 @@ class RepoListAdapter(private val repoList: List<Repo>) :
         holder.textRepoName.text = repo.name
         holder.textRepoDescription.text = repo.description
         holder.textRepoAuthor.text = repo.owner.login
-
         holder.textStartCount.text = repo.stargazersCount.toString()
         holder.textForksCount.text = repo.forksCount.toString()
+
+        ImageLoader.loadImage(repo.owner.avatarUrl, holder.imageRepoAuthor)
     }
 
 
