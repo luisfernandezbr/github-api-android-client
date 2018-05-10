@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-allopen"
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion rootProject.ext.compile_sdk_version
@@ -23,6 +23,10 @@ android {
     }
 }
 
+allOpen {
+    annotation("org.androidannotations.api.KotlinOpen")
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -31,7 +35,7 @@ dependencies {
 
     //Android Annotations
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    annotationProcessor "org.androidannotations:androidannotations:$rootProject.ext.android_annotations_version"
+    kapt "org.androidannotations:androidannotations:$rootProject.ext.android_annotations_version"
     implementation "org.androidannotations:androidannotations-api:$rootProject.ext.android_annotations_version"
 
     testImplementation 'junit:junit:4.12'
