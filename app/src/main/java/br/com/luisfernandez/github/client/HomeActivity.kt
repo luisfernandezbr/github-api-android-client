@@ -1,11 +1,11 @@
 package br.com.luisfernandez.github.client
 
+import android.annotation.SuppressLint
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import br.com.luisfernandez.github.client.android.RepoListAdapter
-import br.com.luisfernandez.github.client.http.CallbackRequest
 import br.com.luisfernandez.github.client.http.GitHubService
 import br.com.luisfernandez.github.client.http.ServiceFactory
 import br.com.luisfernandez.github.client.model.RepoListResponse
@@ -13,17 +13,12 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
-import retrofit2.Response
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.Retrofit
+import retrofit2.adapter.rxjava.HttpException
+import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
-import rx.functions.Action1
 import rx.schedulers.Schedulers
-import rx.internal.operators.OperatorReplay.observeOn
 
-
-
-
+@SuppressLint("Registered")
 @EActivity(R.layout.activity_home)
 class HomeActivity : AppCompatActivity() {
 
@@ -34,13 +29,28 @@ class HomeActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
-        
+
         val retrofitService = ServiceFactory.createRetrofitService(GitHubService::class.java)
         val listRepos = retrofitService.listRepos()
         listRepos.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({repoListResponse ->
-                    ensureUi(repoListResponse)
+                .subscribe(object : Subscriber<RepoListResponse>() {
+                    override fun onCompleted() {
+                        Log.d("HOME_ACTIVITY", "onCompleted()")
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is HttpException) {
+                            Log.d("HOME_ACTIVITY", "${e.code()} + onError() ${e.response().errorBody()?.string()} ")
+                        } else {
+                            Log.d("HOME_ACTIVITY", "onError() ${e.message}")
+                        }
+                    }
+
+                    override fun onNext(repoListResponse: RepoListResponse) {
+                        Log.d("HOME_ACTIVITY", "onNext() + ${repoListResponse.totalCount}")
+                        ensureUi(repoListResponse)
+                    }
                 })
     }
 
