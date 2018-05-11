@@ -1,9 +1,7 @@
 package br.com.luisfernandez.github.client
 
 import android.util.Log
-import br.com.luisfernandez.github.client.http.GitHubService
-import br.com.luisfernandez.github.client.http.ServiceFactory
-import br.com.luisfernandez.github.client.model.RepoListResponse
+import br.com.luisfernandez.github.client.model.Repo
 import retrofit2.adapter.rxjava.HttpException
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
@@ -18,11 +16,11 @@ class HomePresenterImpl : HomePresenter {
     }
 
     override fun loadRepoList() {
-        val retrofitService = ServiceFactory.createRetrofitService(GitHubService::class.java)
-        val listRepos = retrofitService.listRepos()
-        listRepos.subscribeOn(Schedulers.newThread())
+        RepoListModelImpl()
+                .loadRepoList()
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<RepoListResponse>() {
+                .subscribe(object : Subscriber<List<Repo>>() {
                     override fun onCompleted() {
                         Log.d("HOME_ACTIVITY", "onCompleted()")
                     }
@@ -35,9 +33,9 @@ class HomePresenterImpl : HomePresenter {
                         }
                     }
 
-                    override fun onNext(repoListResponse: RepoListResponse) {
-                        Log.d("HOME_ACTIVITY", "onNext() + ${repoListResponse.totalCount}")
-                        view.showRepoList(repoListResponse.repos)
+                    override fun onNext(repoList: List<Repo>) {
+                        Log.d("HOME_ACTIVITY", "onNext() + ${repoList.size}")
+                        view.showRepoList(repoList)
                     }
                 })
     }
