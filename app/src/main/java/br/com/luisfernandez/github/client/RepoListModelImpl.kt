@@ -7,10 +7,10 @@ import rx.Observable
 
 
 class RepoListModelImpl : RepoListModel {
-    override fun loadRepoList(): Observable<List<Repo>> {
+    override fun loadRepoList(page: Int): Observable<List<Repo>> {
         val retrofitService = ServiceFactory.createRetrofitService(GitHubService::class.java)
         return retrofitService
-                .listRepos()
+                .listRepos(page)
                 .map { repoListResponse ->
                     repoListResponse.repos
                 }

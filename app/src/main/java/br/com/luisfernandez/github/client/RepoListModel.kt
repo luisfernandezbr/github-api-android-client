@@ -8,5 +8,5 @@ import rx.Observable
  * Created by luisfernandez on 11/05/18.
  */
 interface RepoListModel {
-    fun loadRepoList(): Observable<List<Repo>>
+    fun loadRepoList(page: Int): Observable<List<Repo>>
 }

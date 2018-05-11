@@ -15,9 +15,9 @@ class HomePresenterImpl : HomePresenter {
         this.view = view
     }
 
-    override fun loadRepoList() {
+    override fun loadRepoList(page: Int) {
         RepoListModelImpl()
-                .loadRepoList()
+                .loadRepoList(page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Subscriber<List<Repo>>() {

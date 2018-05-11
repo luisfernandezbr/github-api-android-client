@@ -38,7 +38,7 @@ class HomeActivity : AppCompatActivity(), HomeView {
     fun afterViews() {
         presenter = HomePresenterImpl()
         presenter.inject(this)
-        presenter.loadRepoList()
+        presenter.loadRepoList(50)
     }
 
     override fun showRepoList(repoList: List<Repo>) {

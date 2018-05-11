@@ -3,6 +3,8 @@ package br.com.luisfernandez.github.client.http;
 import br.com.luisfernandez.github.client.http.annotations.URL;
 import br.com.luisfernandez.github.client.model.RepoListResponse;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -12,6 +14,6 @@ import rx.Observable;
 @URL("https://api.github.com")
 public interface GitHubService
 {
-    @GET("/search/repositories?q=language:Java&sort=stars&page=1")
-    Observable<RepoListResponse> listRepos();
+    @GET("/search/repositories?q=language:Java&sort=stars&per_page=10")
+    Observable<RepoListResponse> listRepos(@Query("page") int page);
 }
