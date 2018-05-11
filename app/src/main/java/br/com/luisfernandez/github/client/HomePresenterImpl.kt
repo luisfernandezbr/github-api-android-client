@@ -31,6 +31,8 @@ class HomePresenterImpl : HomePresenter {
                         } else {
                             Log.d("HOME_ACTIVITY", "onError() ${e.message}")
                         }
+
+                        view.showError()
                     }
 
                     override fun onNext(repoList: List<Repo>) {

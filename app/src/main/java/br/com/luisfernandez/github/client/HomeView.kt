@@ -7,4 +7,6 @@ import br.com.luisfernandez.github.client.model.Repo
  */
 interface HomeView {
     fun showRepoList(repoList: List<Repo>)
+    fun showProgress()
+    fun showError()
 }

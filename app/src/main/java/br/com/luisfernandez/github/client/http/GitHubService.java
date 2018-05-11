@@ -2,10 +2,7 @@ package br.com.luisfernandez.github.client.http;
 
 import br.com.luisfernandez.github.client.http.annotations.URL;
 import br.com.luisfernandez.github.client.model.RepoListResponse;
-import br.com.luisfernandez.github.client.model.Result;
-import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import rx.Observable;
 
 /**
