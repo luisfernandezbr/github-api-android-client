@@ -1,7 +1,7 @@
 package br.com.luisfernandez.github.client
 
 import br.com.luisfernandez.github.client.model.Repo
-import rx.Observable
+import io.reactivex.Observable
 
 
 /**

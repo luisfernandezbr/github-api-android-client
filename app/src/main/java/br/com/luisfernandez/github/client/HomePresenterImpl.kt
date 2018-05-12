@@ -2,10 +2,9 @@ package br.com.luisfernandez.github.client
 
 import android.util.Log
 import br.com.luisfernandez.github.client.model.Repo
-import retrofit2.adapter.rxjava.HttpException
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class HomePresenterImpl : HomePresenter {
 
@@ -16,16 +15,15 @@ class HomePresenterImpl : HomePresenter {
     }
 
     override fun loadRepoList(page: Int) {
+
         RepoListModelImpl()
                 .loadRepoList(page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<List<Repo>>() {
-                    override fun onCompleted() {
-                        Log.d("HOME_ACTIVITY", "onCompleted()")
-                    }
+                .subscribeWith(object: CallbackWrapper<List<Repo>>() {
+                    override fun onProblem(errorWrapper: ErrorWrapper?) {
+                        val e = errorWrapper!!.throwable
 
-                    override fun onError(e: Throwable) {
                         if (e is HttpException) {
                             Log.d("HOME_ACTIVITY", "${e.code()} + onError() ${e.response().errorBody()?.string()} ")
                         } else {
@@ -35,10 +33,31 @@ class HomePresenterImpl : HomePresenter {
                         view.showError()
                     }
 
-                    override fun onNext(repoList: List<Repo>) {
-                        Log.d("HOME_ACTIVITY", "onNext() + ${repoList.size}")
+                    override fun onSuccess(repoList: List<Repo>) {
                         view.showRepoList(repoList)
                     }
                 })
+
+
+//                .subscribe(object : Subscriber<List<Repo>>() {
+//                    override fun onCompleted() {
+//                        Log.d("HOME_ACTIVITY", "onCompleted()")
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+//                        if (e is HttpException) {
+//                            Log.d("HOME_ACTIVITY", "${e.code()} + onError() ${e.response().errorBody()?.string()} ")
+//                        } else {
+//                            Log.d("HOME_ACTIVITY", "onError() ${e.message}")
+//                        }
+//
+//                        view.showError()
+//                    }
+//
+//                    override fun onNext(repoList: List<Repo>) {
+//                        Log.d("HOME_ACTIVITY", "onNext() + ${repoList.size}")
+//                        view.showRepoList(repoList)
+//                    }
+//                })
     }
 }
