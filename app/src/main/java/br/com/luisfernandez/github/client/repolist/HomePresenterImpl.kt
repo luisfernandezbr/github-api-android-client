@@ -1,6 +1,9 @@
-package br.com.luisfernandez.github.client
+package br.com.luisfernandez.github.client.repolist
 
 import android.util.Log
+import br.com.luisfernandez.github.client.GitHubErrorBody
+import br.com.luisfernandez.github.client.http.CallbackWrapper
+import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.Repo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

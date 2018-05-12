@@ -1,6 +1,7 @@
-package br.com.luisfernandez.github.client
+package br.com.luisfernandez.github.client.repolist
 
-import br.com.luisfernandez.github.client.model.ErrorHandlerView
+import br.com.luisfernandez.github.client.ErrorHandlerView
+import br.com.luisfernandez.github.client.GitHubErrorBody
 import br.com.luisfernandez.github.client.model.Repo
 
 /**

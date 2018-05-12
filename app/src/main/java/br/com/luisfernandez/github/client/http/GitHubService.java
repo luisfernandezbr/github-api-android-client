@@ -9,7 +9,6 @@ import retrofit2.http.Query;
 /**
  * Created by luisfernandez on 10/05/18.
  */
-
 @URL("https://api.github.com")
 public interface GitHubService
 {

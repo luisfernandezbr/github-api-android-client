@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client
+package br.com.luisfernandez.github.client.repolist
 
 import br.com.luisfernandez.github.client.http.GitHubService
 import br.com.luisfernandez.github.client.http.ServiceFactory

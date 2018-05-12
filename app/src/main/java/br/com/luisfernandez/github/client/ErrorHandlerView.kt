@@ -1,6 +1,6 @@
-package br.com.luisfernandez.github.client.model
+package br.com.luisfernandez.github.client
 
-import br.com.luisfernandez.github.client.ServerError
+import br.com.luisfernandez.github.client.http.ServerError
 
 /**
  * Created by luisfernandez on 12/05/18.

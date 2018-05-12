@@ -1,13 +1,15 @@
-package br.com.luisfernandez.github.client
+package br.com.luisfernandez.github.client.repolist
 
 import android.annotation.SuppressLint
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
+import br.com.luisfernandez.github.client.GitHubErrorBody
+import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.android.RepoListAdapter
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
+import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.Repo
 import kotlinx.android.synthetic.main.activity_home.*
 import org.androidannotations.annotations.AfterViews
