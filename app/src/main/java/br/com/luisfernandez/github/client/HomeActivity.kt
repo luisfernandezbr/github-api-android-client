@@ -17,6 +17,18 @@ import org.androidannotations.annotations.EActivity
 @EActivity(R.layout.activity_home)
 class HomeActivity : AppCompatActivity(), HomeView {
 
+    override fun handleError(serverError: ServerError<GitHubErrorBody>) {
+
+        if (serverError.errorBody != null) {
+            Toast.makeText(this, "HTTP STATUS: ${serverError.httpStatus}\nMESSAGE${serverError.errorBody!!.message} ", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(this, "HTTP STATUS: ${serverError.httpStatus}\nMESSAGE${serverError.errorMessage} ", Toast.LENGTH_LONG).show()
+        }
+
+        var progressBar = progressBar
+        progressBar.setGone()
+    }
+
     override fun showError() {
         Toast.makeText(this, "ERRORRRRR", Toast.LENGTH_LONG).show()
 
