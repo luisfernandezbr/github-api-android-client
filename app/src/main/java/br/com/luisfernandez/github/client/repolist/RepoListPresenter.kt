@@ -3,7 +3,7 @@ package br.com.luisfernandez.github.client.repolist
 /**
  * Created by luisfernandez on 11/05/18.
  */
-interface HomePresenter {
+interface RepoListPresenter {
     fun loadRepoList(page: Int)
-    fun inject(homeView: HomeView)
+    fun inject(repoListView: RepoListView)
 }

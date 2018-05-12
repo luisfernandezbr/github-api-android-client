@@ -11,13 +11,13 @@ import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.Repo
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_repo_list.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 
 @SuppressLint("Registered")
-@EActivity(R.layout.activity_home)
-class HomeActivity : AppCompatActivity(), HomeView {
+@EActivity(R.layout.activity_repo_list)
+class RepoListActivity : AppCompatActivity(), RepoListView {
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
 
@@ -46,11 +46,11 @@ class HomeActivity : AppCompatActivity(), HomeView {
         recyclerView.setGone()
     }
 
-    private lateinit var presenter: HomePresenter
+    private lateinit var presenter: RepoListPresenter
 
     @AfterViews
     fun afterViews() {
-        presenter = HomePresenterImpl()
+        presenter = RepoListPresenterImpl()
         presenter.inject(this)
         presenter.loadRepoList(50)
     }

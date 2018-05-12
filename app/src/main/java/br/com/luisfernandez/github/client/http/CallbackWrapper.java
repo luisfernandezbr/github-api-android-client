@@ -63,7 +63,7 @@ public abstract class CallbackWrapper<SUCCESS, ERROR> extends DisposableObserver
         Log.d(TAG, "onComplete not implemented!");
     }
 
-    abstract void onSuccess(SUCCESS success);
+    public abstract void onSuccess(SUCCESS success);
 
-    abstract void onError(ServerError<ERROR> error);
+    public abstract void onError(ServerError<ERROR> error);
 }
