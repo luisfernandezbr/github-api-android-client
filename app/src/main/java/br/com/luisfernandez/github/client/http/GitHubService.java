@@ -1,6 +1,9 @@
 package br.com.luisfernandez.github.client.http;
 
+import java.util.List;
+
 import br.com.luisfernandez.github.client.http.annotations.URL;
+import br.com.luisfernandez.github.client.model.PullRequestResponse;
 import br.com.luisfernandez.github.client.model.RepoListResponse;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -17,7 +20,5 @@ public interface GitHubService
     Observable<RepoListResponse> listRepos(@Query("page") int page);
 
     @GET("https://api.github.com/repos/{owner}/{repo}/pulls")
-    Observable<RepoListResponse> listPullRequests(@Path("owner") String owner, @Path("repo") String repo);
-
-
+    Observable<List<PullRequestResponse>> listPullRequests(@Path("owner") String owner, @Path("repo") String repo);
 }
