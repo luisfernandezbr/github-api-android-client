@@ -5,24 +5,26 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import br.com.luisfernandez.github.client.GitHubErrorBody
-import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
-import br.com.luisfernandez.github.client.android.RepoListAdapter
+import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.PullRequestResponse
-import br.com.luisfernandez.github.client.model.Repo
-import br.com.luisfernandez.github.client.repolist.RepoListView
 import kotlinx.android.synthetic.main.activity_repo_list.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.Extra
+import javax.inject.Inject
 
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_repo_list)
 class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
+
+    init {
+        AppApplication.component.inject(this)
+    }
 
     @Extra
     lateinit var owner: String
@@ -30,7 +32,8 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
     @Extra
     lateinit var repoName: String
 
-    private lateinit var presenter: PullRequestPresenter
+    @Inject
+    lateinit var presenter: PullRequestPresenter
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
 
@@ -61,7 +64,6 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
 
     @AfterViews
     fun afterViews() {
-        presenter = PullRequestPresenterImpl()
         presenter.inject(this)
         presenter.loadPullRequestList(owner, repoName)
     }

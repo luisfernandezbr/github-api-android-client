@@ -1,5 +1,8 @@
 package br.com.luisfernandez.github.client.di
 
+import br.com.luisfernandez.github.client.pullrequest.PullRequestModel
+import br.com.luisfernandez.github.client.pullrequest.PullRequestPresenter
+import br.com.luisfernandez.github.client.pullrequest.PullRequestPresenterImpl
 import br.com.luisfernandez.github.client.repolist.RepoListModel
 import br.com.luisfernandez.github.client.repolist.RepoListPresenter
 import br.com.luisfernandez.github.client.repolist.RepoListPresenterImpl
@@ -15,4 +18,8 @@ class PresenterModule {
     @Provides
     fun providesRepoListPresenter(repoListModel: RepoListModel
     ): RepoListPresenter = RepoListPresenterImpl(repoListModel)
+
+    @Provides
+    fun providesPullRequestPresenter(pullRequestModel: PullRequestModel
+    ): PullRequestPresenter = PullRequestPresenterImpl(pullRequestModel)
 }

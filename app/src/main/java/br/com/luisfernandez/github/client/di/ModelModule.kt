@@ -1,6 +1,8 @@
 package br.com.luisfernandez.github.client.di
 
 import br.com.luisfernandez.github.client.http.GitHubService
+import br.com.luisfernandez.github.client.pullrequest.PullRequestModel
+import br.com.luisfernandez.github.client.pullrequest.PullRequestModelImpl
 import br.com.luisfernandez.github.client.repolist.RepoListModel
 import br.com.luisfernandez.github.client.repolist.RepoListModelImpl
 import dagger.Module
@@ -16,4 +18,9 @@ class ModelModule {
     fun providesRepoListModel(
             gitHubService: GitHubService
     ): RepoListModel = RepoListModelImpl(gitHubService)
+
+    @Provides
+    fun providesPullRequestModel(
+            gitHubService: GitHubService
+    ): PullRequestModel = PullRequestModelImpl(gitHubService)
 }

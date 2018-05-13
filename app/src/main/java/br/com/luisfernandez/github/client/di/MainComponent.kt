@@ -1,5 +1,6 @@
 package br.com.luisfernandez.github.client.di
 
+import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity
 import br.com.luisfernandez.github.client.repolist.RepoListActivity
 import br.com.luisfernandez.github.client.repolist.RepoListModel
 import dagger.Component
@@ -15,5 +16,6 @@ import javax.inject.Singleton
         PresenterModule::class,
         ModelModule::class))
 interface MainComponent {
-    fun inject(repoListModel: RepoListActivity)
+    fun inject(repoListActivity: RepoListActivity)
+    fun inject(pullRequestListActivity: PullRequestListActivity)
 }

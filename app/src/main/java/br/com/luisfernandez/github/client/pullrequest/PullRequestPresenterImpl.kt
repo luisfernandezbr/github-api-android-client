@@ -7,8 +7,12 @@ import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.PullRequestResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class PullRequestPresenterImpl : PullRequestPresenter {
+class PullRequestPresenterImpl @Inject constructor(
+    private val pullRequestModel: PullRequestModel
+) : PullRequestPresenter
+{
 
     private lateinit var view: PullRequestListView
 
@@ -17,7 +21,7 @@ class PullRequestPresenterImpl : PullRequestPresenter {
     }
 
     override fun loadPullRequestList(owner: String, repoName: String) {
-        PullRequestModelImpl()
+        pullRequestModel
                 .loadPullRequestList(owner, repoName)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
