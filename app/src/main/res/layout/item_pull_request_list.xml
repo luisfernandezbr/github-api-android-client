@@ -11,7 +11,7 @@ Foto do autor do PR,
 Título do PR,
 Data do PR e
 Body do PR -->
-    <android.support.v7.widget.AppCompatImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imagePullRequestAuthor"
         android:layout_width="60dp"
         android:layout_height="60dp"
