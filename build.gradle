@@ -1,15 +1,19 @@
-int minSdk = hasProperty('minSdk') ? minSdk.toInteger() : 15
+int minSdkVersion = hasProperty('minSdk') ? minSdk.toInteger() : 15
 
 project.ext {
-    min_sdk_version = minSdk
-    compile_sdk_version = 27
-    target_sdk_version = 27
-    support_version = '27.1.1'
-    android_annotations_version = '4.4.0'
-    retrofit_version = '2.4.0'
-    okhttp_version = '3.8.1'
-    glide_version = '4.7.1'
-
+    minSdk = minSdkVersion
+    compileSdk = 27
+    targetSdk = 27
+    supportLibrary = '27.1.1'
+    androidAnnotations = '4.4.0'
+    retrofit = '2.4.0'
+    okhttp = '3.8.1'
+    glide = '4.7.1'
+    constraintLayout = '1.1.0'
+    rxJava = '2.1.5'
+    rxAndroid= '2.0.1'
+    retrofitRxJavaAdapter = '1.0.0'
+    circleImageView = '2.2.0'
 }
 
 buildscript {
