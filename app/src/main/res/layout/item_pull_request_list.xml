@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_default">
+<!-- Nome /
+Foto do autor do PR,
+Título do PR,
+Data do PR e
+Body do PR -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imagePullRequestAuthor"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/temp_repo_owner_avatar" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textAuthorName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagePullRequestAuthor"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Glide (from Google)" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagePullRequestAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/textAuthorName"
+        tools:text="This os the description from Glide Repo" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagePullRequestAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle"
+        tools:text="3000" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagePullRequestAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/textDate"
+        tools:text="300" />
+
+</android.support.constraint.ConstraintLayout>
