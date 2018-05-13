@@ -5,8 +5,6 @@ import br.com.luisfernandez.github.client.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.PullRequestResponse
-import br.com.luisfernandez.github.client.model.Repo
-import br.com.luisfernandez.github.client.repolist.RepoListModelImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -14,10 +12,9 @@ class PullRequestPresenterImpl : PullRequestPresenter {
 
     private lateinit var view: PullRequestListView
 
-    override fun inject(pullRequestView: PullRequestListView) {
+    override fun inject(view: PullRequestListView) {
         this.view = view
     }
-
 
     override fun loadPullRequestList(owner: String, repoName: String) {
         PullRequestModelImpl()
