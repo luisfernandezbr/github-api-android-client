@@ -15,7 +15,6 @@ import br.com.luisfernandez.github.client.model.Repo
 import kotlinx.android.synthetic.main.activity_repo_list.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
-import br.com.luisfernandez.github.client.R.id.recyclerView
 
 
 
