@@ -8,6 +8,7 @@ import br.com.luisfernandez.github.client.GitHubErrorBody
 import br.com.luisfernandez.github.client.OnItemClick
 import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
+import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.android.RepoListAdapter
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
@@ -17,19 +18,24 @@ import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
 import kotlinx.android.synthetic.main.activity_repo_list.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
-
+import javax.inject.Inject
 
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_repo_list)
 class RepoListActivity : AppCompatActivity(), RepoListView {
 
+    init {
+        AppApplication.component.inject(this)
+    }
+
     private var isLoadingState = false
     private var isLastPageState = false
     private var currentPage = 1
     private lateinit var repoListAdapter: RepoListAdapter
 
-    private lateinit var presenter: RepoListPresenter
+    @Inject
+    lateinit var presenter: RepoListPresenter
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
 
@@ -60,7 +66,6 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
     @AfterViews
     fun afterViews() {
-        presenter = RepoListPresenterImpl()
         presenter.inject(this)
 
         val recyclerView = recyclerView

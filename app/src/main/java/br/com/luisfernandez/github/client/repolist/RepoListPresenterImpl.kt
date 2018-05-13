@@ -7,8 +7,11 @@ import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.Repo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class RepoListPresenterImpl : RepoListPresenter {
+class RepoListPresenterImpl @Inject constructor(
+        private val repoListModel: RepoListModel
+) : RepoListPresenter {
 
     private lateinit var view: RepoListView
 
@@ -18,7 +21,7 @@ class RepoListPresenterImpl : RepoListPresenter {
 
     override fun loadRepoList(page: Int) {
 
-        RepoListModelImpl()
+        repoListModel
                 .loadRepoList(page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

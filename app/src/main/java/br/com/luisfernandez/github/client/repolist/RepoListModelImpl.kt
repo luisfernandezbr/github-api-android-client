@@ -1,15 +1,17 @@
 package br.com.luisfernandez.github.client.repolist
 
 import br.com.luisfernandez.github.client.http.GitHubService
-import br.com.luisfernandez.github.client.http.ServiceFactory
 import br.com.luisfernandez.github.client.model.Repo
 import io.reactivex.Observable
+import javax.inject.Inject
 
 
-class RepoListModelImpl : RepoListModel {
+class RepoListModelImpl @Inject constructor(
+    private val gitHubService: GitHubService
+) : RepoListModel
+{
     override fun loadRepoList(page: Int): Observable<List<Repo>> {
-        val retrofitService = ServiceFactory.createRetrofitService(GitHubService::class.java)
-        return retrofitService
+        return gitHubService
                 .listRepos(page)
                 .map { repoListResponse ->
                     repoListResponse.repos
