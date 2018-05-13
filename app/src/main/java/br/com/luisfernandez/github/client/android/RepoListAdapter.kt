@@ -64,7 +64,7 @@ class RepoListAdapter(
 
                 val repo = getItem(position)
                 holderContent.textRepoName.text = repo.name
-                //holderContent.textRepoDescription.text = repo.description
+                holderContent.textRepoDescription.text = repo.description
                 holderContent.textRepoAuthor.text = repo.owner.login
                 holderContent.textStartCount.text = repo.stargazersCount.toString()
                 holderContent.textForksCount.text = repo.forksCount.toString()
