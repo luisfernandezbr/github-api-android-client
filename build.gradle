@@ -1,4 +1,4 @@
-int minSdk = hasProperty('minSdk') ? minSdk.toInteger() : 21
+int minSdk = hasProperty('minSdk') ? minSdk.toInteger() : 15
 
 project.ext {
     min_sdk_version = minSdk
