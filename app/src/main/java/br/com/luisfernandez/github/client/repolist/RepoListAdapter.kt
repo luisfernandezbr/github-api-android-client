@@ -1,16 +1,13 @@
-package br.com.luisfernandez.github.client.android
+package br.com.luisfernandez.github.client.repolist
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import br.com.luisfernandez.github.client.OnItemClick
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
 import br.com.luisfernandez.github.client.model.Repo
-import kotlinx.android.synthetic.main.item_loading_more.view.*
 import kotlinx.android.synthetic.main.item_repository_list.view.*
 
 import kotlin.collections.ArrayList
