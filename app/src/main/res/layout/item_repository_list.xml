@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="@dimen/margin_default">
 
-    <android.support.v7.widget.AppCompatImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageRepoAuthor"
         android:layout_width="60dp"
         android:layout_height="60dp"
