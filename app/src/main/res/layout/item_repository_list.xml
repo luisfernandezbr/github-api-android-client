@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_default"
-    android:layout_marginTop="@dimen/margin_default"
-    android:elevation="4dp"
-    android:orientation="vertical">
+    style="@style/AppCard">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_default">
+        android:padding="@dimen/margin_default"
+        tools:background="#FFF">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageRepoAuthor"
@@ -24,68 +22,56 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/textRepoName"
+            style="@style/AppText.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
-            android:textSize="@dimen/font_size_medium"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageRepoAuthor"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Glide (from Google)" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/textRepoDescription"
+            android:id="@+id/textRepoAuthor"
+            style="@style/AppText.Subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:maxLines="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageRepoAuthor"
             app:layout_constraintTop_toBottomOf="@+id/textRepoName"
-            tools:text="This os the description from Glide Repo" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/textRepoAuthor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
-            android:layout_marginTop="@dimen/margin_medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageRepoAuthor"
-            app:layout_constraintTop_toBottomOf="@+id/textRepoDescription"
             tools:text="Luis Fernandez" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/textStartCount"
+            android:id="@+id/textRepoDescription"
+            style="@style/AppText.Description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:drawableLeft="@drawable/icon_star"
-            android:drawableStart="@drawable/icon_star"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageRepoAuthor"
             app:layout_constraintTop_toBottomOf="@+id/textRepoAuthor"
+            tools:text="This os the description from Glide Repo" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/textStartCount"
+            style="@style/AppText.Details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_star"
+            android:drawableStart="@drawable/icon_star"
+            app:layout_constraintStart_toEndOf="@+id/imageRepoAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/textRepoDescription"
             tools:text="3000" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/textForksCount"
+            style="@style/AppText.Details"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
-            android:layout_marginTop="@dimen/margin_medium"
             android:drawableLeft="@drawable/icon_pull_request"
             android:drawableStart="@drawable/icon_pull_request"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageRepoAuthor"
-            app:layout_constraintTop_toBottomOf="@+id/textStartCount"
+            app:layout_constraintStart_toEndOf="@+id/textStartCount"
+            app:layout_constraintTop_toBottomOf="@+id/textRepoDescription"
             tools:text="300" />
 
     </android.support.constraint.ConstraintLayout>
