@@ -56,6 +56,11 @@ dependencies {
     // Circle Images
     implementation "de.hdodenhof:circleimageview:$circleImageView"
 
+    // Dagger 2
+    kapt "com.google.dagger:dagger-compiler:$dagger2"
+    implementation "com.google.dagger:dagger:$dagger2"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
