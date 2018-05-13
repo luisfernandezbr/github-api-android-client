@@ -4,6 +4,7 @@ import br.com.luisfernandez.github.client.http.annotations.URL;
 import br.com.luisfernandez.github.client.model.RepoListResponse;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -14,4 +15,9 @@ public interface GitHubService
 {
     @GET("/search/repositories?q=language:Java&sort=stars&per_page=10")
     Observable<RepoListResponse> listRepos(@Query("page") int page);
+
+    @GET("https://api.github.com/repos/{owner}/{repo}/pulls")
+    Observable<RepoListResponse> listPullRequests(@Path("owner") String owner, @Path("repo") String repo);
+
+
 }
