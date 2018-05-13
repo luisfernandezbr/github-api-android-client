@@ -18,6 +18,15 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
+import okhttp3.Interceptor
+import okhttp3.ConnectionSpec
+import okhttp3.TlsVersion
+import android.os.Build
+import android.util.Log
+import br.com.luisfernandez.github.client.http.Tls12SocketFactory
+import javax.net.ssl.SSLContext
+
+
 @Module
 open class NetworkModule
 {
@@ -69,10 +78,12 @@ open class NetworkModule
     @Provides
     @Singleton
     fun provideOkHttp(
+            forceCacheInterceptor: ForceCacheInterceptor,
             httpLoggingInterceptor: HttpLoggingInterceptor,
             cache: Cache
     ): OkHttpClient {
-        return OkHttpClient
+
+        return enableTls12OnPreLollipop(OkHttpClient
                 .Builder()
                 .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor(forceCacheInterceptor)
@@ -81,9 +92,10 @@ open class NetworkModule
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
-                .followSslRedirects(false)
-                .followRedirects(false)
-                .build()
+                .followRedirects(true)
+                .followSslRedirects(true)
+                .retryOnConnectionFailure(true)
+                ).build()
     }
 
     @Provides
@@ -99,4 +111,28 @@ open class NetworkModule
     @Provides
     @Singleton
     fun provideApiService(retrofit: Retrofit): GitHubService = retrofit.create(GitHubService::class.java)
+
+    /**
+     * Solution from https://github.com/square/okhttp/issues/2372
+     */
+    private fun enableTls12OnPreLollipop(client: OkHttpClient.Builder): OkHttpClient.Builder {
+        if (Build.VERSION.SDK_INT in Build.VERSION_CODES.JELLY_BEAN .. Build.VERSION_CODES.LOLLIPOP) {
+            try {
+                val sc = SSLContext.getInstance("TLSv1.2")
+                sc.init(null, null, null)
+                client.sslSocketFactory(Tls12SocketFactory(sc.socketFactory))
+                val cs = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS).tlsVersions(TlsVersion.TLS_1_2).build()
+
+                val specs = ArrayList<ConnectionSpec>()
+                specs.add(cs)
+                specs.add(ConnectionSpec.COMPATIBLE_TLS)
+                specs.add(ConnectionSpec.CLEARTEXT)
+                client.connectionSpecs(specs)
+            } catch (exc: Exception) {
+                Log.e("OkHttpTLSCompat", "Error while setting TLS 1.2", exc)
+            }
+        }
+
+        return client
+    }
 }
