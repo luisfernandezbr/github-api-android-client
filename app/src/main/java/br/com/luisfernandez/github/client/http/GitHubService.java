@@ -19,6 +19,6 @@ public interface GitHubService
     @GET("/search/repositories?q=language:Java&sort=stars&per_page=10")
     Observable<RepoListResponse> listRepos(@Query("page") int page);
 
-    @GET("https://api.github.com/repos/{owner}/{repo}/pulls")
-    Observable<List<PullRequestResponse>> listPullRequests(@Path("owner") String owner, @Path("repo") String repo);
+    @GET("https://api.github.com/repos/{owner}/{repoName}/pulls")
+    Observable<List<PullRequestResponse>> listPullRequests(@Path("owner") String owner, @Path("repoName") String repoName);
 }
