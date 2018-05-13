@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import br.com.luisfernandez.github.client.GitHubErrorBody
+import br.com.luisfernandez.github.client.OnItemClick
 import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.android.RepoListAdapter
-import br.com.luisfernandez.github.client.android.RepoListAdapter.OnItemClick
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.ServerError
@@ -65,12 +65,12 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         val recyclerView = recyclerView
         val layoutManager = LinearLayoutManager(this)
-        repoListAdapter = RepoListAdapter(onItemClick = object: OnItemClick {
-            override fun onItemClick(repo: Repo) {
+        repoListAdapter = RepoListAdapter(onItemClick = object: OnItemClick<Repo> {
+            override fun onItemClick(type: Repo) {
                 PullRequestListActivity_
                         .intent(this@RepoListActivity)
-                        .owner(repo.owner.login)
-                        .repoName(repo.name)
+                        .owner(type.owner.login)
+                        .repoName(type.name)
                         .start()
             }
         })

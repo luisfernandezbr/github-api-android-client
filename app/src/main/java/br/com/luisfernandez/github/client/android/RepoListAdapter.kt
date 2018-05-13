@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import br.com.luisfernandez.github.client.OnItemClick
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
 import br.com.luisfernandez.github.client.model.Repo
@@ -19,7 +20,7 @@ import kotlin.collections.ArrayList
  */
 class RepoListAdapter(
         private val repoList: ArrayList<Repo> = ArrayList(),
-        val onItemClick: OnItemClick
+        val onItemClick: OnItemClick<Repo>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
     companion object {
@@ -113,9 +114,5 @@ class RepoListAdapter(
     class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val progressBar = itemView.progressBar!!
 
-    }
-
-    interface OnItemClick {
-        fun onItemClick(repo: Repo)
     }
 }
