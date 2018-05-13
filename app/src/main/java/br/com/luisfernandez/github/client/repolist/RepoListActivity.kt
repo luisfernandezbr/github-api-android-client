@@ -8,10 +8,12 @@ import br.com.luisfernandez.github.client.GitHubErrorBody
 import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.android.RepoListAdapter
+import br.com.luisfernandez.github.client.android.RepoListAdapter.OnItemClick
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.Repo
+import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
 import kotlinx.android.synthetic.main.activity_repo_list.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
@@ -63,7 +65,13 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         val recyclerView = recyclerView
         val layoutManager = LinearLayoutManager(this)
-        repoListAdapter = RepoListAdapter()
+        repoListAdapter = RepoListAdapter(onItemClick = object: OnItemClick {
+            override fun onItemClick(repo: Repo) {
+                PullRequestListActivity_
+                        .intent(this@RepoListActivity)
+                        .start()
+            }
+        })
 
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)

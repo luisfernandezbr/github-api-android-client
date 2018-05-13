@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
 import br.com.luisfernandez.github.client.model.Repo
@@ -16,7 +17,9 @@ import kotlin.collections.ArrayList
 /**
  * Created by luisfernandez on 10/05/18.
  */
-class RepoListAdapter(private val repoList: ArrayList<Repo> = ArrayList()) :
+class RepoListAdapter(
+        private val repoList: ArrayList<Repo> = ArrayList(),
+        val onItemClick: OnItemClick) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
     companion object {
@@ -67,6 +70,11 @@ class RepoListAdapter(private val repoList: ArrayList<Repo> = ArrayList()) :
                 holderContent.textForksCount.text = repo.forksCount.toString()
 
                 ImageLoader.loadImage(repo.owner.avatarUrl, holderContent.imageRepoAuthor)
+
+                viewHolder.itemView.setOnClickListener { view ->
+                    onItemClick.onItemClick(repo)
+                    Toast.makeText(view.context, "asdasdasd", Toast.LENGTH_LONG).show()
+                }
             }
 //            else -> {
 //                val holderContent = viewHolder as FooterViewHolder
@@ -100,10 +108,14 @@ class RepoListAdapter(private val repoList: ArrayList<Repo> = ArrayList()) :
         val imageRepoAuthor = itemView.imageRepoAuthor!!
         val textStartCount = itemView.textStartCount!!
         val textForksCount = itemView.textForksCount!!
-
     }
+
     class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val progressBar = itemView.progressBar!!
 
+    }
+
+    interface OnItemClick {
+        fun onItemClick(repo: Repo)
     }
 }
