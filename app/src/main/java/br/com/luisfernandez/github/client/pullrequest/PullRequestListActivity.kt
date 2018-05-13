@@ -61,14 +61,12 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
 
         val recyclerView = recyclerView
         val layoutManager = LinearLayoutManager(this)
-        repoListAdapter = RepoListAdapter()
 
-        recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = repoListAdapter
+//        recyclerView.layoutManager = layoutManager
+//        recyclerView.setHasFixedSize(true)
+//        recyclerView.adapter = repoListAdapter
 
-
-        presenter.loadPullRequestList("", "")
+        presenter.loadPullRequestList("iluwatar", "java-design-patterns")
     }
 
     override fun showPullRequestList(repoList: List<PullRequestResponse>) {
