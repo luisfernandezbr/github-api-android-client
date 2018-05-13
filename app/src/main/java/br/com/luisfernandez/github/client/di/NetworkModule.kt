@@ -2,6 +2,7 @@ package br.com.luisfernandez.github.client.di
 
 import br.com.luisfernandez.github.client.BuildConfig
 import br.com.luisfernandez.github.client.android.AppApplication
+import br.com.luisfernandez.github.client.http.ForceCacheInterceptor
 import br.com.luisfernandez.github.client.http.GitHubService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -45,10 +46,14 @@ open class NetworkModule
     fun provideHttpLogging(): HttpLoggingInterceptor =
             HttpLoggingInterceptor().setLevel(
                     if (BuildConfig.DEBUG)
-                        HttpLoggingInterceptor.Level.BODY
+                        HttpLoggingInterceptor.Level.HEADERS
                     else
-                        HttpLoggingInterceptor.Level.NONE
+                        HttpLoggingInterceptor.Level.HEADERS
             )
+
+    @Provides
+    @Singleton
+    fun provideForceCacheInterceptor(): Interceptor = ForceCacheInterceptor()
 
     @Provides
     @Singleton
@@ -70,6 +75,8 @@ open class NetworkModule
         return OkHttpClient
                 .Builder()
                 .addInterceptor(httpLoggingInterceptor)
+                .addInterceptor(forceCacheInterceptor)
+                .addNetworkInterceptor(forceCacheInterceptor)
                 .cache(cache)
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
