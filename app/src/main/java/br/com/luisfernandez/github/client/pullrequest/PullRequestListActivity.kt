@@ -24,7 +24,6 @@ import org.androidannotations.annotations.EActivity
 @EActivity(R.layout.activity_repo_list)
 class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
 
-    private lateinit var repoListAdapter: RepoListAdapter
     private lateinit var presenter: PullRequestPresenter
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
@@ -58,18 +57,17 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
     fun afterViews() {
         presenter = PullRequestPresenterImpl()
         presenter.inject(this)
-
-        val recyclerView = recyclerView
-        val layoutManager = LinearLayoutManager(this)
-
-//        recyclerView.layoutManager = layoutManager
-//        recyclerView.setHasFixedSize(true)
-//        recyclerView.adapter = repoListAdapter
-
         presenter.loadPullRequestList("iluwatar", "java-design-patterns")
     }
 
     override fun showPullRequestList(repoList: List<PullRequestResponse>) {
+        val recyclerView = recyclerView
+        val layoutManager = LinearLayoutManager(this)
+
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = PullRequestListAdapter(repoList as ArrayList<PullRequestResponse>)
+
         val progressBar = progressBar
         progressBar.setGone()
         recyclerView.setVisible()

@@ -19,8 +19,8 @@ import kotlin.collections.ArrayList
  */
 class RepoListAdapter(
         private val repoList: ArrayList<Repo> = ArrayList(),
-        val onItemClick: OnItemClick) :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>()
+        val onItemClick: OnItemClick
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
     companion object {
         const val TAG = "RepoListAdapter"
