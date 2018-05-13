@@ -32,12 +32,10 @@ class RepoListAdapter(
     private var isLoadingAdded = false
 
     override fun getItemViewType(position: Int): Int {
-        if (isLoadingAdded && position == this.repoList.size) {
-            Log.d(TAG, "getItemViewType(): $FOOTER")
-            return FOOTER
+        return if (isLoadingAdded && position == this.repoList.size) {
+            FOOTER
         } else {
-            Log.d(TAG, "getItemViewType(): $CONTENT")
-            return CONTENT
+            CONTENT
         }
     }
 
@@ -46,8 +44,6 @@ class RepoListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        Log.d(TAG, "onCreateViewHolder() itemType: $viewType")
-
         return when(viewType) {
             CONTENT -> ContentViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_repository_list, parent, false))
             else -> FooterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_loading_more, parent, false))
@@ -61,8 +57,6 @@ class RepoListAdapter(
             CONTENT -> {
                 val holderContent = viewHolder as ContentViewHolder
 
-                Log.d(TAG, "listSize: ${repoList.size}")
-
                 val repo = getItem(position)
                 holderContent.textRepoName.text = repo.name
                 holderContent.textRepoDescription.text = repo.description
@@ -74,12 +68,8 @@ class RepoListAdapter(
 
                 viewHolder.itemView.setOnClickListener { view ->
                     onItemClick.onItemClick(repo)
-                    Toast.makeText(view.context, "asdasdasd", Toast.LENGTH_LONG).show()
                 }
             }
-//            else -> {
-//                val holderContent = viewHolder as FooterViewHolder
-//            }
         }
     }
 
@@ -88,7 +78,6 @@ class RepoListAdapter(
     }
 
     fun showFooter() {
-        Log.d(TAG, "showFooter()")
         isLoadingAdded = true
         notifyItemInserted(itemCount)
     }
@@ -111,8 +100,5 @@ class RepoListAdapter(
         val textForksCount = itemView.textForksCount!!
     }
 
-    class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val progressBar = itemView.progressBar!!
-
-    }
+    class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
