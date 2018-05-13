@@ -17,12 +17,18 @@ import br.com.luisfernandez.github.client.repolist.RepoListView
 import kotlinx.android.synthetic.main.activity_repo_list.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
-
+import org.androidannotations.annotations.Extra
 
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_repo_list)
 class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
+
+    @Extra
+    lateinit var owner: String
+
+    @Extra
+    lateinit var repoName: String
 
     private lateinit var presenter: PullRequestPresenter
 
@@ -57,7 +63,7 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
     fun afterViews() {
         presenter = PullRequestPresenterImpl()
         presenter.inject(this)
-        presenter.loadPullRequestList("iluwatar", "java-design-patterns")
+        presenter.loadPullRequestList(owner, repoName)
     }
 
     override fun showPullRequestList(repoList: List<PullRequestResponse>) {

@@ -69,6 +69,8 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
             override fun onItemClick(repo: Repo) {
                 PullRequestListActivity_
                         .intent(this@RepoListActivity)
+                        .owner(repo.owner.login)
+                        .repoName(repo.name)
                         .start()
             }
         })
