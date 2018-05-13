@@ -15,6 +15,5 @@ import javax.inject.Singleton
         PresenterModule::class,
         ModelModule::class))
 interface MainComponent {
-    fun inject(repoListModel: RepoListModel)
     fun inject(repoListModel: RepoListActivity)
 }
