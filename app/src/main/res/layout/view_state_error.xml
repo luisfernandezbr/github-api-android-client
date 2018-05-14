@@ -8,6 +8,8 @@
         android:id="@+id/textErrorMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/margin_default"
         android:layout_centerInParent="true"
         android:textStyle="bold"
         android:text="@string/view_state_loading_message"
@@ -15,7 +17,6 @@
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/buttonRetry"
-        android:layout_marginTop="@dimen/margin_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textErrorMessage"
