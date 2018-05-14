@@ -57,7 +57,11 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
         layoutError.setVisible()
         recyclerView.setGone()
 
-        textErrorMessage.text = serverError.errorBody!!.message
+        if (serverError.errorBody != null) {
+            textErrorMessage.text = serverError.errorBody!!.message
+        } else {
+            textErrorMessage.text = serverError.errorMessage
+        }
 
         buttonRetry.setOnClickListener { _ ->
             showLoading()
