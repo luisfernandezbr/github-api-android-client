@@ -46,7 +46,6 @@ open class NetworkModule
     @Singleton
     fun provideGson(): Gson =
             GsonBuilder()
-                    //.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .setDateFormat(DATE_FORMAT)
                     .create()
 
