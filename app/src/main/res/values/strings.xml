@@ -91,4 +91,6 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="adapter_loading_more">Carregando mais resultados…</string>
+    <string name="view_state_loading_message">Carregando…</string>
+    <string name="view_state_empty_message">Nenhum resultado encontrado…</string>
 </resources>
