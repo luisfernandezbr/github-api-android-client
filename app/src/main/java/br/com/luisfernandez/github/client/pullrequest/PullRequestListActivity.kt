@@ -11,15 +11,14 @@ import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.PullRequestResponse
-import kotlinx.android.synthetic.main.activity_repo_list.*
+import kotlinx.android.synthetic.main.activity_pull_request_list.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.Extra
 import javax.inject.Inject
 
-
 @SuppressLint("Registered")
-@EActivity(R.layout.activity_repo_list)
+@EActivity(R.layout.activity_pull_request_list)
 class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
 
     init {
