@@ -30,7 +30,7 @@ class PullRequestListAdapter(
 
         holder.textTitle.text = item.title
         holder.textAuthorName.text = item.user.login
-        holder.textDate.text = item.createdAt
+        holder.textDate.text = item.createdAt.toString()
         holder.textDescription.text = item.body
 
         ImageLoader.loadImage(item.user.avatarUrl, holder.imagePullRequestAuthor)
