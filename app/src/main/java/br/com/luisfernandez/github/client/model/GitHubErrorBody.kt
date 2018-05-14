@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client
+package br.com.luisfernandez.github.client.model
 
 import com.google.gson.annotations.SerializedName
 

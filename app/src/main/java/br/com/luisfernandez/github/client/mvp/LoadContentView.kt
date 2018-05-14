@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client
+package br.com.luisfernandez.github.client.mvp
 
 /**
  * Created by luisfernandez on 13/05/18.

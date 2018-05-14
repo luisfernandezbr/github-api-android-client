@@ -1,7 +1,7 @@
 package br.com.luisfernandez.github.client.pullrequest
 
 import android.util.Log
-import br.com.luisfernandez.github.client.GitHubErrorBody
+import br.com.luisfernandez.github.client.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.PullRequestResponse

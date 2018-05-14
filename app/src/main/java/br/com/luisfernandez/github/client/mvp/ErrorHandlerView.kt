@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client
+package br.com.luisfernandez.github.client.mvp
 
 import br.com.luisfernandez.github.client.http.ServerError
 

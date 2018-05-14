@@ -8,6 +8,7 @@ import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.ServerError
+import br.com.luisfernandez.github.client.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.model.Repo
 import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
 import kotlinx.android.synthetic.main.activity_list.*

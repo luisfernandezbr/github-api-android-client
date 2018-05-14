@@ -1,7 +1,7 @@
 package br.com.luisfernandez.github.client.repolist
 
-import br.com.luisfernandez.github.client.GitHubErrorBody
-import br.com.luisfernandez.github.client.LoadContentView
+import br.com.luisfernandez.github.client.model.GitHubErrorBody
+import br.com.luisfernandez.github.client.mvp.LoadContentView
 import br.com.luisfernandez.github.client.model.Repo
 
 /**

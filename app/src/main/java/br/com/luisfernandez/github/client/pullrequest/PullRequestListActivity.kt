@@ -3,7 +3,7 @@ package br.com.luisfernandez.github.client.pullrequest
 import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import br.com.luisfernandez.github.client.GitHubErrorBody
+import br.com.luisfernandez.github.client.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.OnItemClick
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.android.AppApplication
