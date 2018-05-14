@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 @URL("https://api.github.com")
 public interface GitHubService
 {
-    @GET("/search/repositories?q=user:square&sort=stars&per_page=6")
+    @GET("/search/repositories?q=language:Java&sort=stars&per_page=10")
     Observable<RepoListResponse> listRepos(@Query("page") int page);
 
     @GET("https://api.github.com/repos/{owner}/{repoName}/pulls")
