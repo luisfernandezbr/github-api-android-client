@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import br.com.luisfernandez.github.client.GitHubErrorBody
+import br.com.luisfernandez.github.client.OnItemClick
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.PullRequestResponse
-import br.com.luisfernandez.github.client.model.Repo
 import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
@@ -19,6 +19,9 @@ import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.Extra
 import javax.inject.Inject
+import android.content.Intent
+import android.net.Uri
+
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_list)
@@ -84,7 +87,15 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
             layoutProgress.setGone()
             layoutEmpty.setGone()
             layoutError.setGone()
-            recyclerView.adapter = PullRequestListAdapter(content as ArrayList<PullRequestResponse>)
+            recyclerView.adapter = PullRequestListAdapter(
+                    content as ArrayList<PullRequestResponse>,
+                    onItemClick = object : OnItemClick<PullRequestResponse> {
+                        override fun onItemClick(type: PullRequestResponse) {
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(type.htmlUrl)
+                            startActivity(intent)
+                        }
+                    })
             recyclerView.setVisible()
         }
     }

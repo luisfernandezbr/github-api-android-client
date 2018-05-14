@@ -1,10 +1,10 @@
 package br.com.luisfernandez.github.client.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
+import java.util.Date
 
 data class PullRequestResponse(
-    @SerializedName("url") val url: String,
+    @SerializedName("html_url") val htmlUrl: String,
     @SerializedName("title") val title: String,
     @SerializedName("user") val user: User,
     @SerializedName("body") val body: String,

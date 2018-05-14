@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import br.com.luisfernandez.github.client.OnItemClick
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
 import br.com.luisfernandez.github.client.model.PullRequestResponse
@@ -13,7 +14,8 @@ import kotlinx.android.synthetic.main.item_pull_request_list.view.*
  * Created by luisfernandez on 12/05/18.
  */
 class PullRequestListAdapter(
-        private val pullRequestList: ArrayList<PullRequestResponse> = ArrayList()
+        private val pullRequestList: ArrayList<PullRequestResponse> = ArrayList(),
+        private val onItemClick: OnItemClick<PullRequestResponse>
 ) : RecyclerView.Adapter<PullRequestListAdapter.PullRequestViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {
@@ -34,6 +36,10 @@ class PullRequestListAdapter(
         holder.textDescription.text = item.body
 
         ImageLoader.loadImage(item.user.avatarUrl, holder.imagePullRequestAuthor)
+
+        holder.itemView.setOnClickListener { _ ->
+            onItemClick.onItemClick(item)
+        }
     }
 
     class PullRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

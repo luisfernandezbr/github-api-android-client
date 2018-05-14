@@ -63,7 +63,7 @@ class RepoListAdapter(
 
                 ImageLoader.loadImage(repo.owner.avatarUrl, holderContent.imageRepoAuthor)
 
-                viewHolder.itemView.setOnClickListener { view ->
+                viewHolder.itemView.setOnClickListener { _ ->
                     onItemClick.onItemClick(repo)
                 }
             }
