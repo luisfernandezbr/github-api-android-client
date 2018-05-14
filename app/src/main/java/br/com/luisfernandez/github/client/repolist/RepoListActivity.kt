@@ -3,7 +3,9 @@ package br.com.luisfernandez.github.client.repolist
 import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import br.com.luisfernandez.github.client.*
+import br.com.luisfernandez.github.client.OnItemClick
+import br.com.luisfernandez.github.client.PaginationScrollListener
+import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
@@ -40,26 +42,28 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         presenter.inject(this)
 
         val layoutManager = LinearLayoutManager(this)
-        repoListAdapter = RepoListAdapter(onItemClick = object : OnItemClick<Repo> {
-            override fun onItemClick(type: Repo) {
-                PullRequestListActivity_
-                        .intent(this@RepoListActivity)
-                        .owner(type.owner.login)
-                        .repoName(type.name)
-                        .start()
+        repoListAdapter = RepoListAdapter(
+            onItemClick = object : OnItemClick<Repo> {
+                override fun onItemClick(type: Repo) {
+                    PullRequestListActivity_
+                            .intent(this@RepoListActivity)
+                            .owner(type.owner.login)
+                            .repoName(type.name)
+                            .start()
+                }
+            }, onRetryClick = object : OnItemClick<String> {
+                override fun onItemClick(type: String) {
+                    loadMoreContent()
+                }
             }
-        })
+        )
 
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = repoListAdapter
         recyclerView.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
             override fun loadMoreItems() {
-                this@RepoListActivity.isLoadingState = true
-                recyclerView.post { repoListAdapter.showFooter()}
-                currentPage += 1
-
-                presenter.loadRepoList(currentPage)
+                loadMoreContent()
             }
 
             override fun isLastPage(): Boolean {
@@ -74,17 +78,34 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         presenter.loadRepoList(currentPage)
     }
 
+    private fun loadMoreContent() {
+        this@RepoListActivity.isLoadingState = true
+        recyclerView.post { repoListAdapter.showFooter() }
+        currentPage += 1
+
+        presenter.loadRepoList(currentPage)
+    }
+
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
-        layoutProgress.setGone()
-        layoutEmpty.setGone()
-        layoutError.setVisible()
-        recyclerView.setGone()
+        if (currentPage == 1) {
+            layoutProgress.setGone()
+            layoutEmpty.setGone()
+            layoutError.setVisible()
+            recyclerView.setGone()
 
-        textErrorMessage.text = serverError.errorBody!!.message
 
-        buttonRetry.setOnClickListener { _ ->
-            showLoading()
-            presenter.loadRepoList(currentPage)
+            if (serverError.errorBody != null) {
+                textErrorMessage.text = serverError.errorBody!!.message
+            } else {
+                textErrorMessage.text = serverError.errorMessage
+            }
+
+            buttonRetry.setOnClickListener { _ ->
+                showLoading()
+                presenter.loadRepoList(currentPage)
+            }
+        } else {
+            repoListAdapter.showErrorFooter()
         }
     }
 

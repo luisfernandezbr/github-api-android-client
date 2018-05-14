@@ -8,6 +8,7 @@ import br.com.luisfernandez.github.client.OnItemClick
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
 import br.com.luisfernandez.github.client.model.Repo
+import kotlinx.android.synthetic.main.endless_adapter_footer_error.view.*
 import kotlinx.android.synthetic.main.item_repository_list.view.*
 
 import kotlin.collections.ArrayList
@@ -17,33 +18,39 @@ import kotlin.collections.ArrayList
  */
 class RepoListAdapter(
         private val repoList: ArrayList<Repo> = ArrayList(),
-        val onItemClick: OnItemClick<Repo>
+        private val onItemClick: OnItemClick<Repo>,
+        private val onRetryClick: OnItemClick<String>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
     companion object {
         const val TAG = "RepoListAdapter"
         const val CONTENT = 1
         const val FOOTER = 2
+        const val ERROR_FOOTER = 3
     }
 
     private var isLoadingAdded = false
+    private var isErrorAdded = false
 
     override fun getItemViewType(position: Int): Int {
         return if (isLoadingAdded && position == this.repoList.size) {
             FOOTER
+        } else if (isErrorAdded && position == this.repoList.size) {
+            ERROR_FOOTER
         } else {
             CONTENT
         }
     }
 
     override fun getItemCount(): Int {
-        return if (isLoadingAdded) this.repoList.size + 1 else this.repoList.size
+        return if (isLoadingAdded || isErrorAdded) this.repoList.size + 1 else this.repoList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
             CONTENT -> ContentViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_repository_list, parent, false))
-            else -> FooterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_loading_more, parent, false))
+            FOOTER -> FooterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_loading_more, parent, false))
+            else -> ErrorFooterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.endless_adapter_footer_error, parent, false))
         }
     }
 
@@ -67,6 +74,16 @@ class RepoListAdapter(
                     onItemClick.onItemClick(repo)
                 }
             }
+            ERROR_FOOTER -> {
+                val errorFooterHolder = viewHolder as ErrorFooterViewHolder
+                errorFooterHolder.itemView.setOnClickListener {
+                    onRetryClick.onItemClick("")
+                }
+
+                errorFooterHolder.buttonRetry.setOnClickListener {
+                    onRetryClick.onItemClick("")
+                }
+            }
         }
     }
 
@@ -76,6 +93,13 @@ class RepoListAdapter(
 
     fun showFooter() {
         isLoadingAdded = true
+        isErrorAdded = false
+        notifyItemInserted(itemCount)
+    }
+
+    fun showErrorFooter() {
+        isLoadingAdded = false
+        isErrorAdded = true
         notifyItemInserted(itemCount)
     }
 
@@ -98,4 +122,8 @@ class RepoListAdapter(
     }
 
     class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    class ErrorFooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val buttonRetry = itemView.buttonRetry!!
+    }
 }
