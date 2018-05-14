@@ -1,22 +1,16 @@
 package br.com.luisfernandez.github.client.repolist
 
 import android.annotation.SuppressLint
-import android.support.annotation.IdRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
-import android.widget.Toast
-import br.com.luisfernandez.github.client.GitHubErrorBody
-import br.com.luisfernandez.github.client.OnItemClick
-import br.com.luisfernandez.github.client.PaginationScrollListener
-import br.com.luisfernandez.github.client.R
+import br.com.luisfernandez.github.client.*
 import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.Repo
 import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
-import kotlinx.android.synthetic.main.activity_repo_list.*
+import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
@@ -25,7 +19,7 @@ import org.androidannotations.annotations.EActivity
 import javax.inject.Inject
 
 @SuppressLint("Registered")
-@EActivity(R.layout.activity_repo_list)
+@EActivity(R.layout.activity_list)
 class RepoListActivity : AppCompatActivity(), RepoListView {
 
     init {
@@ -55,7 +49,6 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
             }
         })
 
-        val recyclerView = recyclerView
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = repoListAdapter

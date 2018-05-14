@@ -32,7 +32,7 @@ class PullRequestPresenterImpl @Inject constructor(
                     }
 
                     override fun onSuccess(pullRequestList: List<PullRequestResponse>) {
-                        view.showPullRequestList(pullRequestList)
+                        view.showContent(pullRequestList)
                     }
                 })
     }
