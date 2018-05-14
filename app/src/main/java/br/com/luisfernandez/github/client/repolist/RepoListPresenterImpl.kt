@@ -15,8 +15,8 @@ class RepoListPresenterImpl @Inject constructor(
 
     private lateinit var view: RepoListView
 
-    override fun inject(view: RepoListView) {
-        this.view = view
+    override fun inject(repoListView: RepoListView) {
+        this.view = repoListView
     }
 
     override fun loadRepoList(page: Int) {
