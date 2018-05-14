@@ -1,8 +1,10 @@
 package br.com.luisfernandez.github.client.repolist
 
 import android.annotation.SuppressLint
+import android.support.annotation.IdRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.Toast
 import br.com.luisfernandez.github.client.GitHubErrorBody
 import br.com.luisfernandez.github.client.OnItemClick
@@ -15,10 +17,12 @@ import br.com.luisfernandez.github.client.http.ServerError
 import br.com.luisfernandez.github.client.model.Repo
 import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
 import kotlinx.android.synthetic.main.activity_repo_list.*
+import kotlinx.android.synthetic.main.view_state_empty.*
+import kotlinx.android.synthetic.main.view_state_error.*
+import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import javax.inject.Inject
-
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_repo_list)
@@ -36,38 +40,10 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     @Inject
     lateinit var presenter: RepoListPresenter
 
-    override fun handleError(serverError: ServerError<GitHubErrorBody>) {
-
-        if (serverError.errorBody != null) {
-            Toast.makeText(this, "HTTP STATUS: ${serverError.httpStatus}\nMESSAGE${serverError.errorBody!!.message} ", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(this, "HTTP STATUS: ${serverError.httpStatus}\nMESSAGE${serverError.errorMessage} ", Toast.LENGTH_LONG).show()
-        }
-
-        var progressBar = progressBar
-        progressBar.setGone()
-    }
-
-    override fun showError() {
-        Toast.makeText(this, "ERRORRRRR", Toast.LENGTH_LONG).show()
-
-        var progressBar = progressBar
-        progressBar.setGone()
-    }
-
-    override fun showProgress() {
-        var progressBar = progressBar
-        progressBar.setVisible()
-
-        var recyclerView = recyclerView
-        recyclerView.setGone()
-    }
-
     @AfterViews
     fun afterViews() {
         presenter.inject(this)
 
-        val recyclerView = recyclerView
         val layoutManager = LinearLayoutManager(this)
         repoListAdapter = RepoListAdapter(onItemClick = object : OnItemClick<Repo> {
             override fun onItemClick(type: Repo) {
@@ -79,6 +55,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
             }
         })
 
+        val recyclerView = recyclerView
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = repoListAdapter
@@ -100,16 +77,55 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
             }
         })
 
-        presenter.loadRepoList(1)
+        presenter.loadRepoList(currentPage)
     }
 
-    override fun showRepoList(repoList: List<Repo>) {
-        repoListAdapter.addAll(repoList)
+    override fun handleError(serverError: ServerError<GitHubErrorBody>) {
+        layoutProgress.setGone()
+        layoutEmpty.setGone()
+        layoutError.setVisible()
+        recyclerView.setGone()
 
-        val progressBar = progressBar
-        progressBar.setGone()
-        recyclerView.setVisible()
+        textErrorMessage.text = serverError.errorBody!!.message
 
-        isLoadingState = false
+        buttonRetry.setOnClickListener { _ ->
+            showLoading()
+            presenter.loadRepoList(currentPage)
+        }
+    }
+
+    override fun showLoading() {
+        layoutProgress.setVisible()
+        layoutEmpty.setGone()
+        layoutError.setGone()
+        recyclerView.setGone()
+    }
+
+    override fun showEmpty() {
+        layoutProgress.setGone()
+        layoutEmpty.setVisible()
+        layoutError.setGone()
+        recyclerView.setGone()
+    }
+
+    override fun showContent(content: List<Repo>) {
+        repoListAdapter.addAll(content)
+
+        if (content.isEmpty()) {
+
+            if (currentPage > 1) {
+                currentPage--
+            } else {
+                showEmpty()
+            }
+
+        } else {
+            layoutProgress.setGone()
+            layoutEmpty.setGone()
+            layoutError.setGone()
+            recyclerView.setVisible()
+
+            isLoadingState = false
+        }
     }
 }

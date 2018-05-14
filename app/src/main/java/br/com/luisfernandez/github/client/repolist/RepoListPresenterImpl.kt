@@ -32,7 +32,7 @@ class RepoListPresenterImpl @Inject constructor(
                     }
 
                     override fun onSuccess(repoList: List<Repo>) {
-                        view.showRepoList(repoList)
+                        view.showContent(repoList)
                     }
                 })
     }
