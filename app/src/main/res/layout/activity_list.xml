@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:animateLayoutChanges="true">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:layout_below="@+id/toolbar"
+        android:visibility="gone" />
 
     <include
-        android:visibility="visible"
-        layout="@layout/view_state_loading"/>
+        layout="@layout/view_state_loading"
+        android:visibility="visible" />
 
     <include
-        android:visibility="gone"
-        layout="@layout/view_state_empty"/>
+        layout="@layout/view_state_empty"
+        android:visibility="gone" />
 
     <include
-        android:visibility="gone"
-        layout="@layout/view_state_error"/>
+        layout="@layout/view_state_error"
+        android:visibility="gone" />
 
 </RelativeLayout>
