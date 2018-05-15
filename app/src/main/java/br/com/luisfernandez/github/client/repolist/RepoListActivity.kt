@@ -32,6 +32,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private var isLoadingState = false
     private var isLastPageState = false
     private var currentPage = 1
+
     private lateinit var repoListAdapter: RepoListAdapter
 
     @Inject
@@ -39,41 +40,66 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
     @AfterViews
     fun afterViews() {
-        presenter.inject(this)
+        this.initRecyclerView()
 
+        presenter.inject(this)
+        presenter.loadRepoList(currentPage)
+    }
+
+    private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
-        repoListAdapter = RepoListAdapter(
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+
+        repoListAdapter = this.getRepoListAdapter()
+        recyclerView.adapter = repoListAdapter
+
+        val scrollListener = this.getPaginationScrollListener(layoutManager)
+        recyclerView.addOnScrollListener(scrollListener)
+    }
+
+    private fun getRepoListAdapter(): RepoListAdapter {
+        return RepoListAdapter(
                 getOnItemClickListener(),
                 getOnLoadMoreContentClickListener()
         )
+    }
 
-        recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = repoListAdapter
-        recyclerView.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
-            override fun loadMoreItems() {
+    private fun getOnItemClickListener(): OnItemClickListener<Repo> {
+        return object : OnItemClickListener<Repo> {
+            override fun onItemClick(type: Repo) {
+                goToPullRequestActivity(type)
+            }
+        }
+    }
+
+    private fun getOnLoadMoreContentClickListener(): OnItemClickListener<String> {
+        return object : OnItemClickListener<String> {
+            override fun onItemClick(type: String) {
                 loadMoreContent()
             }
+        }
+    }
 
-            override fun isLastPage(): Boolean {
-                return isLastPageState
-            }
+    private fun goToPullRequestActivity(type: Repo) {
+        PullRequestListActivity_
+                .intent(this@RepoListActivity)
+                .owner(type.owner.login)
+                .repoName(type.name)
+                .start()
+    }
 
-            override fun isLoading(): Boolean {
-                return isLoadingState
-            }
-        })
+    private fun loadMoreContent() {
+        this@RepoListActivity.isLoadingState = true
+        recyclerView.post { repoListAdapter.showFooter() }
+        currentPage += 1
 
         presenter.loadRepoList(currentPage)
     }
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
         if (currentPage == 1) {
-            layoutProgress.setGone()
-            layoutEmpty.setGone()
-            layoutError.setVisible()
-            recyclerView.setGone()
-
+            this.showErrorState()
 
             if (serverError.errorBody != null) {
                 textErrorMessage.text = serverError.errorBody!!.message
@@ -125,30 +151,25 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         }
     }
 
-    private fun getOnLoadMoreContentClickListener(): OnItemClickListener<String> {
-        return object : OnItemClickListener<String> {
-            override fun onItemClick(type: String) {
+    private fun showErrorState() {
+        layoutProgress.setGone()
+        layoutEmpty.setGone()
+        layoutError.setVisible()
+        recyclerView.setGone()
+    }
+
+    private fun getPaginationScrollListener(layoutManager: LinearLayoutManager): PaginationScrollListener {
+        return object : PaginationScrollListener(layoutManager) {
+            override fun loadMoreItems() {
                 loadMoreContent()
             }
-        }
-    }
 
-    private fun loadMoreContent() {
-        this@RepoListActivity.isLoadingState = true
-        recyclerView.post { repoListAdapter.showFooter() }
-        currentPage += 1
+            override fun isLastPage(): Boolean {
+                return isLastPageState
+            }
 
-        presenter.loadRepoList(currentPage)
-    }
-
-    private fun getOnItemClickListener(): OnItemClickListener<Repo> {
-        return object : OnItemClickListener<Repo> {
-            override fun onItemClick(type: Repo) {
-                PullRequestListActivity_
-                        .intent(this@RepoListActivity)
-                        .owner(type.owner.login)
-                        .repoName(type.name)
-                        .start()
+            override fun isLoading(): Boolean {
+                return isLoadingState
             }
         }
     }
