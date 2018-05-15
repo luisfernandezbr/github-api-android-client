@@ -61,7 +61,7 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger2"
     kapt "com.google.dagger:dagger-android-processor:$dagger2"
 
-    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    implementation "com.miguelcatalan:materialsearchview:$materialsearchview"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
