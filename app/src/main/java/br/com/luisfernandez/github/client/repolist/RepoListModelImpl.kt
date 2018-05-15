@@ -10,9 +10,9 @@ class RepoListModelImpl @Inject constructor(
     private val gitHubService: GitHubService
 ) : RepoListModel
 {
-    override fun loadRepoList(page: Int): Observable<List<Repo>> {
+    override fun loadRepoList(page: Int, language: String): Observable<List<Repo>> {
         return gitHubService
-                .listRepos(page)
+                .listRepos(page, "language:${language}")
                 .map { repoListResponse ->
                     repoListResponse.repos
                 }

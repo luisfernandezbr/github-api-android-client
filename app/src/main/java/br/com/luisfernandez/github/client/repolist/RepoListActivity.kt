@@ -3,6 +3,7 @@ package br.com.luisfernandez.github.client.repolist
 import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
@@ -20,6 +21,9 @@ import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import javax.inject.Inject
+import com.miguelcatalan.materialsearchview.MaterialSearchView
+import android.widget.Toast
+
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_list)
@@ -33,6 +37,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private var isLastPageState = false
     private var currentPage = 1
 
+    private var querySearch = "Java"
     private lateinit var repoListAdapter: RepoListAdapter
 
     @Inject
@@ -42,10 +47,34 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     fun afterViews() {
         this.configToolbar()
 
+        searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                querySearch = query
+                presenter.loadRepoList(currentPage, query)
+                repoListAdapter.clear()
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                //Do some magic
+                return false
+            }
+        })
+
+        searchView.setOnSearchViewListener(object : MaterialSearchView.SearchViewListener {
+            override fun onSearchViewShown() {
+                //Do some magic
+            }
+
+            override fun onSearchViewClosed() {
+                //Do some magic
+            }
+        })
+
         this.initRecyclerView()
 
         presenter.inject(this)
-        presenter.loadRepoList(currentPage)
+        presenter.loadRepoList(currentPage, querySearch)
     }
 
     private fun configToolbar() {
@@ -101,7 +130,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         recyclerView.post { repoListAdapter.showFooter() }
         currentPage += 1
 
-        presenter.loadRepoList(currentPage)
+        presenter.loadRepoList(currentPage, querySearch)
     }
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
@@ -116,7 +145,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
             buttonRetry.setOnClickListener { _ ->
                 showLoading()
-                presenter.loadRepoList(currentPage)
+                presenter.loadRepoList(currentPage, querySearch)
             }
         } else {
             repoListAdapter.showErrorFooter()
@@ -178,6 +207,23 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
             override fun isLoading(): Boolean {
                 return isLoadingState
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+
+        val item = menu.findItem(R.id.action_search)
+        searchView.setMenuItem(item)
+
+        return true
+    }
+
+    override fun onBackPressed() {
+        if (searchView.isSearchOpen) {
+            searchView.closeSearch()
+        } else {
+            super.onBackPressed()
         }
     }
 }

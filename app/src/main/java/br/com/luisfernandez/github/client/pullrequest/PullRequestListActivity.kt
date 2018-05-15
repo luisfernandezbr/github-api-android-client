@@ -23,7 +23,7 @@ import org.androidannotations.annotations.Extra
 import javax.inject.Inject
 
 @SuppressLint("Registered")
-@EActivity(R.layout.activity_list)
+@EActivity(R.layout.activity_pull_request_list)
 class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
     init {
         AppApplication.component.inject(this)

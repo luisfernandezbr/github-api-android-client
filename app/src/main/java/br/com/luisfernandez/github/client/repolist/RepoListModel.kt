@@ -8,5 +8,5 @@ import io.reactivex.Observable
  * Created by luisfernandez on 11/05/18.
  */
 interface RepoListModel {
-    fun loadRepoList(page: Int): Observable<List<Repo>>
+    fun loadRepoList(page: Int, language: String): Observable<List<Repo>>
 }
