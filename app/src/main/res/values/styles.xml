@@ -16,7 +16,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppText" />
+    <style name="AppText" parent="@android:style/Widget.TextView" />
 
     <style name="AppText.Description">
         <item name="android:layout_marginLeft">@dimen/margin_default</item>

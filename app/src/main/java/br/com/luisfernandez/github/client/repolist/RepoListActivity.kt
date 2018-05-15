@@ -40,10 +40,17 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
     @AfterViews
     fun afterViews() {
+        this.configToolbar()
+
         this.initRecyclerView()
 
         presenter.inject(this)
         presenter.loadRepoList(currentPage)
+    }
+
+    private fun configToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "GitHub"
     }
 
     private fun initRecyclerView() {

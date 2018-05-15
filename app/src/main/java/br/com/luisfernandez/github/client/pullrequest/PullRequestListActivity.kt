@@ -40,6 +40,8 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
 
     @AfterViews
     fun afterViews() {
+        this.configToolbar()
+
         val layoutManager = LinearLayoutManager(this)
 
         recyclerView.layoutManager = layoutManager
@@ -47,6 +49,21 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
 
         presenter.inject(this)
         presenter.loadPullRequestList(owner, repoName)
+    }
+
+    private fun configToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.let {
+            title = repoName
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayShowHomeEnabled(true)
+            supportActionBar?.setDisplayShowTitleEnabled(true)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
