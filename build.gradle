@@ -1,4 +1,4 @@
-int minSdkVersion = hasProperty('minSdk') ? minSdk.toInteger() : 15
+int minSdkVersion = hasProperty('minSdk') ? minSdk.toInteger() : 16
 
 project.ext {
     minSdk = minSdkVersion
@@ -15,6 +15,7 @@ project.ext {
     retrofitRxJavaAdapter = '1.0.0'
     circleImageView = '2.2.0'
     dagger2 = '2.11'
+    materialsearchview = '1.4.0'
 }
 
 buildscript {
