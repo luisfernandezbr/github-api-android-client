@@ -1,8 +1,7 @@
 package br.com.luisfernandez.github.client.repolist
 
-import android.util.Log
-import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.CallbackWrapper
+import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.Repo
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,7 +26,6 @@ class RepoListPresenterImpl @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object: CallbackWrapper<List<Repo>, GitHubErrorBody>(GitHubErrorBody::class.java) {
                     override fun onError(error: ServerError<GitHubErrorBody>) {
-                        Log.d("HOME_ACTIVITY", "onError(${error?.errorBody?.message}) (${error.httpStatus})")
                         view.handleError(error)
                     }
 
