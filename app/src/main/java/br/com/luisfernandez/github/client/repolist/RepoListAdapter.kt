@@ -127,4 +127,8 @@ class RepoListAdapter(
     class ErrorFooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val buttonRetry = itemView.buttonRetry!!
     }
+
+    fun clear() {
+        repoList.clear()
+    }
 }

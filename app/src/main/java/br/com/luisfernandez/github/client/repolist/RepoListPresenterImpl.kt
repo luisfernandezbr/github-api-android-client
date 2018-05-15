@@ -18,10 +18,10 @@ class RepoListPresenterImpl @Inject constructor(
         this.view = repoListView
     }
 
-    override fun loadRepoList(page: Int) {
+    override fun loadRepoList(page: Int, language: String) {
 
         repoListModel
-                .loadRepoList(page)
+                .loadRepoList(page, language)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object: CallbackWrapper<List<Repo>, GitHubErrorBody>(GitHubErrorBody::class.java) {

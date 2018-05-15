@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textErrorMessage"
         android:layout_centerHorizontal="true"
-        android:text="TENTAR NOVAMENTE" />
+        android:text="@string/button_try_again" />
 
 </RelativeLayout>

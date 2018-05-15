@@ -19,6 +19,6 @@
         android:id="@+id/buttonRetry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tentar Novamente"/>
+        android:text="@string/button_try_again"/>
 
 </LinearLayout>
