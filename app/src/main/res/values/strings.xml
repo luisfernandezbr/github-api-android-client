@@ -93,4 +93,6 @@
     <string name="adapter_loading_more">Carregando mais resultados…</string>
     <string name="view_state_loading_message">Carregando…</string>
     <string name="view_state_empty_message">Nenhum resultado encontrado…</string>
+
+    <string name="error_message_invalid_language">"Ohh no!\n%s is an invalid language\nPlease query a valid language ;)"</string>
 </resources>

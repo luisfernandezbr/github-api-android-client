@@ -50,6 +50,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 querySearch = query
+                setToolbarTitle(querySearch)
                 presenter.loadRepoList(currentPage, query)
                 repoListAdapter.clear()
                 return false
@@ -78,8 +79,12 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     }
 
     private fun configToolbar() {
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = "GitHub"
+        this.setSupportActionBar(toolbar)
+        this.setToolbarTitle(querySearch)
+    }
+
+    private fun setToolbarTitle(title: String) {
+        supportActionBar?.title = "language: $title"
     }
 
     private fun initRecyclerView() {
@@ -137,10 +142,18 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         if (currentPage == 1) {
             this.showErrorState()
 
-            if (serverError.errorBody != null) {
-                textErrorMessage.text = serverError.errorBody!!.message
-            } else {
-                textErrorMessage.text = serverError.errorMessage
+            when(serverError.httpStatus) {
+                422 -> {
+                    textErrorMessage.text = String.format(getString(R.string.error_message_invalid_language), querySearch)
+                    buttonRetry.setGone()
+                }
+                else -> {
+                    if (serverError.errorBody != null) {
+                        textErrorMessage.text = serverError.errorBody!!.message
+                    } else {
+                        textErrorMessage.text = serverError.errorMessage
+                    }
+                }
             }
 
             buttonRetry.setOnClickListener { _ ->
