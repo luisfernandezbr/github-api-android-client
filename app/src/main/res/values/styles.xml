@@ -30,21 +30,21 @@
 
     <style name="AppText.Title">
         <item name="android:layout_marginLeft">@dimen/margin_default</item>
-        <item name="android:layout_marginStart">@dimen/margin_default</item>
+        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_default</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Title</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppText.Subtitle">
         <item name="android:layout_marginLeft">@dimen/margin_default</item>
-        <item name="android:layout_marginStart">@dimen/margin_default</item>
+        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_default</item>
         <item name="android:layout_marginTop">@dimen/margin_small</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Subhead</item>
     </style>
 
     <style name="AppText.Details">
         <item name="android:layout_marginLeft">@dimen/margin_default</item>
-        <item name="android:layout_marginStart">@dimen/margin_default</item>
+        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_default</item>
         <item name="android:layout_marginTop">@dimen/margin_medium</item>
         <item name="android:drawablePadding">@dimen/margin_medium</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Small</item>
@@ -56,7 +56,7 @@
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
-        <item name="android:elevation">4dp</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
