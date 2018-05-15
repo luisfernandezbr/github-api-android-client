@@ -3,7 +3,7 @@ package br.com.luisfernandez.github.client.repolist
 import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import br.com.luisfernandez.github.client.OnItemClick
+import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.android.AppApplication
@@ -43,19 +43,8 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         val layoutManager = LinearLayoutManager(this)
         repoListAdapter = RepoListAdapter(
-            onItemClick = object : OnItemClick<Repo> {
-                override fun onItemClick(type: Repo) {
-                    PullRequestListActivity_
-                            .intent(this@RepoListActivity)
-                            .owner(type.owner.login)
-                            .repoName(type.name)
-                            .start()
-                }
-            }, onRetryClick = object : OnItemClick<String> {
-                override fun onItemClick(type: String) {
-                    loadMoreContent()
-                }
-            }
+                getOnItemClickListener(),
+                getOnLoadMoreContentClickListener()
         )
 
         recyclerView.layoutManager = layoutManager
@@ -74,14 +63,6 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
                 return isLoadingState
             }
         })
-
-        presenter.loadRepoList(currentPage)
-    }
-
-    private fun loadMoreContent() {
-        this@RepoListActivity.isLoadingState = true
-        recyclerView.post { repoListAdapter.showFooter() }
-        currentPage += 1
 
         presenter.loadRepoList(currentPage)
     }
@@ -141,6 +122,34 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
             recyclerView.setVisible()
 
             isLoadingState = false
+        }
+    }
+
+    private fun getOnLoadMoreContentClickListener(): OnItemClickListener<String> {
+        return object : OnItemClickListener<String> {
+            override fun onItemClick(type: String) {
+                loadMoreContent()
+            }
+        }
+    }
+
+    private fun loadMoreContent() {
+        this@RepoListActivity.isLoadingState = true
+        recyclerView.post { repoListAdapter.showFooter() }
+        currentPage += 1
+
+        presenter.loadRepoList(currentPage)
+    }
+
+    private fun getOnItemClickListener(): OnItemClickListener<Repo> {
+        return object : OnItemClickListener<Repo> {
+            override fun onItemClick(type: Repo) {
+                PullRequestListActivity_
+                        .intent(this@RepoListActivity)
+                        .owner(type.owner.login)
+                        .repoName(type.name)
+                        .start()
+            }
         }
     }
 }

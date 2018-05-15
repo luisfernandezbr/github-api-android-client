@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.com.luisfernandez.github.client.OnItemClick
+import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
 import br.com.luisfernandez.github.client.model.Repo
@@ -17,9 +17,8 @@ import kotlin.collections.ArrayList
  * Created by luisfernandez on 10/05/18.
  */
 class RepoListAdapter(
-        private val repoList: ArrayList<Repo> = ArrayList(),
-        private val onItemClick: OnItemClick<Repo>,
-        private val onRetryClick: OnItemClick<String>
+        private val onItemClickListener: OnItemClickListener<Repo>,
+        private val onRetryClickListener: OnItemClickListener<String>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
     companion object {
@@ -28,6 +27,8 @@ class RepoListAdapter(
         const val FOOTER = 2
         const val ERROR_FOOTER = 3
     }
+
+    private val repoList: ArrayList<Repo> = ArrayList()
 
     private var isLoadingAdded = false
     private var isErrorAdded = false
@@ -71,17 +72,17 @@ class RepoListAdapter(
                 ImageLoader.loadImage(repo.owner.avatarUrl, holderContent.imageRepoAuthor)
 
                 viewHolder.itemView.setOnClickListener { _ ->
-                    onItemClick.onItemClick(repo)
+                    onItemClickListener.onItemClick(repo)
                 }
             }
             ERROR_FOOTER -> {
                 val errorFooterHolder = viewHolder as ErrorFooterViewHolder
                 errorFooterHolder.itemView.setOnClickListener {
-                    onRetryClick.onItemClick("")
+                    onRetryClickListener.onItemClick("")
                 }
 
                 errorFooterHolder.buttonRetry.setOnClickListener {
-                    onRetryClick.onItemClick("")
+                    onRetryClickListener.onItemClick("")
                 }
             }
         }

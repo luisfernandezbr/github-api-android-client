@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import br.com.luisfernandez.github.client.model.GitHubErrorBody
-import br.com.luisfernandez.github.client.OnItemClick
+import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
@@ -93,7 +93,7 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
             layoutError.setGone()
             recyclerView.adapter = PullRequestListAdapter(
                     content as ArrayList<PullRequestResponse>,
-                    onItemClick = object : OnItemClick<PullRequestResponse> {
+                    onItemClickListener = object : OnItemClickListener<PullRequestResponse> {
                         override fun onItemClick(type: PullRequestResponse) {
                             val intent = Intent(Intent.ACTION_VIEW)
                             intent.data = Uri.parse(type.htmlUrl)
