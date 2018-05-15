@@ -9,6 +9,8 @@ import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import kotlinx.android.synthetic.main.item_pull_request_list.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by luisfernandez on 12/05/18.
@@ -30,9 +32,11 @@ class PullRequestListAdapter(
     override fun onBindViewHolder(holder: PullRequestViewHolder, position: Int) {
         val item = pullRequestList[position]
 
+
+
         holder.textTitle.text = item.title
         holder.textAuthorName.text = item.user.login
-        holder.textDate.text = item.createdAt.toString()
+        holder.textDate.text = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(item.createdAt)
         holder.textDescription.text = item.body
 
         ImageLoader.loadImage(item.user.avatarUrl, holder.imagePullRequestAuthor)
