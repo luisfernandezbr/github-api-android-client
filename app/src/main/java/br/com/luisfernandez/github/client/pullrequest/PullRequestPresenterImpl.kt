@@ -1,10 +1,10 @@
 package br.com.luisfernandez.github.client.pullrequest
 
 import android.util.Log
-import br.com.luisfernandez.github.client.model.GitHubErrorBody
+import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.CallbackWrapper
-import br.com.luisfernandez.github.client.http.ServerError
-import br.com.luisfernandez.github.client.model.PullRequestResponse
+import br.com.luisfernandez.github.client.http.model.ServerError
+import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

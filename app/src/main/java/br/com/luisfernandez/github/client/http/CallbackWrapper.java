@@ -8,6 +8,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
+import br.com.luisfernandez.github.client.http.model.ServerError;
 import io.reactivex.observers.DisposableObserver;
 import okhttp3.ResponseBody;
 

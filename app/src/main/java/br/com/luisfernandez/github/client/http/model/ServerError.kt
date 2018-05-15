@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.http
+package br.com.luisfernandez.github.client.http.model
 
 /**
  * Created by luisfernandez on 12/05/18.

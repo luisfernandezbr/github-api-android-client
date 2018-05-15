@@ -1,6 +1,6 @@
 package br.com.luisfernandez.github.client.mvp
 
-import br.com.luisfernandez.github.client.http.ServerError
+import br.com.luisfernandez.github.client.http.model.ServerError
 
 /**
  * Created by luisfernandez on 12/05/18.

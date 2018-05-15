@@ -1,6 +1,6 @@
 package br.com.luisfernandez.github.client.repolist
 
-import br.com.luisfernandez.github.client.model.Repo
+import br.com.luisfernandez.github.client.pojo.Repo
 import io.reactivex.Observable
 
 

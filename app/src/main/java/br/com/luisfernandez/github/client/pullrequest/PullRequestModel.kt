@@ -1,6 +1,6 @@
 package br.com.luisfernandez.github.client.pullrequest
 
-import br.com.luisfernandez.github.client.model.PullRequestResponse
+import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import io.reactivex.Observable
 
 /**

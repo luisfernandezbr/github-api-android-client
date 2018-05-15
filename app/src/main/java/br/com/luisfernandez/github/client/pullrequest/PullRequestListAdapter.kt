@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
-import br.com.luisfernandez.github.client.model.PullRequestResponse
+import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import kotlinx.android.synthetic.main.item_pull_request_list.view.*
 
 /**

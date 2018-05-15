@@ -10,9 +10,9 @@ import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
-import br.com.luisfernandez.github.client.http.ServerError
-import br.com.luisfernandez.github.client.model.GitHubErrorBody
-import br.com.luisfernandez.github.client.model.PullRequestResponse
+import br.com.luisfernandez.github.client.http.model.ServerError
+import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
+import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
