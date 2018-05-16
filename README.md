@@ -55,4 +55,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 
 ## Acknowledgments
 
-* Thanks [PurpleBooth](https://github.com/PurpleBooth) for the [Readme.md] (https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) template
+* Thanks [PurpleBooth](https://github.com/PurpleBooth) for the [Readme.md](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) template
