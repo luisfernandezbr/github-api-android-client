@@ -22,6 +22,11 @@ Pay attention. You may need to updated some SDK components.
 * [Dagger 2](https://google.github.io/dagger/android)
 * [MaterialSearchView](https://github.com/MiguelCatalan/MaterialSearchView)
 
+## Helper solutions used
+
+* [Glide](https://bumptech.github.io/glide/)
+** [Android Annotations](http://androidannotations.org/)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
