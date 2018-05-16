@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/progressBar"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppCard"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:padding="@dimen/margin_medium">
+    android:layout_height="wrap_content">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
         android:gravity="center_horizontal"
-        android:textSize="@dimen/font_size_micro"
-        android:text="@string/adapter_loading_more"/>
+        android:orientation="vertical"
+        android:padding="@dimen/margin_default">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/buttonRetry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_try_again"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/adapter_error"
+            android:textSize="@dimen/font_size_micro" />
 
-</LinearLayout>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/buttonRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/button_try_again" />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
