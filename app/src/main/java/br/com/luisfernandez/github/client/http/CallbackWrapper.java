@@ -3,7 +3,6 @@ package br.com.luisfernandez.github.client.http;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -11,6 +10,7 @@ import java.net.SocketTimeoutException;
 import br.com.luisfernandez.github.client.http.model.ServerError;
 import io.reactivex.observers.DisposableObserver;
 import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 
 /**
  * Created by luisfernandez on 12/05/18.

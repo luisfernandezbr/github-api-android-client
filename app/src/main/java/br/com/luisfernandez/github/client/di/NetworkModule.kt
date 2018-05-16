@@ -6,7 +6,6 @@ import br.com.luisfernandez.github.client.http.ForceCacheInterceptor
 import br.com.luisfernandez.github.client.http.GitHubService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -24,6 +23,7 @@ import okhttp3.TlsVersion
 import android.os.Build
 import android.util.Log
 import br.com.luisfernandez.github.client.http.Tls12SocketFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import javax.net.ssl.SSLContext
 
 
