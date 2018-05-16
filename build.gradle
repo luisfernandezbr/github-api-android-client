@@ -35,6 +35,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
         classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'org.moallemi.gradle.advanced-build-version:gradle-plugin:1.6.0'
     }
 }
 
