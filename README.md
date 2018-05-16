@@ -24,8 +24,10 @@ Pay attention. You may need to updated some SDK components.
 
 ## Helper solutions used
 
-* [Glide](https://bumptech.github.io/glide/)
-** [Android Annotations](http://androidannotations.org/)
+* [To enable Retrofit cache](https://gist.github.com/polbins/1c7f9303d2b7d169a3b1)
+* [To call HTTPS on Android 16-21](Solution from https://github.com/square/okhttp/issues/2372)
+* [To implement RecyclerView pagination solution](https://github.com/Suleiman19/Android-Pagination-with-RecyclerView)
+* [To simplify Rx error handling](https://medium.com/mindorks/rxjava2-and-retrofit2-error-handling-on-a-single-place-8daf720d42d6)
 
 ## License
 
