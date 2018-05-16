@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-allopen"
 apply plugin: "kotlin-kapt"
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion rootProject.ext.compileSdk
@@ -61,7 +62,13 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger2"
     kapt "com.google.dagger:dagger-android-processor:$dagger2"
 
+    // Material Search
     implementation "com.miguelcatalan:materialsearchview:$materialsearchview"
+
+    // Crashlytics
+    implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion") {
+        transitive = true
+    }
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

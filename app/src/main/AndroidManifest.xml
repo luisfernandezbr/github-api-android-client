@@ -29,6 +29,10 @@
             android:name=".pullrequest.PullRequestListActivity_"
             />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e31ee77a076b044cb52e3fedbad573fac9b5ee96" />
+
     </application>
 
 </manifest>

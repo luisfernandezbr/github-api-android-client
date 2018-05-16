@@ -23,6 +23,9 @@ import org.androidannotations.annotations.EActivity
 import javax.inject.Inject
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import android.widget.Toast
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
+import com.crashlytics.android.answers.SearchEvent
 
 
 @SuppressLint("Registered")
@@ -53,6 +56,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
                 setToolbarTitle(querySearch)
                 presenter.loadRepoList(currentPage, query)
                 repoListAdapter.clear()
+                sendQueryEvent(query)
                 return false
             }
 
@@ -76,6 +80,12 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         presenter.inject(this)
         presenter.loadRepoList(currentPage, querySearch)
+
+        sendQueryEvent(querySearch)
+    }
+
+    private fun sendQueryEvent(value: String) {
+        Answers.getInstance().logSearch(SearchEvent().putQuery(value))
     }
 
     private fun configToolbar() {
