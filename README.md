@@ -1,6 +1,6 @@
 # GitHub Api Android Client
 
-This project is an simple GitHub client whose main target is to test Android architecture solutions and best practices.
+This project is a simple GitHub client whose main target is to test Android architecture solutions, provide samples for commom challenges that many projects faces, try to apply the best practices that are trending and test new architecture aproaches.
 
 
 ## Getting Started
