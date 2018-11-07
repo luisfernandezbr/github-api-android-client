@@ -20,14 +20,11 @@ import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.Extra
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_pull_request_list)
 class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
-    init {
-        AppApplication.component.inject(this)
-    }
 
     @Extra
     lateinit var owner: String
@@ -35,8 +32,7 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
     @Extra
     lateinit var repoName: String
 
-    @Inject
-    lateinit var presenter: PullRequestPresenter
+    val presenter by inject<PullRequestPresenter>()
 
     @AfterViews
     fun afterViews() {

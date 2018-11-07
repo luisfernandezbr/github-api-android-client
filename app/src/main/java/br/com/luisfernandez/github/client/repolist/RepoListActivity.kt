@@ -7,34 +7,27 @@ import android.view.Menu
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
-import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
-import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
+import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.Repo
 import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.SearchEvent
+import com.miguelcatalan.materialsearchview.MaterialSearchView
 import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
-import javax.inject.Inject
-import com.miguelcatalan.materialsearchview.MaterialSearchView
-import android.widget.Toast
-import com.crashlytics.android.answers.Answers
-import com.crashlytics.android.answers.CustomEvent
-import com.crashlytics.android.answers.SearchEvent
+import org.koin.android.ext.android.inject
 
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_list)
 class RepoListActivity : AppCompatActivity(), RepoListView {
-
-    init {
-        AppApplication.component.inject(this)
-    }
 
     private var isLoadingState = false
     private var isLastPageState = false
@@ -43,8 +36,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private var querySearch = "Java"
     private lateinit var repoListAdapter: RepoListAdapter
 
-    @Inject
-    lateinit var presenter: RepoListPresenter
+    val presenter by inject<RepoListPresenter>()
 
     @AfterViews
     fun afterViews() {

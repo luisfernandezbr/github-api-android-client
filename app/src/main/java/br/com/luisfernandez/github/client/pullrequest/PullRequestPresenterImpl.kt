@@ -6,9 +6,8 @@ import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
-class PullRequestPresenterImpl @Inject constructor(
+class PullRequestPresenterImpl (
     private val pullRequestModel: PullRequestModel
 ) : PullRequestPresenter
 {
