@@ -16,8 +16,11 @@ import dagger.Provides
 class PresenterModule {
 
     @Provides
-    fun providesRepoListPresenter(repoListModel: RepoListModel
-    ): RepoListPresenter = RepoListPresenterImpl(repoListModel)
+    fun providesRepoListPresenter(
+            repoListModel: RepoListModel
+    ): RepoListPresenter {
+        return RepoListPresenterImpl(repoListModel)
+    }
 
     @Provides
     fun providesPullRequestPresenter(pullRequestModel: PullRequestModel
