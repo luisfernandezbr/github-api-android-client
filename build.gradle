@@ -5,7 +5,7 @@ project.ext {
     compileSdk = 27
     targetSdk = 27
     supportLibrary = '27.1.1'
-    androidAnnotations = '4.4.0'
+    androidAnnotations = '4.5.2'
     retrofit = '2.4.0'
     okhttp = '3.8.1'
     glide = '4.7.1'
