@@ -1,5 +1,6 @@
 package br.com.luisfernandez.github.client.repolist
 
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
@@ -12,7 +13,8 @@ class RepoListViewModel(
         private val repoListModel: RepoListModel
 ) : ViewModel() {
 
-    private lateinit var view: RepoListView
+    val listRepo = MutableLiveData<List<Repo>>()
+    val serverError = MutableLiveData<ServerError<GitHubErrorBody>>()
 
     fun loadRepoList(page: Int, language: String) {
 
@@ -22,11 +24,11 @@ class RepoListViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object: CallbackWrapper<List<Repo>, GitHubErrorBody>(GitHubErrorBody::class.java) {
                     override fun onError(error: ServerError<GitHubErrorBody>) {
-                        view.handleError(error)
+                        serverError.postValue(error)
                     }
 
                     override fun onSuccess(repoList: List<Repo>) {
-                        view.showContent(repoList)
+                        listRepo.postValue(repoList)
                     }
                 })
     }

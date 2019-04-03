@@ -1,6 +1,7 @@
 package br.com.luisfernandez.github.client.repolist
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
@@ -71,8 +72,15 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         this.initRecyclerView()
 
+        viewModel.listRepo.observe(this, Observer {
+            listRepo ->
+            showContent(listRepo!!)
+        })
 
-        viewModel.loadRepoList(currentPage, querySearch)
+        viewModel.serverError.observe(this, Observer {
+            serverError ->
+            handleError(serverError!!)
+        })
 
         sendQueryEvent(querySearch)
     }
@@ -139,6 +147,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         currentPage += 1
 
         viewModel.loadRepoList(currentPage, querySearch)
+        sendQueryEvent(querySearch)
     }
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
