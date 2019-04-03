@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 @SuppressLint("Registered")
@@ -36,7 +37,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private var querySearch = "Java"
     private lateinit var repoListAdapter: RepoListAdapter
 
-    val presenter by inject<RepoListPresenter>()
+    private val viewModel by viewModel<RepoListViewModel>()
 
     @AfterViews
     fun afterViews() {
@@ -46,7 +47,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
             override fun onQueryTextSubmit(query: String): Boolean {
                 querySearch = query
                 setToolbarTitle(querySearch)
-                presenter.loadRepoList(currentPage, query)
+                viewModel.loadRepoList(currentPage, query)
                 repoListAdapter.clear()
                 sendQueryEvent(query)
                 return false
@@ -70,8 +71,8 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         this.initRecyclerView()
 
-        presenter.inject(this)
-        presenter.loadRepoList(currentPage, querySearch)
+
+        viewModel.loadRepoList(currentPage, querySearch)
 
         sendQueryEvent(querySearch)
     }
@@ -137,7 +138,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         recyclerView.post { repoListAdapter.showFooter() }
         currentPage += 1
 
-        presenter.loadRepoList(currentPage, querySearch)
+        viewModel.loadRepoList(currentPage, querySearch)
     }
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
@@ -160,7 +161,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
             buttonRetry.setOnClickListener { _ ->
                 showLoading()
-                presenter.loadRepoList(currentPage, querySearch)
+                viewModel.loadRepoList(currentPage, querySearch)
             }
         } else {
             repoListAdapter.showErrorFooter()

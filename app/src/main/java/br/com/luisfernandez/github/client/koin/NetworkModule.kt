@@ -2,7 +2,6 @@ package br.com.luisfernandez.github.client.koin
 
 import br.com.luisfernandez.github.client.http.GitHubService
 
-import br.com.luisfernandez.github.client.koin.DataSourceProperties.SERVER_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.applicationContext

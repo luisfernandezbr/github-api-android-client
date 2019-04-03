@@ -84,8 +84,12 @@ dependencies {
         transitive = true
     }
 
+    implementation "android.arch.core:runtime:1.1.1"
+    implementation "android.arch.core:common:1.1.1"
+
     // Koin for Android
-    implementation 'org.koin:koin-android:1.0.1'
+    implementation 'org.koin:koin-android:1.0.2'
+    implementation 'org.koin:koin-android-viewmodel:1.0.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
