@@ -1,13 +1,13 @@
 package br.com.luisfernandez.github.client.pullrequest
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
-import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.model.ServerError
@@ -20,14 +20,11 @@ import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.Extra
-import javax.inject.Inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_pull_request_list)
 class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
-    init {
-        AppApplication.component.inject(this)
-    }
 
     @Extra
     lateinit var owner: String
@@ -35,8 +32,7 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
     @Extra
     lateinit var repoName: String
 
-    @Inject
-    lateinit var presenter: PullRequestPresenter
+    val viewModel by viewModel<PullRequestViewModel>()
 
     @AfterViews
     fun afterViews() {
@@ -46,9 +42,22 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
 
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
+//
+        setupViewModel()
 
-        presenter.inject(this)
-        presenter.loadPullRequestList(owner, repoName)
+        viewModel.loadPullRequestList(owner, repoName)
+    }
+
+    private fun setupViewModel() {
+        viewModel.listPullRequest.observe(this, Observer {
+            listPullRequest ->
+            showContent(listPullRequest!!)
+        })
+
+        viewModel.serverError.observe(this, Observer {
+            serverError ->
+            handleError(serverError!!)
+        })
     }
 
     private fun configToolbar() {
@@ -77,7 +86,7 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
 
         buttonRetry.setOnClickListener { _ ->
             showLoading()
-            presenter.loadPullRequestList(owner, repoName)
+            viewModel.loadPullRequestList(owner, repoName)
         }
     }
 

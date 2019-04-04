@@ -3,10 +3,8 @@ package br.com.luisfernandez.github.client.repolist
 import br.com.luisfernandez.github.client.http.GitHubService
 import br.com.luisfernandez.github.client.pojo.Repo
 import io.reactivex.Observable
-import javax.inject.Inject
 
-
-class RepoListModelImpl @Inject constructor(
+class RepoListModelImpl (
     private val gitHubService: GitHubService
 ) : RepoListModel
 {

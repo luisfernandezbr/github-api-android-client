@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">github-api-client</string>
+    <string name="app_name">GitHub Client</string>
     <string name="adapter_loading_more">Loading more results…</string>
     <string name="adapter_error">Error loading new content</string>
     <string name="view_state_loading_message">Loading…</string>

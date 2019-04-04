@@ -3,9 +3,8 @@ package br.com.luisfernandez.github.client.pullrequest
 import br.com.luisfernandez.github.client.http.GitHubService
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import io.reactivex.Observable
-import javax.inject.Inject
 
-class PullRequestModelImpl @Inject constructor(
+class PullRequestModelImpl (
     private val gitHubService: GitHubService
 ) : PullRequestModel
 {

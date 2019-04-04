@@ -3,14 +3,15 @@ package br.com.luisfernandez.github.client.http;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
+import br.com.luisfernandez.github.client.BuildConfig;
 import br.com.luisfernandez.github.client.http.model.ServerError;
 import io.reactivex.observers.DisposableObserver;
 import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 
 /**
  * Created by luisfernandez on 12/05/18.
@@ -27,14 +28,16 @@ public abstract class CallbackWrapper<SUCCESS, ERROR> extends DisposableObserver
     }
 
     @Override
-    public void onNext(SUCCESS successType) {
+    public void onNext(SUCCESS successType)
+    {
         onSuccess(successType);
     }
 
     @Override
-    public void onError(Throwable e) {
-
-        if (e instanceof HttpException) {
+    public void onError(Throwable e)
+    {
+        if (e instanceof HttpException)
+        {
             ResponseBody responseBody = ((HttpException)e).response().errorBody();
             try
             {
@@ -44,24 +47,37 @@ public abstract class CallbackWrapper<SUCCESS, ERROR> extends DisposableObserver
             }
             catch (IOException e1)
             {
-                ServerError<ERROR> errorServerError = new ServerError<>(null, 5000, "Generic Error");
-                onError(errorServerError);
+                handleError(2000, e);
             }
-        } else if (e instanceof SocketTimeoutException) {
-            ServerError<ERROR> errorServerError = new ServerError<>(null, 3000, ((SocketTimeoutException) e).getMessage());
-            onError(errorServerError);
-        } else if (e instanceof IOException) {
-            ServerError<ERROR> errorServerError = new ServerError<>(null, 4000, ((IOException) e).getMessage());
-            onError(errorServerError);
-        } else {
-            ServerError<ERROR> errorServerError = new ServerError<>(null, 5000, "Generic Error");
-            onError(errorServerError);
+        }
+        else if (e instanceof SocketTimeoutException)
+        {
+            handleError(3000, e);
+        }
+        else if (e instanceof IOException)
+        {
+            handleError(4000, e);
+        }
+        else
+        {
+            handleError(5000, e);
         }
     }
 
+    private void handleError(int status, Throwable e)
+    {
+        Log.e(TAG, e.getMessage(), e);
+        ServerError<ERROR> errorServerError = new ServerError<>(null, status, e.getMessage());
+        onError(errorServerError);
+    }
+
     @Override
-    public void onComplete() {
-        Log.d(TAG, "onComplete not implemented!");
+    public void onComplete()
+    {
+        if (BuildConfig.DEBUG)
+        {
+            Log.d(TAG, "onComplete not implemented!");
+        }
     }
 
     public abstract void onSuccess(SUCCESS success);

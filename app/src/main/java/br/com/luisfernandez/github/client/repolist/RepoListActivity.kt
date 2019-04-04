@@ -1,37 +1,35 @@
 package br.com.luisfernandez.github.client.repolist
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
-import br.com.luisfernandez.github.client.android.AppApplication
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
-import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
+import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.Repo
 import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.SearchEvent
+import com.miguelcatalan.materialsearchview.MaterialSearchView
 import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
-import javax.inject.Inject
-import com.miguelcatalan.materialsearchview.MaterialSearchView
-import android.widget.Toast
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_list)
 class RepoListActivity : AppCompatActivity(), RepoListView {
-
-    init {
-        AppApplication.component.inject(this)
-    }
 
     private var isLoadingState = false
     private var isLastPageState = false
@@ -40,8 +38,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private var querySearch = "Java"
     private lateinit var repoListAdapter: RepoListAdapter
 
-    @Inject
-    lateinit var presenter: RepoListPresenter
+    private val viewModel by viewModel<RepoListViewModel>()
 
     @AfterViews
     fun afterViews() {
@@ -51,8 +48,9 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
             override fun onQueryTextSubmit(query: String): Boolean {
                 querySearch = query
                 setToolbarTitle(querySearch)
-                presenter.loadRepoList(currentPage, query)
+                viewModel.loadRepoList(currentPage, query)
                 repoListAdapter.clear()
+                sendQueryEvent(query)
                 return false
             }
 
@@ -74,8 +72,27 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         this.initRecyclerView()
 
-        presenter.inject(this)
-        presenter.loadRepoList(currentPage, querySearch)
+        setupViewModel()
+
+        viewModel.loadRepoList(currentPage, querySearch)
+
+        sendQueryEvent(querySearch)
+    }
+
+    private fun setupViewModel() {
+        viewModel.listRepo.observe(this, Observer {
+            listRepo ->
+            showContent(listRepo!!)
+        })
+
+        viewModel.serverError.observe(this, Observer {
+            serverError ->
+            handleError(serverError!!)
+        })
+    }
+
+    private fun sendQueryEvent(value: String) {
+        Answers.getInstance().logSearch(SearchEvent().putQuery(value))
     }
 
     private fun configToolbar() {
@@ -135,7 +152,8 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         recyclerView.post { repoListAdapter.showFooter() }
         currentPage += 1
 
-        presenter.loadRepoList(currentPage, querySearch)
+        viewModel.loadRepoList(currentPage, querySearch)
+        sendQueryEvent(querySearch)
     }
 
     override fun handleError(serverError: ServerError<GitHubErrorBody>) {
@@ -158,7 +176,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
             buttonRetry.setOnClickListener { _ ->
                 showLoading()
-                presenter.loadRepoList(currentPage, querySearch)
+                viewModel.loadRepoList(currentPage, querySearch)
             }
         } else {
             repoListAdapter.showErrorFooter()

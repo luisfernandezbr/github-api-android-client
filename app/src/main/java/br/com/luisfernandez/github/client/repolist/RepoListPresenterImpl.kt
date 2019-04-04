@@ -6,9 +6,8 @@ import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.Repo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
-class RepoListPresenterImpl @Inject constructor(
+class RepoListPresenterImpl(
         private val repoListModel: RepoListModel
 ) : RepoListPresenter {
 
