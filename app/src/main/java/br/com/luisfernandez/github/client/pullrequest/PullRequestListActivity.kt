@@ -42,7 +42,7 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
 
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-
+//
         setupViewModel()
 
         viewModel.loadPullRequestList(owner, repoName)
