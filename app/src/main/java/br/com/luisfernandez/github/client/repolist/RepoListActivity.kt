@@ -72,6 +72,14 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         this.initRecyclerView()
 
+        setupViewModel()
+
+        viewModel.loadRepoList(currentPage, querySearch)
+
+        sendQueryEvent(querySearch)
+    }
+
+    private fun setupViewModel() {
         viewModel.listRepo.observe(this, Observer {
             listRepo ->
             showContent(listRepo!!)
@@ -81,8 +89,6 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
             serverError ->
             handleError(serverError!!)
         })
-
-        sendQueryEvent(querySearch)
     }
 
     private fun sendQueryEvent(value: String) {
