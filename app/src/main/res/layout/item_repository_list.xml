@@ -69,8 +69,19 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/icon_pull_request"
             android:drawableStart="@drawable/icon_pull_request"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textStartCount"
+            app:layout_constraintTop_toBottomOf="@+id/textRepoDescription"
+            tools:text="300" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/textIssuesCount"
+            style="@style/AppText.Details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_issue"
+            android:drawableStart="@drawable/icon_issue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textForksCount"
             app:layout_constraintTop_toBottomOf="@+id/textRepoDescription"
             tools:text="300" />
 

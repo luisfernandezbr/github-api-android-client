@@ -68,6 +68,7 @@ class RepoListAdapter(
                 holderContent.textRepoAuthor.text = repo.owner.login
                 holderContent.textStartCount.text = repo.stargazersCount.toString()
                 holderContent.textForksCount.text = repo.forksCount.toString()
+                holderContent.textIssuesCount.text = repo.openIssuesCount.toString()
 
                 ImageLoader.loadImage(repo.owner.avatarUrl, holderContent.imageRepoAuthor)
 
@@ -120,6 +121,7 @@ class RepoListAdapter(
         val imageRepoAuthor = itemView.imageRepoAuthor!!
         val textStartCount = itemView.textStartCount!!
         val textForksCount = itemView.textForksCount!!
+        val textIssuesCount = itemView.textIssuesCount!!
     }
 
     class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
