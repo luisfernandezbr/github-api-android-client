@@ -3,6 +3,7 @@ package br.com.luisfernandez.github.client.http;
 import java.util.List;
 
 import br.com.luisfernandez.github.client.http.annotations.URL;
+import br.com.luisfernandez.github.client.pojo.IssueResponse;
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse;
 import br.com.luisfernandez.github.client.pojo.RepoListResponse;
 import io.reactivex.Observable;
@@ -21,4 +22,7 @@ public interface GitHubService
 
     @GET("/repos/{owner}/{repoName}/pulls")
     Observable<List<PullRequestResponse>> listPullRequests(@Path("owner") String owner, @Path("repoName") String repoName);
+
+    @GET("/repos/{owner}/{repoName}/issues")
+    Observable<List<IssueResponse>> listIssues(@Path("owner") String owner, @Path("repoName") String repoName);
 }

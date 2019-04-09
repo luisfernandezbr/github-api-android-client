@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/AppCard">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_default"
+        tools:background="#FFF">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageIssueAuthor"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/temp_repo_owner_avatar" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/textIssueAuthorName"
+            style="@style/AppText.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageIssueAuthor"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Glide (from Google)" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/textIssueTitle"
+            style="@style/AppText.Subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageIssueAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/textIssueAuthorName"
+            tools:text="This os the description from Glide Repo" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/textIssueDescription"
+            style="@style/AppText.Description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageIssueAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/textIssueTitle"
+            tools:text="300" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/textIssueDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_default"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageIssueAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/textIssueDescription"
+            tools:text="2017/05/02" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
