@@ -12,6 +12,7 @@ import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
+import br.com.luisfernandez.github.client.issuelist.IssueListActivity_
 import br.com.luisfernandez.github.client.pojo.Repo
 import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
 import com.crashlytics.android.answers.Answers
@@ -119,7 +120,8 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private fun getRepoListAdapter(): RepoListAdapter {
         return RepoListAdapter(
                 getOnItemClickListener(),
-                getOnLoadMoreContentClickListener()
+                getOnLoadMoreContentClickListener(),
+                getOnIssueClickListener()
         )
     }
 
