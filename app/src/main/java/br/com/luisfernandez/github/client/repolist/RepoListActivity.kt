@@ -147,6 +147,14 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
                 .start()
     }
 
+    private fun goToIssueListActivity(type: Repo) {
+        IssueListActivity_
+                .intent(this@RepoListActivity)
+                .owner(type.owner.login)
+                .repoName(type.name)
+                .start()
+    }
+
     private fun loadMoreContent() {
         this@RepoListActivity.isLoadingState = true
         recyclerView.post { repoListAdapter.showFooter() }
