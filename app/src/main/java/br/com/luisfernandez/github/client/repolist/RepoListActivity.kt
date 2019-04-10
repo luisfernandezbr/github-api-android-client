@@ -131,6 +131,14 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         }
     }
 
+    private fun getOnIssueClickListener(): OnItemClickListener<Repo> {
+        return object : OnItemClickListener<Repo> {
+            override fun onItemClick(type: Repo) {
+                goToIssueListActivity(type)
+            }
+        }
+    }
+
     private fun getOnLoadMoreContentClickListener(): OnItemClickListener<String> {
         return object : OnItemClickListener<String> {
             override fun onItemClick(type: String) {
