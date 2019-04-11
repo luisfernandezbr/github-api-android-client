@@ -15,6 +15,7 @@ import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.issuelist.IssueListActivity_
 import br.com.luisfernandez.github.client.pojo.Repo
 import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
+import br.com.luisfernandez.github.client.repodetails.RepoDetailsActivity_
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.SearchEvent
 import com.miguelcatalan.materialsearchview.MaterialSearchView
@@ -128,7 +129,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private fun getOnItemClickListener(): OnItemClickListener<Repo> {
         return object : OnItemClickListener<Repo> {
             override fun onItemClick(type: Repo) {
-                goToPullRequestActivity(type)
+                goToRepoDetailsActivity(type)
             }
         }
     }
@@ -159,6 +160,14 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
     private fun goToIssueListActivity(type: Repo) {
         IssueListActivity_
+                .intent(this@RepoListActivity)
+                .owner(type.owner.login)
+                .repoName(type.name)
+                .start()
+    }
+
+    private fun goToRepoDetailsActivity(type: Repo) {
+        RepoDetailsActivity_
                 .intent(this@RepoListActivity)
                 .owner(type.owner.login)
                 .repoName(type.name)
