@@ -3,7 +3,7 @@ package br.com.luisfernandez.github.client.repodetails
 import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import br.com.luisfernandez.github.client.R
-import kotlinx.android.synthetic.main.activity_list.*
+import kotlinx.android.synthetic.main.activity_repo_details.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.Extra
@@ -21,6 +21,11 @@ class RepoDetailsActivity : AppCompatActivity() {
     @AfterViews
     fun afterViews() {
         this.configToolbar()
+
+        val fragmentAdapter = RepoDetailsPagerAdapter(supportFragmentManager)
+            repo_detail_viewpager.adapter = fragmentAdapter
+
+        repo_detail_tablayout.setupWithViewPager(repo_detail_viewpager)
     }
 
     private fun configToolbar() {
