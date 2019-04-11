@@ -32,4 +32,9 @@ class RepoDetailsActivity : AppCompatActivity() {
             supportActionBar?.setDisplayShowTitleEnabled(true)
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }
