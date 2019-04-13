@@ -12,7 +12,6 @@ import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
-import br.com.luisfernandez.github.client.issuelist.IssueListActivity_
 import br.com.luisfernandez.github.client.pojo.Repo
 import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
 import br.com.luisfernandez.github.client.repodetails.RepoDetailsActivity_
@@ -121,8 +120,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private fun getRepoListAdapter(): RepoListAdapter {
         return RepoListAdapter(
                 getOnItemClickListener(),
-                getOnLoadMoreContentClickListener(),
-                getOnIssueClickListener()
+                getOnLoadMoreContentClickListener()
         )
     }
 
@@ -134,36 +132,12 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         }
     }
 
-    private fun getOnIssueClickListener(): OnItemClickListener<Repo> {
-        return object : OnItemClickListener<Repo> {
-            override fun onItemClick(type: Repo) {
-                goToIssueListActivity(type)
-            }
-        }
-    }
-
     private fun getOnLoadMoreContentClickListener(): OnItemClickListener<String> {
         return object : OnItemClickListener<String> {
             override fun onItemClick(type: String) {
                 loadMoreContent()
             }
         }
-    }
-
-    private fun goToPullRequestActivity(type: Repo) {
-        PullRequestListActivity_
-                .intent(this@RepoListActivity)
-                .owner(type.owner.login)
-                .repoName(type.name)
-                .start()
-    }
-
-    private fun goToIssueListActivity(type: Repo) {
-        IssueListActivity_
-                .intent(this@RepoListActivity)
-                .owner(type.owner.login)
-                .repoName(type.name)
-                .start()
     }
 
     private fun goToRepoDetailsActivity(type: Repo) {
