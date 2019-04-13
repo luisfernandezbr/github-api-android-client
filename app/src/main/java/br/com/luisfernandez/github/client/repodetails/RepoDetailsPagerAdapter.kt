@@ -22,7 +22,7 @@ class RepoDetailsPagerAdapter(fm: FragmentManager, owner: String, repoName: Stri
 
         var fragment = when(position) {
             0 -> PullRequestsFragment()
-            1 -> IssuesFragment()
+            1 -> IssuesListFragment()
             2 -> CommitsFragment()
             3 -> CollaboratorsFragment()
             4 -> BranchesFragment()

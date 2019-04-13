@@ -17,13 +17,13 @@ import br.com.luisfernandez.github.client.issuelist.IssueListAdapter
 import br.com.luisfernandez.github.client.issuelist.IssueListView
 import br.com.luisfernandez.github.client.issuelist.IssueListViewModel
 import br.com.luisfernandez.github.client.pojo.IssueResponse
-import kotlinx.android.synthetic.main.activity_issues_list.*
+import kotlinx.android.synthetic.main.fragment_issues_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class IssuesFragment : Fragment(), IssueListView {
+class IssuesListFragment : Fragment(), IssueListView {
 
     lateinit var owner: String
     lateinit var repoName: String
@@ -31,7 +31,7 @@ class IssuesFragment : Fragment(), IssueListView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val rootView = inflater.inflate(R.layout.activity_issues_list, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_issues_list, container, false)
 
         val recyclerView = rootView.findViewById(R.id.recyclerView) as RecyclerView
 

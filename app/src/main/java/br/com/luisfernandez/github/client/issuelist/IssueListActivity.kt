@@ -20,7 +20,7 @@ import org.androidannotations.annotations.Extra
 import org.koin.android.viewmodel.ext.android.viewModel
 
 @SuppressLint("Registered")
-@EActivity(R.layout.activity_issues_list)
+@EActivity(R.layout.fragment_issues_list)
 class IssueListActivity : AppCompatActivity(), IssueListView  {
 
     @Extra
