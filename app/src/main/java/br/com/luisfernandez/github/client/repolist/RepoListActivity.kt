@@ -13,7 +13,6 @@ import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.Repo
-import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
 import br.com.luisfernandez.github.client.repodetails.RepoDetailsActivity_
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.SearchEvent
@@ -24,7 +23,6 @@ import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
