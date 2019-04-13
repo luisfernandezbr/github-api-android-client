@@ -44,7 +44,7 @@ class IssuesFragment : Fragment(), IssueListView {
 
         viewModel.loadIssueList(owner, repoName)
 
-        return inflater.inflate(R.layout.activity_issues_list, container, false)
+        return rootView
 
     }
 
