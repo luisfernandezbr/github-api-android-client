@@ -10,6 +10,11 @@ import br.com.luisfernandez.github.client.R
 class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager, owner: String, repoName: String):
     FragmentPagerAdapter(fm) {
 
+    companion object {
+        const val OWNER = "OWNER"
+        const val REPONAME = "REPONAME"
+    }
+
     val owner = owner
     val repoName = repoName
 
@@ -19,8 +24,8 @@ class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager,
 
     override fun getItem(position: Int): Fragment {
         val bundle = Bundle()
-        bundle.putString("OWNER", owner)
-        bundle.putString("REPONAME", repoName)
+        bundle.putString(OWNER, owner)
+        bundle.putString(REPONAME, repoName)
 
         var fragment = when(position) {
             0 -> PullRequestsFragment()

@@ -17,6 +17,8 @@ import br.com.luisfernandez.github.client.issuelist.IssueListAdapter
 import br.com.luisfernandez.github.client.issuelist.IssueListView
 import br.com.luisfernandez.github.client.issuelist.IssueListViewModel
 import br.com.luisfernandez.github.client.pojo.IssueResponse
+import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.OWNER
+import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.REPONAME
 import kotlinx.android.synthetic.main.fragment_issues_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
@@ -49,8 +51,8 @@ class IssuesListFragment : Fragment(), IssueListView {
     }
 
     private fun setupArguments() {
-        owner = arguments!!.getString("OWNER")
-        repoName = arguments!!.getString("REPONAME")
+        owner = arguments!!.getString(OWNER)
+        repoName = arguments!!.getString(REPONAME)
     }
 
     private fun setupViewModel() {
