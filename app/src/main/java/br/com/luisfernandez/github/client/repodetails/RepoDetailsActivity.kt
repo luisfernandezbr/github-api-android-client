@@ -23,9 +23,9 @@ class RepoDetailsActivity : AppCompatActivity() {
         this.configToolbar()
 
         val fragmentAdapter = RepoDetailsPagerAdapter(supportFragmentManager, owner, repoName)
-            repo_detail_viewpager.adapter = fragmentAdapter
+            viewPagerRepoDetail.adapter = fragmentAdapter
 
-        repo_detail_tablayout.setupWithViewPager(repo_detail_viewpager)
+        tabLayoutRepoDetail.setupWithViewPager(viewPagerRepoDetail)
     }
 
     private fun configToolbar() {
