@@ -1,11 +1,13 @@
 package br.com.luisfernandez.github.client.repodetails
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
+import br.com.luisfernandez.github.client.R
 
-class RepoDetailsPagerAdapter(fm: FragmentManager, owner: String, repoName: String):
+class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager, owner: String, repoName: String):
     FragmentPagerAdapter(fm) {
 
     val owner = owner
@@ -37,13 +39,13 @@ class RepoDetailsPagerAdapter(fm: FragmentManager, owner: String, repoName: Stri
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position){
-            0 -> "PullRequests"
-            1 -> "Issues"
-            2 -> "Commits"
-            3 -> "Collaborators"
-            4 -> "Branches"
+            0 -> context.getString(R.string.titlePullRequestsTab)
+            1 -> context.getString(R.string.titleIssuesTab)
+            2 -> context.getString(R.string.titleCommitsTab)
+            3 -> context.getString(R.string.titleCollaboratorsTab)
+            4 -> context.getString(R.string.titleBranchesTab)
 
-            else -> "PullRequests"
+            else -> context.getString(R.string.titlePullRequestsTab)
         }
     }
 
