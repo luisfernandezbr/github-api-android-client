@@ -9,7 +9,7 @@ import android.view.ViewGroup
 
 import br.com.luisfernandez.github.client.R
 
-class CollaboratorsFragment : Fragment() {
+class ContributorsListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
