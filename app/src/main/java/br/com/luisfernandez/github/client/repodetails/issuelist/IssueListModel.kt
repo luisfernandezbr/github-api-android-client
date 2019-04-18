@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.issuelist
+package br.com.luisfernandez.github.client.repodetails.issuelist
 
 import br.com.luisfernandez.github.client.pojo.IssueResponse
 import io.reactivex.Observable

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
 import br.com.luisfernandez.github.client.R
+import br.com.luisfernandez.github.client.repodetails.issuelist.IssuesListFragment
 
 class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager, owner: String, repoName: String):
     FragmentPagerAdapter(fm) {

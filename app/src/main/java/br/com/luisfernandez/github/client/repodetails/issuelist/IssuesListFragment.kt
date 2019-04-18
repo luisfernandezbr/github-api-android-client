@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.repodetails
+package br.com.luisfernandez.github.client.repodetails.issuelist
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -13,9 +13,6 @@ import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
-import br.com.luisfernandez.github.client.issuelist.IssueListAdapter
-import br.com.luisfernandez.github.client.issuelist.IssueListView
-import br.com.luisfernandez.github.client.issuelist.IssueListViewModel
 import br.com.luisfernandez.github.client.pojo.IssueResponse
 import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.OWNER
 import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.REPONAME

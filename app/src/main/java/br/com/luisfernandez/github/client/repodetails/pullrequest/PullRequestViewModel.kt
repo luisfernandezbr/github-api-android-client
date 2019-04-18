@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.pullrequest
+package br.com.luisfernandez.github.client.repodetails.pullrequest
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class PullRequestViewModel (
-    private val pullRequestModel: PullRequestModel
+    private val pullRequestModel: br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestModel
 ) : ViewModel()
 {
 

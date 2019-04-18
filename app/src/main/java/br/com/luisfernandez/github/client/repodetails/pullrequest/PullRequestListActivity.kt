@@ -1,15 +1,18 @@
-package br.com.luisfernandez.github.client.issuelist
+package br.com.luisfernandez.github.client.repodetails.pullrequest
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
+import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
-import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
-import br.com.luisfernandez.github.client.pojo.IssueResponse
+import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
+import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
@@ -20,8 +23,8 @@ import org.androidannotations.annotations.Extra
 import org.koin.android.viewmodel.ext.android.viewModel
 
 @SuppressLint("Registered")
-@EActivity(R.layout.fragment_issues_list)
-class IssueListActivity : AppCompatActivity(), IssueListView  {
+@EActivity(R.layout.activity_pull_request_list)
+class PullRequestListActivity : AppCompatActivity(), br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListView {
 
     @Extra
     lateinit var owner: String
@@ -29,7 +32,7 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
     @Extra
     lateinit var repoName: String
 
-    val viewModel by viewModel<IssueListViewModel>()
+    val viewModel by viewModel<br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestViewModel>()
 
     @AfterViews
     fun afterViews() {
@@ -42,13 +45,13 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
 
         setupViewModel()
 
-        viewModel.loadIssueList(owner, repoName)
+        viewModel.loadPullRequestList(owner, repoName)
     }
 
     private fun setupViewModel() {
-        viewModel.issueList.observe(this, Observer {
-            issueList ->
-            showContent(issueList!!)
+        viewModel.listPullRequest.observe(this, Observer {
+            listPullRequest ->
+            showContent(listPullRequest!!)
         })
 
         viewModel.serverError.observe(this, Observer {
@@ -83,7 +86,7 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
 
         buttonRetry.setOnClickListener { _ ->
             showLoading()
-            viewModel.loadIssueList(owner, repoName)
+            viewModel.loadPullRequestList(owner, repoName)
         }
     }
 
@@ -108,7 +111,7 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
         recyclerView.setGone()
     }
 
-    override fun showContent(content: List<IssueResponse>) {
+    override fun showContent(content: List<PullRequestResponse>) {
         if (content.isEmpty()) {
             showEmpty()
         } else {
@@ -117,13 +120,28 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
             layoutError.setGone()
             recyclerView.setVisible()
 
-            recyclerView.adapter = this.getIssueListAdapter(content)
+            recyclerView.adapter = this.getPullRequestListAdapter(content)
         }
     }
 
-    private fun getIssueListAdapter(content: List<IssueResponse>): IssueListAdapter {
-        return IssueListAdapter(
-                content as ArrayList<IssueResponse>
+    private fun getPullRequestListAdapter(content: List<PullRequestResponse>): br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListAdapter {
+        return br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListAdapter(
+                content as ArrayList<PullRequestResponse>,
+                getOnItemClickListener()
         )
+    }
+
+    private fun getOnItemClickListener(): OnItemClickListener<PullRequestResponse> {
+        return object : OnItemClickListener<PullRequestResponse> {
+            override fun onItemClick(type: PullRequestResponse) {
+                openOnBrowser(type.htmlUrl)
+            }
+        }
+    }
+
+    private fun openOnBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
 }

@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.pullrequest
+package br.com.luisfernandez.github.client.repodetails.pullrequest
 
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.mvp.LoadContentView

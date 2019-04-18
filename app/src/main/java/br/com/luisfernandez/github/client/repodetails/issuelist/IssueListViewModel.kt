@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.issuelist
+package br.com.luisfernandez.github.client.repodetails.issuelist
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

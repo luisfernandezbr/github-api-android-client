@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.pullrequest
+package br.com.luisfernandez.github.client.repodetails.pullrequest
 
 import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
@@ -8,13 +8,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class PullRequestPresenterImpl (
-    private val pullRequestModel: PullRequestModel
-) : PullRequestPresenter
+    private val pullRequestModel: br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestModel
+) : br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestPresenter
 {
 
-    private lateinit var view: PullRequestListView
+    private lateinit var view: br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListView
 
-    override fun inject(view: PullRequestListView) {
+    override fun inject(view: br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListView) {
         this.view = view
     }
 
