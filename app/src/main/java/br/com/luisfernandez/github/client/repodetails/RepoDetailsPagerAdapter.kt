@@ -36,7 +36,7 @@ class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager,
             3 -> CollaboratorsFragment()
             4 -> BranchesFragment()
 
-            else -> PullRequestsFragment()
+            else -> PullRequestListFragment()
         }
 
         fragment.arguments = bundle
