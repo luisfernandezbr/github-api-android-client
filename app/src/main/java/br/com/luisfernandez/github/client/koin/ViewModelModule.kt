@@ -2,6 +2,7 @@
 
 package br.com.luisfernandez.github.client.koin
 
+import br.com.luisfernandez.github.client.repodetails.contributorslist.ContributorsListViewModel
 import br.com.luisfernandez.github.client.repodetails.issuelist.IssueListViewModel
 import br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestViewModel
 import br.com.luisfernandez.github.client.repolist.RepoListViewModel
@@ -16,14 +17,20 @@ val viewModelModule = module {
         )
     }
 
-    viewModel<br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestViewModel> {
-        br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestViewModel(
+    viewModel<PullRequestViewModel> {
+        PullRequestViewModel(
                 get()
         )
     }
 
     viewModel<IssueListViewModel> {
         IssueListViewModel(
+                get()
+        )
+    }
+
+    viewModel<ContributorsListViewModel> {
+        ContributorsListViewModel(
                 get()
         )
     }
