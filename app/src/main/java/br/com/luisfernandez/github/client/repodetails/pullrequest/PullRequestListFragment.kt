@@ -33,7 +33,7 @@ class PullRequestListFragment : Fragment(), PullRequestListView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val rootView = inflater.inflate(R.layout.fragment_issues_list, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_pull_request_list, container, false)
 
         val recyclerView = rootView.findViewById(R.id.recyclerView) as RecyclerView
 
