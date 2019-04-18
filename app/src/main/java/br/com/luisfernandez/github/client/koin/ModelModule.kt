@@ -1,5 +1,7 @@
 package br.com.luisfernandez.github.client.koin
 
+import br.com.luisfernandez.github.client.repodetails.contributorslist.ContributorsListModel
+import br.com.luisfernandez.github.client.repodetails.contributorslist.ContributorsListModelImpl
 import br.com.luisfernandez.github.client.repodetails.issuelist.IssueListModel
 import br.com.luisfernandez.github.client.repodetails.issuelist.IssueListModelImpl
 import br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestModel
@@ -16,14 +18,20 @@ val modelModule = module {
         )
     }
 
-    single<br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestModel> {
-        br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestModelImpl(
+    single<PullRequestModel> {
+        PullRequestModelImpl(
                 get()
         )
     }
 
     single<IssueListModel> {
         IssueListModelImpl(
+                get()
+        )
+    }
+
+    single<ContributorsListModel> {
+        ContributorsListModelImpl(
                 get()
         )
     }
