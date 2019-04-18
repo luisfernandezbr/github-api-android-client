@@ -8,7 +8,7 @@ class ContributorsListModelImpl (
     private val gitHubService: GitHubService
 ) : ContributorsListModel
 {
-    override fun loadContributorList(owner: String, repoName: String): Observable<List<ContributorResponse>> {
+    override fun loadContributorsList(owner: String, repoName: String): Observable<List<ContributorResponse>> {
         return gitHubService
                 .listContributors(owner, repoName)
                 .map { contributorList ->
