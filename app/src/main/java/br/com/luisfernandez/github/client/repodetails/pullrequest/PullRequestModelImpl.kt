@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.pullrequest
+package br.com.luisfernandez.github.client.repodetails.pullrequest
 
 import br.com.luisfernandez.github.client.http.GitHubService
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse
@@ -6,7 +6,7 @@ import io.reactivex.Observable
 
 class PullRequestModelImpl (
     private val gitHubService: GitHubService
-) : PullRequestModel
+) : br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestModel
 {
     override fun loadPullRequestList(owner: String, repoName: String): Observable<List<PullRequestResponse>> {
         return gitHubService

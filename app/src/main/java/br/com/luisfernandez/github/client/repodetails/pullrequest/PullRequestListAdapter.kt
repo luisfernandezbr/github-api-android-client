@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.pullrequest
+package br.com.luisfernandez.github.client.repodetails.pullrequest
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -18,18 +18,18 @@ import java.util.*
 class PullRequestListAdapter(
         private val pullRequestList: ArrayList<PullRequestResponse> = ArrayList(),
         private val onItemClickListener: OnItemClickListener<PullRequestResponse>
-) : RecyclerView.Adapter<PullRequestListAdapter.PullRequestViewHolder>()
+) : RecyclerView.Adapter<br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListAdapter.PullRequestViewHolder>()
 {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListAdapter.PullRequestViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pull_request_list, parent, false)
-        return PullRequestViewHolder(view)
+        return br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListAdapter.PullRequestViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return pullRequestList.size
     }
 
-    override fun onBindViewHolder(holder: PullRequestViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListAdapter.PullRequestViewHolder, position: Int) {
         val item = pullRequestList[position]
 
 

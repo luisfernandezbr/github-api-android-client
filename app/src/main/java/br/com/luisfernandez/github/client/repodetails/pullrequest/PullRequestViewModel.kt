@@ -1,5 +1,7 @@
-package br.com.luisfernandez.github.client.pullrequest
+package br.com.luisfernandez.github.client.repodetails.pullrequest
 
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
@@ -7,29 +9,26 @@ import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class PullRequestPresenterImpl (
-    private val pullRequestModel: PullRequestModel
-) : PullRequestPresenter
+class PullRequestViewModel (
+    private val pullRequestModel: br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestModel
+) : ViewModel()
 {
 
-    private lateinit var view: PullRequestListView
+    val listPullRequest = MutableLiveData<List<PullRequestResponse>>()
+    val serverError = MutableLiveData<ServerError<GitHubErrorBody>>()
 
-    override fun inject(view: PullRequestListView) {
-        this.view = view
-    }
-
-    override fun loadPullRequestList(owner: String, repoName: String) {
+    fun loadPullRequestList(owner: String, repoName: String) {
         pullRequestModel
                 .loadPullRequestList(owner, repoName)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object: CallbackWrapper<List<PullRequestResponse>, GitHubErrorBody>(GitHubErrorBody::class.java) {
                     override fun onError(error: ServerError<GitHubErrorBody>) {
-                        view.handleError(error)
+                        serverError.postValue(error)
                     }
 
                     override fun onSuccess(pullRequestList: List<PullRequestResponse>) {
-                        view.showContent(pullRequestList)
+                        listPullRequest.postValue(pullRequestList)
                     }
                 })
     }

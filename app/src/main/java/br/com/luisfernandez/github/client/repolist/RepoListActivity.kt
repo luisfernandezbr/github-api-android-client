@@ -12,9 +12,8 @@ import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
-import br.com.luisfernandez.github.client.issuelist.IssueListActivity_
 import br.com.luisfernandez.github.client.pojo.Repo
-import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
+import br.com.luisfernandez.github.client.repodetails.RepoDetailsActivity_
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.SearchEvent
 import com.miguelcatalan.materialsearchview.MaterialSearchView
@@ -24,7 +23,6 @@ import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -120,23 +118,14 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private fun getRepoListAdapter(): RepoListAdapter {
         return RepoListAdapter(
                 getOnItemClickListener(),
-                getOnLoadMoreContentClickListener(),
-                getOnIssueClickListener()
+                getOnLoadMoreContentClickListener()
         )
     }
 
     private fun getOnItemClickListener(): OnItemClickListener<Repo> {
         return object : OnItemClickListener<Repo> {
             override fun onItemClick(type: Repo) {
-                goToPullRequestActivity(type)
-            }
-        }
-    }
-
-    private fun getOnIssueClickListener(): OnItemClickListener<Repo> {
-        return object : OnItemClickListener<Repo> {
-            override fun onItemClick(type: Repo) {
-                goToIssueListActivity(type)
+                goToRepoDetailsActivity(type)
             }
         }
     }
@@ -149,16 +138,8 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         }
     }
 
-    private fun goToPullRequestActivity(type: Repo) {
-        PullRequestListActivity_
-                .intent(this@RepoListActivity)
-                .owner(type.owner.login)
-                .repoName(type.name)
-                .start()
-    }
-
-    private fun goToIssueListActivity(type: Repo) {
-        IssueListActivity_
+    private fun goToRepoDetailsActivity(type: Repo) {
+        RepoDetailsActivity_
                 .intent(this@RepoListActivity)
                 .owner(type.owner.login)
                 .repoName(type.name)
