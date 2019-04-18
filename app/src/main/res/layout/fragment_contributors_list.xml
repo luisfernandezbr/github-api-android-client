@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="true"
+    tools:context=".repodetails.CollaboratorsFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/view_state_loading"
+        android:visibility="visible" />
+
+    <include
+        layout="@layout/view_state_empty"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/view_state_error"
+        android:visibility="gone" />
+
+</RelativeLayout>
