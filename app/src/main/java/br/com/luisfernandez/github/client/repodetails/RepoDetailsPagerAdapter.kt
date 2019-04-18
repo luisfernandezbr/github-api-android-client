@@ -50,7 +50,7 @@ class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager,
             0 -> context.getString(R.string.titlePullRequestsTab)
             1 -> context.getString(R.string.titleIssuesTab)
             2 -> context.getString(R.string.titleCommitsTab)
-            3 -> context.getString(R.string.titleCollaboratorsTab)
+            3 -> context.getString(R.string.titleContributorsTab)
             4 -> context.getString(R.string.titleBranchesTab)
 
             else -> context.getString(R.string.titlePullRequestsTab)

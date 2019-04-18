@@ -11,6 +11,6 @@
     <string name="titlePullRequestsTab">PullRequests</string>
     <string name="titleIssuesTab">Issues</string>
     <string name="titleCommitsTab">Commits</string>
-    <string name="titleCollaboratorsTab">Collaborators</string>
+    <string name="titleContributorsTab">Contributors</string>
     <string name="titleBranchesTab">Branches</string>
 </resources>
