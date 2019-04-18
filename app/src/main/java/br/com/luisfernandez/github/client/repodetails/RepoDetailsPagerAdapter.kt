@@ -1,12 +1,13 @@
 package br.com.luisfernandez.github.client.repodetails
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.os.Bundle
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.repodetails.issuelist.IssuesListFragment
+import br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListFragment
 
 class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager, owner: String, repoName: String):
     FragmentPagerAdapter(fm) {
@@ -29,7 +30,7 @@ class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager,
         bundle.putString(REPONAME, repoName)
 
         var fragment = when(position) {
-            0 -> PullRequestsFragment()
+            0 -> PullRequestListFragment()
             1 -> IssuesListFragment()
             2 -> CommitsFragment()
             3 -> CollaboratorsFragment()
