@@ -18,8 +18,7 @@ import kotlin.collections.ArrayList
  */
 class RepoListAdapter(
         private val onItemClickListener: OnItemClickListener<Repo>,
-        private val onRetryClickListener: OnItemClickListener<String>,
-        private val onIssueClickListener: OnItemClickListener<Repo>
+        private val onRetryClickListener: OnItemClickListener<String>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
     companion object {
@@ -75,10 +74,6 @@ class RepoListAdapter(
 
                 viewHolder.itemView.setOnClickListener { _ ->
                     onItemClickListener.onItemClick(repo)
-                }
-
-                viewHolder.textIssuesCount.setOnClickListener { _ ->
-                    onIssueClickListener.onItemClick(repo)
                 }
             }
             ERROR_FOOTER -> {
