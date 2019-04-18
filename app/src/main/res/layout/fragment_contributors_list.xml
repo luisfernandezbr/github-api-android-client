@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
-    tools:context=".repodetails.CollaboratorsFragment">
+    tools:context=".repodetails.contributorslist.CollaboratorsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

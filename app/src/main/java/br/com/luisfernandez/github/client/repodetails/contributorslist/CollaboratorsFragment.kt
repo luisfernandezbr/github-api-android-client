@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.repodetails
+package br.com.luisfernandez.github.client.repodetails.contributorslist
 
 
 import android.os.Bundle

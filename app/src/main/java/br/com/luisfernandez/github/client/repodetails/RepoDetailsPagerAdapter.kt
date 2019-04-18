@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import br.com.luisfernandez.github.client.R
+import br.com.luisfernandez.github.client.repodetails.contributorslist.CollaboratorsFragment
 import br.com.luisfernandez.github.client.repodetails.issuelist.IssuesListFragment
 import br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListFragment
 
