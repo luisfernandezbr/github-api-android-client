@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.issuelist
+package br.com.luisfernandez.github.client.repodetails.issuelist
 
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.mvp.LoadContentView
