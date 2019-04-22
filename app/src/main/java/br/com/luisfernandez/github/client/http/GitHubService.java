@@ -31,6 +31,6 @@ public interface GitHubService
     @GET("/repos/{owner}/{repoName}/contributors")
     Observable<List<ContributorResponse>> listContributors(@Path("owner") String owner, @Path("repoName") String repoName);
 
-    @GET("/repos/{owner}/{repoName}/commits")
+    @GET("/repos/{owner}/{repoName}/commits?per_page=10")
     Observable<List<CommitResponse>> listCommits(@Path("owner") String owner, @Path("repoName") String repoName);
 }
