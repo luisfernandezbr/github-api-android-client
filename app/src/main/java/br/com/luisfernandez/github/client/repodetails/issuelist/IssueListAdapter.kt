@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.issuelist
+package br.com.luisfernandez.github.client.repodetails.issuelist
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
