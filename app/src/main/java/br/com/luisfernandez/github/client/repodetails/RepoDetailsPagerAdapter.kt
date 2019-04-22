@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import br.com.luisfernandez.github.client.R
+import br.com.luisfernandez.github.client.repodetails.commitslist.CommitsListFragment
 import br.com.luisfernandez.github.client.repodetails.contributorslist.ContributorsListFragment
 import br.com.luisfernandez.github.client.repodetails.issuelist.IssuesListFragment
 import br.com.luisfernandez.github.client.repodetails.pullrequest.PullRequestListFragment
@@ -33,7 +34,7 @@ class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager,
         var fragment = when(position) {
             0 -> PullRequestListFragment()
             1 -> IssuesListFragment()
-            2 -> CommitsFragment()
+            2 -> CommitsListFragment()
             3 -> ContributorsListFragment()
             4 -> BranchesFragment()
 
@@ -48,7 +49,7 @@ class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager,
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position){
             0 -> context.getString(R.string.titlePullRequestsTab)
-            1 -> context.getString(R.string.titleIssuesTab)
+            1-> context.getString(R.string.titleIssuesTab)
             2 -> context.getString(R.string.titleCommitsTab)
             3 -> context.getString(R.string.titleContributorsTab)
             4 -> context.getString(R.string.titleBranchesTab)
