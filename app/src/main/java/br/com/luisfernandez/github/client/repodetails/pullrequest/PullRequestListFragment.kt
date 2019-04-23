@@ -1,57 +1,64 @@
-package br.com.luisfernandez.github.client.pullrequest
+package br.com.luisfernandez.github.client.repodetails.pullrequest
 
-import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
-import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
+import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse
-import kotlinx.android.synthetic.main.activity_list.*
+import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.OWNER
+import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.REPONAME
+import kotlinx.android.synthetic.main.fragment_pull_request_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
-import org.androidannotations.annotations.AfterViews
-import org.androidannotations.annotations.EActivity
-import org.androidannotations.annotations.Extra
 import org.koin.android.viewmodel.ext.android.viewModel
 
-@SuppressLint("Registered")
-@EActivity(R.layout.activity_pull_request_list)
-class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
+class PullRequestListFragment : Fragment() {
 
-    @Extra
     lateinit var owner: String
-
-    @Extra
     lateinit var repoName: String
-
     val viewModel by viewModel<PullRequestViewModel>()
 
-    @AfterViews
-    fun afterViews() {
-        this.configToolbar()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val layoutManager = LinearLayoutManager(this)
+        val rootView = inflater.inflate(R.layout.fragment_pull_request_list, container, false)
 
-        recyclerView.layoutManager = layoutManager
+        val recyclerView = rootView.findViewById(R.id.recyclerView) as RecyclerView
+
+        recyclerView.layoutManager = LinearLayoutManager(rootView.context)
         recyclerView.setHasFixedSize(true)
-//
+
+        setupArguments()
+
         setupViewModel()
 
         viewModel.loadPullRequestList(owner, repoName)
+
+        return rootView
+
+    }
+
+    private fun setupArguments() {
+        owner = arguments!!.getString(OWNER)
+        repoName = arguments!!.getString(REPONAME)
     }
 
     private fun setupViewModel() {
         viewModel.listPullRequest.observe(this, Observer {
-            listPullRequest ->
-            showContent(listPullRequest!!)
+            issueList ->
+            showContent(issueList!!)
         })
 
         viewModel.serverError.observe(this, Observer {
@@ -60,22 +67,7 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
         })
     }
 
-    private fun configToolbar() {
-        setSupportActionBar(toolbar)
-        supportActionBar?.let {
-            title = repoName
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setDisplayShowHomeEnabled(true)
-            supportActionBar?.setDisplayShowTitleEnabled(true)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
-    override fun handleError(serverError: ServerError<GitHubErrorBody>) {
+    private fun handleError(serverError: ServerError<GitHubErrorBody>) {
         this.showErrorState()
 
         if (serverError.errorBody != null) {
@@ -97,21 +89,21 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
         recyclerView.setGone()
     }
 
-    override fun showLoading() {
+    private fun showLoading() {
         layoutProgress.setVisible()
         layoutEmpty.setGone()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showEmpty() {
+    private fun showEmpty() {
         layoutProgress.setGone()
         layoutEmpty.setVisible()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showContent(content: List<PullRequestResponse>) {
+    private fun showContent(content: List<PullRequestResponse>) {
         if (content.isEmpty()) {
             showEmpty()
         } else {

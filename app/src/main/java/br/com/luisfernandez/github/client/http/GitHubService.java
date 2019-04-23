@@ -3,6 +3,9 @@ package br.com.luisfernandez.github.client.http;
 import java.util.List;
 
 import br.com.luisfernandez.github.client.http.annotations.URL;
+import br.com.luisfernandez.github.client.pojo.BranchResponse;
+import br.com.luisfernandez.github.client.pojo.commit.CommitResponse;
+import br.com.luisfernandez.github.client.pojo.ContributorResponse;
 import br.com.luisfernandez.github.client.pojo.IssueResponse;
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse;
 import br.com.luisfernandez.github.client.pojo.RepoListResponse;
@@ -25,4 +28,13 @@ public interface GitHubService
 
     @GET("/repos/{owner}/{repoName}/issues")
     Observable<List<IssueResponse>> listIssues(@Path("owner") String owner, @Path("repoName") String repoName);
+
+    @GET("/repos/{owner}/{repoName}/contributors")
+    Observable<List<ContributorResponse>> listContributors(@Path("owner") String owner, @Path("repoName") String repoName);
+
+    @GET("/repos/{owner}/{repoName}/commits?per_page=10")
+    Observable<List<CommitResponse>> listCommits(@Path("owner") String owner, @Path("repoName") String repoName);
+
+    @GET("/repos/{owner}/{repoName}/branches")
+    Observable<List<BranchResponse>> listBranches(@Path("owner") String owner, @Path("repoName") String repoName);
 }

@@ -1,54 +1,61 @@
-package br.com.luisfernandez.github.client.issuelist
+package br.com.luisfernandez.github.client.repodetails.commitslist
 
-import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
-import br.com.luisfernandez.github.client.pojo.IssueResponse
-import kotlinx.android.synthetic.main.activity_list.*
+import br.com.luisfernandez.github.client.pojo.commit.CommitResponse
+import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.OWNER
+import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.REPONAME
+import kotlinx.android.synthetic.main.fragment_commits_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
-import org.androidannotations.annotations.AfterViews
-import org.androidannotations.annotations.EActivity
-import org.androidannotations.annotations.Extra
 import org.koin.android.viewmodel.ext.android.viewModel
 
-@SuppressLint("Registered")
-@EActivity(R.layout.activity_issues_list)
-class IssueListActivity : AppCompatActivity(), IssueListView  {
+class CommitsListFragment : Fragment() {
 
-    @Extra
     lateinit var owner: String
-
-    @Extra
     lateinit var repoName: String
+    val viewModel by viewModel<CommitsListViewModel>()
 
-    val viewModel by viewModel<IssueListViewModel>()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-    @AfterViews
-    fun afterViews() {
-        this.configToolbar()
+        val rootView = inflater.inflate(R.layout.fragment_commits_list, container, false)
 
-        val layoutManager = LinearLayoutManager(this)
+        val recyclerView = rootView.findViewById(R.id.recyclerView) as RecyclerView
 
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(rootView.context)
         recyclerView.setHasFixedSize(true)
+
+        setupArguments()
 
         setupViewModel()
 
-        viewModel.loadIssueList(owner, repoName)
+        viewModel.loadCommitsList(owner, repoName)
+
+        return rootView
+
+    }
+
+    private fun setupArguments() {
+        owner = arguments!!.getString(OWNER)
+        repoName = arguments!!.getString(REPONAME)
     }
 
     private fun setupViewModel() {
-        viewModel.issueList.observe(this, Observer {
-            issueList ->
-            showContent(issueList!!)
+        viewModel.commitsList.observe(this, Observer {
+            commitsList ->
+            showContent(commitsList!!)
         })
 
         viewModel.serverError.observe(this, Observer {
@@ -57,22 +64,7 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
         })
     }
 
-    private fun configToolbar() {
-        setSupportActionBar(toolbar)
-        supportActionBar?.let {
-            title = repoName
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setDisplayShowHomeEnabled(true)
-            supportActionBar?.setDisplayShowTitleEnabled(true)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
-    override fun handleError(serverError: ServerError<GitHubErrorBody>) {
+    private fun handleError(serverError: ServerError<GitHubErrorBody>) {
         this.showErrorState()
 
         if (serverError.errorBody != null) {
@@ -83,7 +75,7 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
 
         buttonRetry.setOnClickListener { _ ->
             showLoading()
-            viewModel.loadIssueList(owner, repoName)
+            viewModel.loadCommitsList(owner, repoName)
         }
     }
 
@@ -94,21 +86,21 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
         recyclerView.setGone()
     }
 
-    override fun showLoading() {
+    private fun showLoading() {
         layoutProgress.setVisible()
         layoutEmpty.setGone()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showEmpty() {
+    private fun showEmpty() {
         layoutProgress.setGone()
         layoutEmpty.setVisible()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showContent(content: List<IssueResponse>) {
+    private fun showContent(content: List<CommitResponse>) {
         if (content.isEmpty()) {
             showEmpty()
         } else {
@@ -117,13 +109,13 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
             layoutError.setGone()
             recyclerView.setVisible()
 
-            recyclerView.adapter = this.getIssueListAdapter(content)
+            recyclerView.adapter = this.getContributorListAdapter(content)
         }
     }
 
-    private fun getIssueListAdapter(content: List<IssueResponse>): IssueListAdapter {
-        return IssueListAdapter(
-                content as ArrayList<IssueResponse>
+    private fun getContributorListAdapter(content: List<CommitResponse>): CommitsListAdapter {
+        return CommitsListAdapter(
+                content as ArrayList<CommitResponse>
         )
     }
 }
