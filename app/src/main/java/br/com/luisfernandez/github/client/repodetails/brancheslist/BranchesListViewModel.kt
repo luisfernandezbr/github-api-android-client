@@ -18,7 +18,7 @@ class BranchesListViewModel (
     val branchesList = MutableLiveData<List<BranchResponse>>()
     val serverError = MutableLiveData<ServerError<GitHubErrorBody>>()
 
-    fun loadContributorsList(owner: String, repoName: String) {
+    fun loadBranchesList(owner: String, repoName: String) {
         branchesListModel
                 .loadBranchesList(owner, repoName)
                 .subscribeOn(Schedulers.newThread())
