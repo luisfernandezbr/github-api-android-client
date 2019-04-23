@@ -2,6 +2,8 @@ package br.com.luisfernandez.github.client.koin
 
 import br.com.luisfernandez.github.client.repodetails.commitslist.CommitsListModel
 import br.com.luisfernandez.github.client.repodetails.commitslist.CommitsListModelImpl
+import br.com.luisfernandez.github.client.repodetails.contributorslist.BranchesListModel
+import br.com.luisfernandez.github.client.repodetails.contributorslist.BranchesListModelImpl
 import br.com.luisfernandez.github.client.repodetails.contributorslist.ContributorsListModel
 import br.com.luisfernandez.github.client.repodetails.contributorslist.ContributorsListModelImpl
 import br.com.luisfernandez.github.client.repodetails.issuelist.IssueListModel
@@ -40,6 +42,12 @@ val modelModule = module {
 
     single<CommitsListModel> {
         CommitsListModelImpl(
+                get()
+        )
+    }
+
+    single<BranchesListModel> {
+        BranchesListModelImpl(
                 get()
         )
     }
