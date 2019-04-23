@@ -2,6 +2,7 @@
 
 package br.com.luisfernandez.github.client.koin
 
+import br.com.luisfernandez.github.client.repodetails.brancheslist.BranchesListViewModel
 import br.com.luisfernandez.github.client.repodetails.commitslist.CommitsListViewModel
 import br.com.luisfernandez.github.client.repodetails.contributorslist.ContributorsListViewModel
 import br.com.luisfernandez.github.client.repodetails.issuelist.IssueListViewModel
@@ -38,6 +39,12 @@ val viewModelModule = module {
 
     viewModel<CommitsListViewModel> {
         CommitsListViewModel(
+                get()
+        )
+    }
+
+    viewModel<BranchesListViewModel> {
+        BranchesListViewModel(
                 get()
         )
     }
