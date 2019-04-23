@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import br.com.luisfernandez.github.client.R
+import br.com.luisfernandez.github.client.repodetails.brancheslist.BranchesListFragment
 import br.com.luisfernandez.github.client.repodetails.commitslist.CommitsListFragment
 import br.com.luisfernandez.github.client.repodetails.contributorslist.ContributorsListFragment
 import br.com.luisfernandez.github.client.repodetails.issuelist.IssuesListFragment
@@ -36,7 +37,7 @@ class RepoDetailsPagerAdapter(private val context: Context, fm: FragmentManager,
             1 -> IssuesListFragment()
             2 -> CommitsListFragment()
             3 -> ContributorsListFragment()
-            4 -> BranchesFragment()
+            4 -> BranchesListFragment()
 
             else -> PullRequestListFragment()
         }

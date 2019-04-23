@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.repodetails.contributorslist
+package br.com.luisfernandez.github.client.repodetails.brancheslist
 
 import br.com.luisfernandez.github.client.pojo.BranchResponse
 import io.reactivex.Observable

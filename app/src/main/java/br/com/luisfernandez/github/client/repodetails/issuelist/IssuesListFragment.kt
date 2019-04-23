@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class IssuesListFragment : Fragment(), IssueListView {
+class IssuesListFragment : Fragment() {
 
     lateinit var owner: String
     lateinit var repoName: String
@@ -64,7 +64,7 @@ class IssuesListFragment : Fragment(), IssueListView {
         })
     }
 
-    override fun handleError(serverError: ServerError<GitHubErrorBody>) {
+    private fun handleError(serverError: ServerError<GitHubErrorBody>) {
         this.showErrorState()
 
         if (serverError.errorBody != null) {
@@ -86,21 +86,21 @@ class IssuesListFragment : Fragment(), IssueListView {
         recyclerView.setGone()
     }
 
-    override fun showLoading() {
+    private fun showLoading() {
         layoutProgress.setVisible()
         layoutEmpty.setGone()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showEmpty() {
+    private fun showEmpty() {
         layoutProgress.setGone()
         layoutEmpty.setVisible()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showContent(content: List<IssueResponse>) {
+    private fun showContent(content: List<IssueResponse>) {
         if (content.isEmpty()) {
             showEmpty()
         } else {

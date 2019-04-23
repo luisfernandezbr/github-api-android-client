@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.repodetails.contributorslist
+package br.com.luisfernandez.github.client.repodetails.brancheslist
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -16,15 +16,13 @@ import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.BranchResponse
 import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.OWNER
 import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.REPONAME
-import br.com.luisfernandez.github.client.repodetails.brancheslist.BranchesListAdapter
-import br.com.luisfernandez.github.client.repodetails.brancheslist.BranchesListViewModel
-import kotlinx.android.synthetic.main.fragment_issues_list.*
+import kotlinx.android.synthetic.main.fragment_branches_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class BranchesListFragment : Fragment(), BranchesListView {
+class BranchesListFragment : Fragment() {
 
     lateinit var owner: String
     lateinit var repoName: String
@@ -66,7 +64,7 @@ class BranchesListFragment : Fragment(), BranchesListView {
         })
     }
 
-    override fun handleError(serverError: ServerError<GitHubErrorBody>) {
+    private fun handleError(serverError: ServerError<GitHubErrorBody>) {
         this.showErrorState()
 
         if (serverError.errorBody != null) {
@@ -88,21 +86,21 @@ class BranchesListFragment : Fragment(), BranchesListView {
         recyclerView.setGone()
     }
 
-    override fun showLoading() {
+    private fun showLoading() {
         layoutProgress.setVisible()
         layoutEmpty.setGone()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showEmpty() {
+    private fun showEmpty() {
         layoutProgress.setGone()
         layoutEmpty.setVisible()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showContent(content: List<BranchResponse>) {
+    private fun showContent(content: List<BranchResponse>) {
         if (content.isEmpty()) {
             showEmpty()
         } else {

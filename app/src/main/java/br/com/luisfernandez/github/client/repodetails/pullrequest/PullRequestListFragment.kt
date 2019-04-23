@@ -19,13 +19,13 @@ import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.OWNER
 import br.com.luisfernandez.github.client.repodetails.RepoDetailsPagerAdapter.Companion.REPONAME
-import kotlinx.android.synthetic.main.fragment_issues_list.*
+import kotlinx.android.synthetic.main.fragment_pull_request_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*
 import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class PullRequestListFragment : Fragment(), PullRequestListView {
+class PullRequestListFragment : Fragment() {
 
     lateinit var owner: String
     lateinit var repoName: String
@@ -67,7 +67,7 @@ class PullRequestListFragment : Fragment(), PullRequestListView {
         })
     }
 
-    override fun handleError(serverError: ServerError<GitHubErrorBody>) {
+    private fun handleError(serverError: ServerError<GitHubErrorBody>) {
         this.showErrorState()
 
         if (serverError.errorBody != null) {
@@ -89,21 +89,21 @@ class PullRequestListFragment : Fragment(), PullRequestListView {
         recyclerView.setGone()
     }
 
-    override fun showLoading() {
+    private fun showLoading() {
         layoutProgress.setVisible()
         layoutEmpty.setGone()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showEmpty() {
+    private fun showEmpty() {
         layoutProgress.setGone()
         layoutEmpty.setVisible()
         layoutError.setGone()
         recyclerView.setGone()
     }
 
-    override fun showContent(content: List<PullRequestResponse>) {
+    private fun showContent(content: List<PullRequestResponse>) {
         if (content.isEmpty()) {
             showEmpty()
         } else {

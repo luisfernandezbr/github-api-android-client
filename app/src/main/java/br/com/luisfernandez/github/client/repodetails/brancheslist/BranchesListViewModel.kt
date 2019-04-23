@@ -6,7 +6,6 @@ import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.BranchResponse
-import br.com.luisfernandez.github.client.repodetails.contributorslist.BranchesListModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
