@@ -1,12 +1,13 @@
 package br.com.luisfernandez.github.client.koin
 
 import br.com.luisfernandez.github.client.http.GitHubService
+import br.com.luisfernandez.github.client.http.livedata.AppExecutors
+import br.com.luisfernandez.github.client.http.livedata.LiveDataCallAdapterFactory
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.applicationContext
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -15,6 +16,8 @@ val networkModule = applicationContext {
     bean { createOkHttpClient() }
     // Fill property
     bean { createWebService<GitHubService>(get(), "https://api.github.com") }
+
+    single { AppExecutors() }
 }
 
 fun createOkHttpClient(): OkHttpClient {
@@ -31,6 +34,6 @@ inline fun <reified T> createWebService(okHttpClient: OkHttpClient, url: String)
             .baseUrl(url)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
+            .addCallAdapterFactory(LiveDataCallAdapterFactory()).build()
     return retrofit.create(T::class.java)
 }

@@ -10,6 +10,7 @@ import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
+import br.com.luisfernandez.github.client.http.livedata.Status
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.issuelist.IssueListActivity_
@@ -36,10 +37,11 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     private var isLastPageState = false
     private var currentPage = 1
 
-    private var querySearch = "Java"
+    private var querySearch = "asJavssa"
     private lateinit var repoListAdapter: RepoListAdapter
 
     private val viewModel by viewModel<RepoListViewModel>()
+    private val viewModelLiveData by viewModel<RepoListLiveDataViewModel>()
 
     @AfterViews
     fun afterViews() {
@@ -75,7 +77,16 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         setupViewModel()
 
-        viewModel.loadRepoList(currentPage, querySearch)
+        viewModelLiveData.liveDataRepoList.observe(this , Observer { resource ->
+            when (resource.status) {
+                Status.SUCCESS -> {
+                    resource.data?.let { showContent(it) }
+                }
+                Status.ERROR -> {  this.showErrorState() }
+                Status.LOADING -> {}
+            }
+        })
+        viewModelLiveData.doSearch(currentPage, querySearch)
 
         sendQueryEvent(querySearch)
     }

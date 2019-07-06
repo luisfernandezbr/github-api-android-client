@@ -1,8 +1,11 @@
 package br.com.luisfernandez.github.client.http;
 
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
 
 import br.com.luisfernandez.github.client.http.annotations.URL;
+import br.com.luisfernandez.github.client.http.livedata.ApiResponse;
 import br.com.luisfernandez.github.client.pojo.IssueResponse;
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse;
 import br.com.luisfernandez.github.client.pojo.RepoListResponse;
@@ -19,6 +22,9 @@ public interface GitHubService
 {
     @GET("/search/repositories?sort=stars&per_page=10")
     Observable<RepoListResponse> listRepos(@Query("page") int page, @Query("q") String language);
+
+    @GET("/search/repositories?sort=stars&per_page=10")
+    LiveData<ApiResponse<RepoListResponse>> listReposLiveData(@Query("page") int page, @Query("q") String language);
 
     @GET("/repos/{owner}/{repoName}/pulls")
     Observable<List<PullRequestResponse>> listPullRequests(@Path("owner") String owner, @Path("repoName") String repoName);
