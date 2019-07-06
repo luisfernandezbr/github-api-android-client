@@ -5,8 +5,7 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.luisfernandez.github.client.OnItemClickListener
+import br.com.luisfernandez.github.client.repolist.view.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible

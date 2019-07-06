@@ -1,6 +1,5 @@
 package br.com.luisfernandez.github.client.issuelist
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,11 +32,11 @@ class IssueListAdapter(
 
 
         holder.textTitle.text = item.title
-        holder.textAuthorName.text = item.user.login
+        holder.textAuthorName.text = item.userDTO.login
         holder.textDate.text = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(item.createdAt)
         holder.textDescription.text = item.body
 
-        ImageLoader.loadImage(item.user.avatarUrl, holder.imageIssueAuthor)
+        ImageLoader.loadImage(item.userDTO.avatarUrl, holder.imageIssueAuthor)
     }
 
     class IssueViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {

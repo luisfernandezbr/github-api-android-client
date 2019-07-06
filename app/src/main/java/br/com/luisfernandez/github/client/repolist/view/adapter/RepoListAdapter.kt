@@ -1,13 +1,12 @@
-package br.com.luisfernandez.github.client.repolist
+package br.com.luisfernandez.github.client.repolist.view.adapter
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.com.luisfernandez.github.client.OnItemClickListener
+import br.com.luisfernandez.github.client.repolist.view.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
-import br.com.luisfernandez.github.client.pojo.Repo
+import br.com.luisfernandez.github.client.dto.RepoDTO
 import kotlinx.android.synthetic.main.endless_adapter_footer_error.view.*
 import kotlinx.android.synthetic.main.item_repository_list.view.*
 
@@ -17,9 +16,9 @@ import kotlin.collections.ArrayList
  * Created by luisfernandez on 10/05/18.
  */
 class RepoListAdapter(
-        private val onItemClickListener: OnItemClickListener<Repo>,
+        private val onItemClickListener: OnItemClickListener<RepoDTO>,
         private val onRetryClickListener: OnItemClickListener<String>,
-        private val onIssueClickListener: OnItemClickListener<Repo>
+        private val onIssueClickListener: OnItemClickListener<RepoDTO>
 ) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>()
 {
     companion object {
@@ -29,15 +28,15 @@ class RepoListAdapter(
         const val ERROR_FOOTER = 3
     }
 
-    private val repoList: ArrayList<Repo> = ArrayList()
+    private val repoDTOList: ArrayList<RepoDTO> = ArrayList()
 
     private var isLoadingAdded = false
     private var isErrorAdded = false
 
     override fun getItemViewType(position: Int): Int {
-        return if (isLoadingAdded && position == this.repoList.size) {
+        return if (isLoadingAdded && position == this.repoDTOList.size) {
             FOOTER
-        } else if (isErrorAdded && position == this.repoList.size) {
+        } else if (isErrorAdded && position == this.repoDTOList.size) {
             ERROR_FOOTER
         } else {
             CONTENT
@@ -45,7 +44,7 @@ class RepoListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (isLoadingAdded || isErrorAdded) this.repoList.size + 1 else this.repoList.size
+        return if (isLoadingAdded || isErrorAdded) this.repoDTOList.size + 1 else this.repoDTOList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
@@ -94,8 +93,8 @@ class RepoListAdapter(
         }
     }
 
-    private fun getItem(position: Int): Repo {
-        return this.repoList[position]
+    private fun getItem(position: Int): RepoDTO {
+        return this.repoDTOList[position]
     }
 
     fun showFooter() {
@@ -110,11 +109,11 @@ class RepoListAdapter(
         notifyItemInserted(itemCount)
     }
 
-    fun addAll(repoList: List<Repo>) {
+    fun addAll(repoDTOList: List<RepoDTO>) {
         isLoadingAdded = false
         notifyItemInserted(itemCount)
 
-        this.repoList.addAll(repoList)
+        this.repoDTOList.addAll(repoDTOList)
         isLoadingAdded = false
         notifyDataSetChanged()
     }
@@ -136,6 +135,6 @@ class RepoListAdapter(
     }
 
     fun clear() {
-        repoList.clear()
+        repoDTOList.clear()
     }
 }

@@ -1,20 +1,19 @@
-package br.com.luisfernandez.github.client.repolist
+package br.com.luisfernandez.github.client.repolist.view
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
-import br.com.luisfernandez.github.client.OnItemClickListener
-import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.issuelist.IssueListActivity_
-import br.com.luisfernandez.github.client.pojo.Repo
+import br.com.luisfernandez.github.client.dto.RepoDTO
 import br.com.luisfernandez.github.client.pullrequest.PullRequestListActivity_
+import br.com.luisfernandez.github.client.repolist.view.adapter.RepoListAdapter
+import br.com.luisfernandez.github.client.repolist.viewmodel.RepoListViewModel
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.SearchEvent
 import com.miguelcatalan.materialsearchview.MaterialSearchView
@@ -24,7 +23,6 @@ import kotlinx.android.synthetic.main.view_state_error.*
 import kotlinx.android.synthetic.main.view_state_loading.*
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -125,17 +123,17 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         )
     }
 
-    private fun getOnItemClickListener(): OnItemClickListener<Repo> {
-        return object : OnItemClickListener<Repo> {
-            override fun onItemClick(type: Repo) {
+    private fun getOnItemClickListener(): OnItemClickListener<RepoDTO> {
+        return object : OnItemClickListener<RepoDTO> {
+            override fun onItemClick(type: RepoDTO) {
                 goToPullRequestActivity(type)
             }
         }
     }
 
-    private fun getOnIssueClickListener(): OnItemClickListener<Repo> {
-        return object : OnItemClickListener<Repo> {
-            override fun onItemClick(type: Repo) {
+    private fun getOnIssueClickListener(): OnItemClickListener<RepoDTO> {
+        return object : OnItemClickListener<RepoDTO> {
+            override fun onItemClick(type: RepoDTO) {
                 goToIssueListActivity(type)
             }
         }
@@ -149,7 +147,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         }
     }
 
-    private fun goToPullRequestActivity(type: Repo) {
+    private fun goToPullRequestActivity(type: RepoDTO) {
         PullRequestListActivity_
                 .intent(this@RepoListActivity)
                 .owner(type.owner.login)
@@ -157,7 +155,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
                 .start()
     }
 
-    private fun goToIssueListActivity(type: Repo) {
+    private fun goToIssueListActivity(type: RepoDTO) {
         IssueListActivity_
                 .intent(this@RepoListActivity)
                 .owner(type.owner.login)
@@ -215,7 +213,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         recyclerView.setGone()
     }
 
-    override fun showContent(content: List<Repo>) {
+    override fun showContent(content: List<RepoDTO>) {
         repoListAdapter.addAll(content)
 
         if (content.isEmpty()) {

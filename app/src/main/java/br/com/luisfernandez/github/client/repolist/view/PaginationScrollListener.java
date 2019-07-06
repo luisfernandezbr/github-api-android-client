@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client;
+package br.com.luisfernandez.github.client.repolist.view;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;

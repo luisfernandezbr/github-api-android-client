@@ -1,10 +1,9 @@
 package br.com.luisfernandez.github.client.pullrequest
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.com.luisfernandez.github.client.OnItemClickListener
+import br.com.luisfernandez.github.client.repolist.view.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.misc.ImageLoader
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse
@@ -35,13 +34,13 @@ class PullRequestListAdapter(
 
 
         holder.textTitle.text = item.title
-        holder.textAuthorName.text = item.user.login
+        holder.textAuthorName.text = item.userDTO.login
         holder.textDate.text = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(item.createdAt)
         holder.textDescription.text = item.body
 
-        ImageLoader.loadImage(item.user.avatarUrl, holder.imagePullRequestAuthor)
+        ImageLoader.loadImage(item.userDTO.avatarUrl, holder.imagePullRequestAuthor)
 
-        holder.itemView.setOnClickListener { _ ->
+        holder.itemView.setOnClickListener {
             onItemClickListener.onItemClick(item)
         }
     }

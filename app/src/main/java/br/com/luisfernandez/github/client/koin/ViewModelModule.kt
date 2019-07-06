@@ -4,7 +4,7 @@ package br.com.luisfernandez.github.client.koin
 
 import br.com.luisfernandez.github.client.issuelist.IssueListViewModel
 import br.com.luisfernandez.github.client.pullrequest.PullRequestViewModel
-import br.com.luisfernandez.github.client.repolist.RepoListViewModel
+import br.com.luisfernandez.github.client.repolist.viewmodel.RepoListViewModel
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
