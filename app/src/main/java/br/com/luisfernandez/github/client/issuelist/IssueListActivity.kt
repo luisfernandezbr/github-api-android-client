@@ -1,9 +1,9 @@
 package br.com.luisfernandez.github.client.issuelist
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
@@ -35,7 +35,7 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
     fun afterViews() {
         this.configToolbar()
 
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)

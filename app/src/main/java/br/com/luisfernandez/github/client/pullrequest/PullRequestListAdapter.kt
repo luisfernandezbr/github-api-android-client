@@ -1,6 +1,6 @@
 package br.com.luisfernandez.github.client.pullrequest
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +18,7 @@ import java.util.*
 class PullRequestListAdapter(
         private val pullRequestList: ArrayList<PullRequestResponse> = ArrayList(),
         private val onItemClickListener: OnItemClickListener<PullRequestResponse>
-) : RecyclerView.Adapter<PullRequestListAdapter.PullRequestViewHolder>()
+) : androidx.recyclerview.widget.RecyclerView.Adapter<PullRequestListAdapter.PullRequestViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pull_request_list, parent, false)
@@ -46,7 +46,7 @@ class PullRequestListAdapter(
         }
     }
 
-    class PullRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class PullRequestViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         var imagePullRequestAuthor = itemView.imagePullRequestAuthor!!
         var textAuthorName = itemView.textAuthorName!!
         var textTitle = itemView.textTitle!!

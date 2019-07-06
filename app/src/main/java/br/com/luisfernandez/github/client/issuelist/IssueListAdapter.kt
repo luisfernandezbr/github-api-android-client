@@ -1,6 +1,6 @@
 package br.com.luisfernandez.github.client.issuelist
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ import java.util.*
  */
 class IssueListAdapter(
         private val issueList: ArrayList<IssueResponse> = ArrayList()
-) : RecyclerView.Adapter<IssueListAdapter.IssueViewHolder>()
+) : androidx.recyclerview.widget.RecyclerView.Adapter<IssueListAdapter.IssueViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IssueViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_issue_list, parent, false)
@@ -40,7 +40,7 @@ class IssueListAdapter(
         ImageLoader.loadImage(item.user.avatarUrl, holder.imageIssueAuthor)
     }
 
-    class IssueViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class IssueViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         var imageIssueAuthor = itemView.imageIssueAuthor!!
         var textAuthorName = itemView.textIssueAuthorName!!
         var textTitle = itemView.textIssueTitle!!

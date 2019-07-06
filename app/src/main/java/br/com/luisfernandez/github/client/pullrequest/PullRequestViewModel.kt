@@ -1,7 +1,7 @@
 package br.com.luisfernandez.github.client.pullrequest
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError

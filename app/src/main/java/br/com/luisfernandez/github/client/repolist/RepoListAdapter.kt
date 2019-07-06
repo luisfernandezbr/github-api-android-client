@@ -1,6 +1,6 @@
 package br.com.luisfernandez.github.client.repolist
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +20,7 @@ class RepoListAdapter(
         private val onItemClickListener: OnItemClickListener<Repo>,
         private val onRetryClickListener: OnItemClickListener<String>,
         private val onIssueClickListener: OnItemClickListener<Repo>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>()
 {
     companion object {
         const val TAG = "RepoListAdapter"
@@ -48,7 +48,7 @@ class RepoListAdapter(
         return if (isLoadingAdded || isErrorAdded) this.repoList.size + 1 else this.repoList.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         return when(viewType) {
             CONTENT -> ContentViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_repository_list, parent, false))
             FOOTER -> FooterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_loading_more, parent, false))
@@ -56,7 +56,7 @@ class RepoListAdapter(
         }
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         val itemViewType = getItemViewType(position)
 
         when (itemViewType) {
@@ -119,7 +119,7 @@ class RepoListAdapter(
         notifyDataSetChanged()
     }
 
-    class ContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ContentViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val textRepoName = itemView.textRepoName!!
         val textRepoDescription = itemView.textRepoDescription!!
         val textRepoAuthor = itemView.textRepoAuthor!!
@@ -129,9 +129,9 @@ class RepoListAdapter(
         val textIssuesCount = itemView.textIssuesCount!!
     }
 
-    class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class FooterViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView)
 
-    class ErrorFooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ErrorFooterViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val buttonRetry = itemView.buttonRetry!!
     }
 

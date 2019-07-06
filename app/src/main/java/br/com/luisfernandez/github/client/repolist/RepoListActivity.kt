@@ -1,9 +1,9 @@
 package br.com.luisfernandez.github.client.repolist
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.PaginationScrollListener
@@ -106,7 +106,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     }
 
     private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
 
@@ -243,7 +243,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         recyclerView.setGone()
     }
 
-    private fun getPaginationScrollListener(layoutManager: LinearLayoutManager): PaginationScrollListener {
+    private fun getPaginationScrollListener(layoutManager: androidx.recyclerview.widget.LinearLayoutManager): PaginationScrollListener {
         return object : PaginationScrollListener(layoutManager) {
             override fun loadMoreItems() {
                 loadMoreContent()

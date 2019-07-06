@@ -1,11 +1,11 @@
 package br.com.luisfernandez.github.client.pullrequest
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
@@ -38,7 +38,7 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
     fun afterViews() {
         this.configToolbar()
 
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
