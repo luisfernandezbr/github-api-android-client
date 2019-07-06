@@ -28,12 +28,12 @@ import androidx.annotation.WorkerThread
  * You can read more about it in the [Architecture
  * Guide](https://developer.android.com/arch).
  * @param <ResultType>
- * @param <RequestType>
-</RequestType></ResultType> */
-abstract class NetworkBoundResource<ResultType, RequestType>
+ * @param <ApiReturnType>
+</ApiReturnType></ResultType> */
+abstract class NetworkBoundResource<SuccessType, ApiReturnType>
 @MainThread constructor(private val appExecutors: AppExecutors) {
 
-    private val result = MediatorLiveData<Resource<ResultType>>()
+    private val result = MediatorLiveData<Resource<SuccessType>>()
 
     init {
         result.value = Resource.loading(null)
@@ -41,7 +41,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     }
 
     @MainThread
-    private fun setValue(newValue: Resource<ResultType>) {
+    private fun setValue(newValue: Resource<SuccessType>) {
         if (result.value != newValue) {
             result.value = newValue
         }
@@ -70,6 +70,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                     }
                 }
                 is ApiErrorResponse -> {
+                    // TODO Call to parse error here?
                     onFetchFailed()
                     setValue(Resource.error(apiResponse.errorMessage, null))
                 }
@@ -79,14 +80,14 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 
     protected open fun onFetchFailed() {}
 
-    fun asLiveData() = result as LiveData<Resource<ResultType>>
+    fun asLiveData() = result as LiveData<Resource<SuccessType>>
 
     @WorkerThread
-    protected abstract fun processResponse(response: ApiSuccessResponse<RequestType>) : ResultType
+    protected abstract fun processResponse(response: ApiSuccessResponse<ApiReturnType>) : SuccessType
 
     @WorkerThread
-    protected abstract fun processEmptyResponse(response: ApiEmptyResponse<RequestType>) : ResultType
+    protected abstract fun processEmptyResponse(response: ApiEmptyResponse<ApiReturnType>) : SuccessType
 
     @MainThread
-    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+    protected abstract fun createCall(): LiveData<ApiResponse<ApiReturnType>>
 }
