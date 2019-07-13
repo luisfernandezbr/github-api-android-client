@@ -7,6 +7,8 @@ import br.com.luisfernandez.github.client.pojo.IssueResponse;
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse;
 import br.com.luisfernandez.github.client.pojo.RepoListResponse;
 import io.reactivex.Observable;
+import kotlinx.coroutines.Deferred;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -19,6 +21,9 @@ public interface GitHubService
 {
     @GET("/search/repositories?sort=stars&per_page=10")
     Observable<RepoListResponse> listRepos(@Query("page") int page, @Query("q") String language);
+
+    @GET("/search/repositories?sort=stars&per_page=10")
+    Deferred<Response<RepoListResponse>> listReposCoroutine(@Query("page") int page, @Query("q") String language);
 
     @GET("/repos/{owner}/{repoName}/pulls")
     Observable<List<PullRequestResponse>> listPullRequests(@Path("owner") String owner, @Path("repoName") String repoName);

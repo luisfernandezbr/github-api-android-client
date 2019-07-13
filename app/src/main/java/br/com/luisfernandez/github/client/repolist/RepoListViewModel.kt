@@ -2,12 +2,14 @@ package br.com.luisfernandez.github.client.repolist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.Repo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 class RepoListViewModel(
         private val repoListModel: RepoListModel
@@ -31,5 +33,12 @@ class RepoListViewModel(
                         listRepo.postValue(repoList)
                     }
                 })
+    }
+
+    fun loadRepoListAsync(page: Int, language: String) {
+        viewModelScope.launch {
+            val repoList = repoListModel.loadRepoListCoroutineAsync(page, language)
+            listRepo.postValue(repoList)
+        }
     }
 }

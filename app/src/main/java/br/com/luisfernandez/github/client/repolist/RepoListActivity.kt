@@ -75,7 +75,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         setupViewModel()
 
-        viewModel.loadRepoList(currentPage, querySearch)
+        viewModel.loadRepoListAsync(currentPage, querySearch)
 
         sendQueryEvent(querySearch)
     }
