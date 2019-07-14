@@ -14,9 +14,6 @@ import retrofit2.Response
  * Created by luisfernandez on 11/05/18.
  */
 interface RepoListModel {
-    fun loadRepoList(page: Int, language: String): Observable<List<Repo>>
-
-    suspend fun loadRepoListCoroutineAsync(page: Int, language: String): List<Repo>
 
     suspend fun loadRepoListCoroutine(page: Int, language: String): ResultWrapper<List<Repo>, GitHubErrorBody>
 }

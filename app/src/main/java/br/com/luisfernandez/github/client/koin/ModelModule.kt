@@ -1,6 +1,5 @@
 package br.com.luisfernandez.github.client.koin
 
-import br.com.luisfernandez.github.client.http.GitHubService
 import br.com.luisfernandez.github.client.issuelist.IssueListModel
 import br.com.luisfernandez.github.client.issuelist.IssueListModelImpl
 import br.com.luisfernandez.github.client.pullrequest.PullRequestModel
@@ -14,7 +13,6 @@ val modelModule = module {
 
     single<RepoListModel> {
         RepoListModelImpl(
-                get() as GitHubService,
                 get() as RepoListRepository
         )
     }
