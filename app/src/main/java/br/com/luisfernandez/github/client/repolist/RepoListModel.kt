@@ -1,6 +1,8 @@
 package br.com.luisfernandez.github.client.repolist
 
+import br.com.luisfernandez.github.client.http.ResultWrapper
 import br.com.luisfernandez.github.client.pojo.Repo
+import br.com.luisfernandez.github.client.pojo.RepoListResponse
 import br.com.luisfernandez.github.client.pojo.User
 import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
@@ -14,4 +16,8 @@ interface RepoListModel {
     fun loadRepoList(page: Int, language: String): Observable<List<Repo>>
 
     suspend fun loadRepoListCoroutineAsync(page: Int, language: String): List<Repo>
+
+    suspend fun loadRepoListCoroutineWrapped(page: Int, language: String): ResultWrapper<List<Repo>, String>
+
+    suspend fun loadRepoListCoroutine(page: Int, language: String): ResultWrapper<RepoListResponse, String>
 }

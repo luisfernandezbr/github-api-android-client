@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
+import androidx.lifecycle.lifecycleScope
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.PaginationScrollListener
 import br.com.luisfernandez.github.client.R
@@ -75,7 +76,12 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
 
         setupViewModel()
 
-        viewModel.loadRepoListAsync(currentPage, querySearch)
+
+//        lifecycleScope.launchWhenCreated {
+//            viewModel.loadRepoListAsync(currentPage, querySearch)
+//        }
+
+        viewModel.loadRepoListAsyncCoroutine(currentPage, querySearch)
 
         sendQueryEvent(querySearch)
     }

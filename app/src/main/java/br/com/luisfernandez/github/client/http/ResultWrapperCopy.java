@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResultWrapper<SUCCESS, ERROR> {
+public class ResultWrapperCopy<SUCCESS, ERROR> {
 
     private SUCCESS success;
     private ERROR error;
@@ -26,6 +26,14 @@ public class ResultWrapper<SUCCESS, ERROR> {
 
     public void setError(ERROR error) {
         this.error = error;
+    }
+
+    public Map<String, String> getKeyValueMap() {
+        return keyValueMap;
+    }
+
+    public void setKeyValueMap(Map<String, String> keyValueMap) {
+        this.keyValueMap = keyValueMap;
     }
 
     public void addKeyValue(String key, String value ) {

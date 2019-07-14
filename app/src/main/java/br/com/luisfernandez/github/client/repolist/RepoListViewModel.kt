@@ -2,6 +2,7 @@ package br.com.luisfernandez.github.client.repolist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
@@ -12,7 +13,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
 class RepoListViewModel(
-        private val repoListModel: RepoListModel
+        private val repoListModel: RepoListModel,
+        private val repoListRepository: RepoListRepository
 ) : ViewModel() {
 
     val listRepo = MutableLiveData<List<Repo>>()
@@ -35,10 +37,32 @@ class RepoListViewModel(
                 })
     }
 
-    fun loadRepoListAsync(page: Int, language: String) {
+    suspend fun loadRepoListAsync(page: Int, language: String) {
         viewModelScope.launch {
             val repoList = repoListModel.loadRepoListCoroutineAsync(page, language)
             listRepo.postValue(repoList)
         }
+    }
+
+    fun loadRepoListAsyncCoroutine(page: Int, language: String) {
+        viewModelScope.launch {
+            val resultWrapper = repoListModel.loadRepoListCoroutineWrapped(page, language)
+
+            if (resultWrapper.success != null) {
+                listRepo.value = resultWrapper.success
+            } else {
+
+            }
+        }
+
+//        viewModelScope.launch {
+//            val resultWrapper = repoListModel.loadRepoListCoroutine(page, language)
+//
+//            if (resultWrapper.success != null) {
+//                listRepo.value = resultWrapper.success?.repos
+//            } else {
+//
+//            }
+//        }
     }
 }
