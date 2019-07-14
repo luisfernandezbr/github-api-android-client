@@ -2,57 +2,47 @@ package br.com.luisfernandez.github.client.repolist
 
 import br.com.luisfernandez.github.client.http.GitHubService
 import br.com.luisfernandez.github.client.http.ResultWrapper
+import br.com.luisfernandez.github.client.http.ResultWrapperAdapter
+import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
+import br.com.luisfernandez.github.client.http.v2.jw.DeferredResponseHandler
+import br.com.luisfernandez.github.client.pojo.Repo
 import br.com.luisfernandez.github.client.pojo.RepoListResponse
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 class RepoListRepositoryImpl(
         private val gitHubService: GitHubService
 ) : RepoListRepository {
-    override suspend fun loadRepoListCoroutineAsync(page: Int, language: String): ResultWrapper<RepoListResponse, String> {
-        return withContext(Dispatchers.IO) {
-            val deferredResponse = gitHubService.listReposCoroutine(page, language)
-            DeferredResponseHandler<RepoListResponse, String>(deferredResponse).handle()
-        }
+
+    override suspend fun loadRepoListCoroutineAsync(page: Int, language: String): ResultWrapper<List<Repo>, GitHubErrorBody> {
+        val resultWrapper = DeferredResponseHandler().handle<RepoListResponse, GitHubErrorBody>(
+                deferredResponse = gitHubService.listReposCoroutine(page, language)
+        )
+        return this.getResultWrapperAdapter().adapt(resultWrapper)
     }
-}
 
-class DeferredResponseHandler<S, E>(
-        var deferredResponse: Deferred<Response<S>>
-) {
-    suspend fun handle(): ResultWrapper<S, E>{
-        val resultWrapper = ResultWrapper<S, E>()
+    private fun getResultWrapperAdapter(): ResultWrapperAdapter<RepoListResponse, GitHubErrorBody, List<Repo>, GitHubErrorBody> {
+        return object : ResultWrapperAdapter<RepoListResponse, GitHubErrorBody, List<Repo>, GitHubErrorBody>() {
 
-        try {
-            val response = deferredResponse.await()
+            override fun adaptKeyValueMap(fromKeyValueMap: MutableMap<String, String>): MutableMap<String, String>? {
+                val toKeyValueMap = HashMap<String, String>(1)
 
-            if (response.isSuccessful) {
-                resultWrapper.success = if (response.body() != null) {
-                    @Suppress("UNCHECKED_CAST")
-                    response.body() as S
-                } else {
-                    null
+                val keyCacheControl = "Cache-Control"
+
+                if (fromKeyValueMap.containsKey(keyCacheControl)) {
+                    fromKeyValueMap[keyCacheControl]?.run {
+                        toKeyValueMap[keyCacheControl] = this
+                    }
                 }
-            } else {
-                //resultWrapper.error = response.errorBody().toString()
+
+                return toKeyValueMap
             }
 
-            resultWrapper.statusCode = response.code()
-
-            val headers = response.headers()
-            headers.names().map { headerKey ->
-                val headerValue = headers.get(headerKey)
-                resultWrapper.addKeyValue(headerKey , headerValue ?: "")
+            override fun adaptSuccess(fromSuccess: RepoListResponse?): List<Repo>? {
+                return fromSuccess?.repos
             }
 
-
-        } catch(e: Exception) {
-            resultWrapper.error = e.message as E
+            override fun adaptError(fromError: GitHubErrorBody?): GitHubErrorBody? {
+                return fromError
+            }
         }
-
-        return resultWrapper
     }
-
 }

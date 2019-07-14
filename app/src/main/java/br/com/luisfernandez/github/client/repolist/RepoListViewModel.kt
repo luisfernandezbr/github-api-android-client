@@ -10,6 +10,7 @@ import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.Repo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RepoListViewModel(
@@ -45,24 +46,19 @@ class RepoListViewModel(
     }
 
     fun loadRepoListAsyncCoroutine(page: Int, language: String) {
-        viewModelScope.launch {
-            val resultWrapper = repoListModel.loadRepoListCoroutineWrapped(page, language)
+        viewModelScope.launch(Dispatchers.IO) {
+            val resultWrapper = repoListModel.loadRepoListCoroutine(page, language)
 
             if (resultWrapper.success != null) {
-                listRepo.value = resultWrapper.success
+                listRepo.postValue(resultWrapper.success)
             } else {
+                serverError.postValue(ServerError(
+                        httpStatus = resultWrapper.statusCode,
+                        errorBody = resultWrapper.error,
+                        errorMessage = resultWrapper.genericErrorMessage
 
+                ))
             }
         }
-
-//        viewModelScope.launch {
-//            val resultWrapper = repoListModel.loadRepoListCoroutine(page, language)
-//
-//            if (resultWrapper.success != null) {
-//                listRepo.value = resultWrapper.success?.repos
-//            } else {
-//
-//            }
-//        }
     }
 }

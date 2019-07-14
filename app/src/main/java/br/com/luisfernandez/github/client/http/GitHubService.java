@@ -22,7 +22,7 @@ public interface GitHubService
     @GET("/search/repositories?sort=stars&per_page=10")
     Observable<RepoListResponse> listRepos(@Query("page") int page, @Query("q") String language);
 
-    @GET("/search/repositories?sort=stars&per_page=10")
+    @GET("/search/repositosries?sort=stars&per_page=10")
     Deferred<Response<RepoListResponse>> listReposCoroutine(@Query("page") int page, @Query("q") String language);
 
     @GET("/repos/{owner}/{repoName}/pulls")

@@ -1,6 +1,7 @@
 package br.com.luisfernandez.github.client.repolist
 
 import br.com.luisfernandez.github.client.http.*
+import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.pojo.Repo
 import br.com.luisfernandez.github.client.pojo.RepoListResponse
 import io.reactivex.Observable
@@ -36,37 +37,7 @@ class RepoListModelImpl (
         }
     }
 
-    override suspend fun loadRepoListCoroutine(page: Int, language: String): ResultWrapper<RepoListResponse, String> {
+    override suspend fun loadRepoListCoroutine(page: Int, language: String): ResultWrapper<List<Repo>, GitHubErrorBody> {
         return repoListRepository.loadRepoListCoroutineAsync(page, language)
-    }
-
-    override suspend fun loadRepoListCoroutineWrapped(page: Int, language: String): ResultWrapper<List<Repo>, String> {
-        val loadRepoListCoroutineAsync = repoListRepository.loadRepoListCoroutineAsync(page, language)
-
-        val transformerAdapter = object : ResultWrapperAdapter<RepoListResponse, String, List<Repo>, String>() {
-            override fun adaptKeyValueMap(fromKeyValueMap: MutableMap<String, String>): MutableMap<String, String>? {
-                val toKeyValueMap = HashMap<String, String>(1)
-
-                val keyCacheControl = "Cache-Control"
-
-                if (fromKeyValueMap.containsKey(keyCacheControl)) {
-                    fromKeyValueMap[keyCacheControl]?.run {
-                        toKeyValueMap[keyCacheControl] = this
-                    }
-                }
-
-                return toKeyValueMap
-            }
-
-            override fun adaptSuccess(fromSuccess: RepoListResponse?): List<Repo>? {
-                return fromSuccess?.repos
-            }
-
-            override fun adaptError(fromError: String?): String? {
-                return fromError
-            }
-        }
-
-        return transformerAdapter.adapt(loadRepoListCoroutineAsync)
     }
 }
