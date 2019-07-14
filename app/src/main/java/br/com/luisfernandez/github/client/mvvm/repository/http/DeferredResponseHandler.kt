@@ -1,6 +1,7 @@
 package br.com.luisfernandez.github.client.mvvm.repository.http
 
 import android.util.Log
+import br.com.luisfernandez.github.client.mvvm.repository.ErrorData
 import br.com.luisfernandez.github.client.mvvm.repository.ResultWrapper
 import com.google.gson.Gson
 import kotlinx.coroutines.Deferred
@@ -14,9 +15,9 @@ import java.net.UnknownHostException
 class DeferredResponseHandler {
     suspend inline fun <SUCCESS, reified ERROR : Any> handle(
             deferredResponse: Deferred<Response<SUCCESS>>
-    ): ResultWrapper<SUCCESS, ERROR> {
+    ): ResultWrapper<SUCCESS, ErrorData<ERROR>> {
 
-        val resultWrapper = ResultWrapper<SUCCESS, ERROR>()
+        val resultWrapper = ResultWrapper<SUCCESS, ErrorData<ERROR>>()
 
         try {
             val response = deferredResponse.await()
@@ -34,10 +35,15 @@ class DeferredResponseHandler {
                 val clazz = ERROR::class.java
 
                 if (clazz.name == "java.lang.String") {
-                    resultWrapper.error = string as ERROR
+                    resultWrapper.error = ErrorData(errorMessage = string)
                 } else {
                     val fromJson = Gson().fromJson(string, clazz)
-                    resultWrapper.error = fromJson
+
+                    val errorData = ErrorData(
+                            errorBody = fromJson
+                    )
+
+                    resultWrapper.error = errorData
                 }
             }
 
@@ -74,7 +80,9 @@ class DeferredResponseHandler {
             }
 
             resultWrapper.statusCode = customStatusCode
-            resultWrapper.genericErrorMessage = exception.message
+            resultWrapper.error = ErrorData(
+                    errorMessage = exception.message
+            )
         }
 
         return resultWrapper

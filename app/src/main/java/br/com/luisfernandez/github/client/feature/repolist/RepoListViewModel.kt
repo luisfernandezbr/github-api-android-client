@@ -23,10 +23,11 @@ class RepoListViewModel(
             if (resultWrapper.success != null) {
                 listRepo.postValue(resultWrapper.success)
             } else {
+
                 serverError.postValue(ServerError(
                         httpStatus = resultWrapper.statusCode,
-                        errorBody = resultWrapper.error,
-                        errorMessage = resultWrapper.genericErrorMessage
+                        errorBody = resultWrapper.error?.errorBody,
+                        errorMessage = resultWrapper.error?.errorMessage
 
                 ))
             }
