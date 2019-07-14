@@ -2,6 +2,7 @@
 
 package br.com.luisfernandez.github.client.koin
 
+import br.com.luisfernandez.github.client.feature.issuelist.IssueListRepository
 import br.com.luisfernandez.github.client.feature.issuelist.IssueListViewModel
 import br.com.luisfernandez.github.client.feature.pullrequest.PullRequestRepository
 import br.com.luisfernandez.github.client.feature.pullrequest.PullRequestViewModel
@@ -26,7 +27,7 @@ val viewModelModule = module {
 
     viewModel<IssueListViewModel> {
         IssueListViewModel(
-                get()
+                get() as IssueListRepository
         )
     }
 }

@@ -24,5 +24,5 @@ interface GitHubService {
     fun listPullRequests(@Path("owner") owner: String, @Path("repoName") repoName: String): Deferred<Response<List<PullRequestResponse>>>
 
     @GET("/repos/{owner}/{repoName}/issues")
-    fun listIssues(@Path("owner") owner: String, @Path("repoName") repoName: String): Observable<List<IssueResponse>>
+    fun listIssues(@Path("owner") owner: String, @Path("repoName") repoName: String): Deferred<Response<List<IssueResponse>>>
 }

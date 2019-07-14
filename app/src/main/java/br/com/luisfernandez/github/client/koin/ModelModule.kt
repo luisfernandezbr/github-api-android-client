@@ -1,7 +1,5 @@
 package br.com.luisfernandez.github.client.koin
 
-import br.com.luisfernandez.github.client.feature.issuelist.IssueListModel
-import br.com.luisfernandez.github.client.feature.issuelist.IssueListModelImpl
 import br.com.luisfernandez.github.client.feature.pullrequest.PullRequestModel
 import br.com.luisfernandez.github.client.feature.pullrequest.PullRequestModelImpl
 import br.com.luisfernandez.github.client.feature.repolist.RepoListModel
@@ -19,12 +17,6 @@ val modelModule = module {
 
     single<PullRequestModel> {
         PullRequestModelImpl(
-                get()
-        )
-    }
-
-    single<IssueListModel> {
-        IssueListModelImpl(
                 get()
         )
     }

@@ -2,15 +2,15 @@ package br.com.luisfernandez.github.client.feature.issuelist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.luisfernandez.github.client.http.CallbackWrapper
+import androidx.lifecycle.viewModelScope
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.IssueResponse
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class IssueListViewModel (
-    private val issueListModel: IssueListModel
+    private val issueListRepository: IssueListRepository
 ) : ViewModel()
 {
 
@@ -18,18 +18,12 @@ class IssueListViewModel (
     val serverError = MutableLiveData<ServerError<GitHubErrorBody>>()
 
     fun loadIssueList(owner: String, repoName: String) {
-        issueListModel
-                .loadIssueList(owner, repoName)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object: CallbackWrapper<List<IssueResponse>, GitHubErrorBody>(GitHubErrorBody::class.java) {
-                    override fun onError(error: ServerError<GitHubErrorBody>) {
-                        serverError.postValue(error)
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            val resultWrapper = issueListRepository.loadIssueList(owner, repoName)
 
-                    override fun onSuccess(listIssue: List<IssueResponse>) {
-                        issueList.postValue(listIssue)
-                    }
-                })
+            if (resultWrapper.success != null) {
+                issueList.postValue(resultWrapper.success)
+            }
+        }
     }
 }

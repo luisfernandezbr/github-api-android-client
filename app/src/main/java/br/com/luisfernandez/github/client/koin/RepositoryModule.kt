@@ -1,6 +1,8 @@
 package br.com.luisfernandez.github.client.koin
 
 import br.com.luisfernandez.github.client.api.GitHubService
+import br.com.luisfernandez.github.client.feature.issuelist.IssueListRepository
+import br.com.luisfernandez.github.client.feature.issuelist.IssueListRepositoryImpl
 import br.com.luisfernandez.github.client.feature.pullrequest.PullRequestRepository
 import br.com.luisfernandez.github.client.feature.pullrequest.PullRequestRepositoryImpl
 import br.com.luisfernandez.github.client.feature.repolist.RepoListRepository
@@ -18,6 +20,12 @@ val repositoryModule = module {
     single<PullRequestRepository> {
         PullRequestRepositoryImpl(
             get() as GitHubService
+        )
+    }
+
+    single<IssueListRepository> {
+        IssueListRepositoryImpl(
+                get() as GitHubService
         )
     }
 }
