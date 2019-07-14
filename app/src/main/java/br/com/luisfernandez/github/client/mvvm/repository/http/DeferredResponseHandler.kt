@@ -20,36 +20,35 @@ class DeferredResponseHandler {
         val resultWrapper = ResultWrapper<SUCCESS, ErrorData<ERROR>>()
 
         try {
-            val response = deferredResponse.await()
+            val retrofitResponse = deferredResponse.await()
 
-            if (response.isSuccessful) {
-                resultWrapper.success = if (response.body() != null) {
+            if (retrofitResponse.isSuccessful) {
+                resultWrapper.success = if (retrofitResponse.body() != null) {
                     @Suppress("UNCHECKED_CAST")
-                    response.body() as SUCCESS
+                    retrofitResponse.body() as SUCCESS
                 } else {
                     null
                 }
             } else {
-                val string = response.errorBody()?.string()
+                val errorString = retrofitResponse.errorBody()?.string()
+                val errorClazz = ERROR::class.java
 
-                val clazz = ERROR::class.java
-
-                if (clazz.name == "java.lang.String") {
-                    resultWrapper.error = ErrorData(errorMessage = string)
+                if (errorClazz.name == "java.lang.String") {
+                    resultWrapper.error = ErrorData(errorMessage = errorString)
                 } else {
-                    val fromJson = Gson().fromJson(string, clazz)
+                    val errorBody = Gson().fromJson(errorString, errorClazz)
 
                     val errorData = ErrorData(
-                            errorBody = fromJson
+                            errorBody = errorBody
                     )
 
                     resultWrapper.error = errorData
                 }
             }
 
-            resultWrapper.statusCode = response.code()
+            resultWrapper.statusCode = retrofitResponse.code()
 
-            val headers = response.headers()
+            val headers = retrofitResponse.headers()
             headers.names().map { headerKey ->
                 val headerValue = headers.get(headerKey)
                 resultWrapper.addKeyValue(headerKey, headerValue ?: "")
