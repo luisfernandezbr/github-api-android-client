@@ -10,6 +10,6 @@ class IssueListRepositoryImpl(
         private val gitHubService: GitHubService
 ) : IssueListRepository {
     override suspend fun loadIssueList(owner: String, repoName: String): ResultWrapper<List<IssueResponse>, GitHubErrorBody> {
-        return DeferredResponseHandler().handle(gitHubService.listIssues(owner, repoName))
+        return DeferredResponseHandler().handle(gitHubService.listIssuesAsync(owner, repoName))
     }
 }

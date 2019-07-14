@@ -10,6 +10,6 @@ class PullRequestRepositoryImpl(
         private val gitHubService: GitHubService
 ) : PullRequestRepository {
     override suspend fun loadPullRequestList(owner: String, repoName: String): ResultWrapper<List<PullRequestResponse>, GitHubErrorBody> {
-        return DeferredResponseHandler().handle(gitHubService.listPullRequests(owner, repoName))
+        return DeferredResponseHandler().handle(gitHubService.listPullRequestsAsync(owner, repoName))
     }
 }
