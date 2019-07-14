@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
-import br.com.luisfernandez.github.client.misc.ImageLoader
-import br.com.luisfernandez.github.client.pojo.PullRequestResponse
+import br.com.luisfernandez.github.client.android.ImageLoader
+import br.com.luisfernandez.github.client.mvvm.repository.pojo.PullRequestResponse
 import kotlinx.android.synthetic.main.item_pull_request_list.view.*
 import java.text.SimpleDateFormat
 import java.util.*

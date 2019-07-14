@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
-import br.com.luisfernandez.github.client.misc.ImageLoader
-import br.com.luisfernandez.github.client.pojo.Repo
+import br.com.luisfernandez.github.client.android.ImageLoader
+import br.com.luisfernandez.github.client.mvvm.repository.pojo.Repo
 import kotlinx.android.synthetic.main.endless_adapter_footer_error.view.*
 import kotlinx.android.synthetic.main.item_repository_list.view.*
 

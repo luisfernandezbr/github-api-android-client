@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.luisfernandez.github.client.R
-import br.com.luisfernandez.github.client.misc.ImageLoader
-import br.com.luisfernandez.github.client.pojo.IssueResponse
+import br.com.luisfernandez.github.client.android.ImageLoader
+import br.com.luisfernandez.github.client.mvvm.repository.pojo.IssueResponse
 import kotlinx.android.synthetic.main.item_issue_list.view.*
 import java.text.SimpleDateFormat
 import java.util.*

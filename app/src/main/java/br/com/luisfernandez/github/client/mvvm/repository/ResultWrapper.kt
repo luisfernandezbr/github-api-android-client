@@ -1,6 +1,5 @@
 package br.com.luisfernandez.github.client.mvvm.repository
 
-import br.com.luisfernandez.github.client.http.model.ServerError
 import java.util.HashMap
 
 data class ResultWrapper<SUCCESS, ERROR>(

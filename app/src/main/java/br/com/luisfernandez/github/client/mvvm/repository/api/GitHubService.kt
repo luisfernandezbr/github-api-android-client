@@ -1,9 +1,9 @@
-package br.com.luisfernandez.github.client.api
+package br.com.luisfernandez.github.client.mvvm.repository.api
 
-import br.com.luisfernandez.github.client.http.annotations.URL
-import br.com.luisfernandez.github.client.pojo.IssueResponse
-import br.com.luisfernandez.github.client.pojo.PullRequestResponse
-import br.com.luisfernandez.github.client.pojo.RepoListResponse
+import br.com.luisfernandez.github.client.mvvm.repository.http.annotations.URL
+import br.com.luisfernandez.github.client.mvvm.repository.pojo.IssueResponse
+import br.com.luisfernandez.github.client.mvvm.repository.pojo.PullRequestResponse
+import br.com.luisfernandez.github.client.mvvm.repository.pojo.RepoListResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET

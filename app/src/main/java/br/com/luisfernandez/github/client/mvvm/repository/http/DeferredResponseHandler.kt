@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.http.v2.jw
+package br.com.luisfernandez.github.client.mvvm.repository.http
 
 import android.util.Log
 import br.com.luisfernandez.github.client.mvvm.repository.ResultWrapper

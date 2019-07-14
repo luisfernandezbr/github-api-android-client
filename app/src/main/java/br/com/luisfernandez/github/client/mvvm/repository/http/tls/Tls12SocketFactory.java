@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.http.internal;
+package br.com.luisfernandez.github.client.mvvm.repository.http.tls;
 
 import java.io.IOException;
 import java.net.InetAddress;

@@ -3,9 +3,9 @@ package br.com.luisfernandez.github.client.feature.pullrequest
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
-import br.com.luisfernandez.github.client.http.model.ServerError
-import br.com.luisfernandez.github.client.pojo.PullRequestResponse
+import br.com.luisfernandez.github.client.mvvm.repository.http.pojo.GitHubErrorBody
+import br.com.luisfernandez.github.client.mvvm.repository.http.pojo.ServerError
+import br.com.luisfernandez.github.client.mvvm.repository.pojo.PullRequestResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -11,9 +11,9 @@ import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
 import br.com.luisfernandez.github.client.feature.issuelist.IssueListActivity_
 import br.com.luisfernandez.github.client.feature.pullrequest.PullRequestListActivity_
-import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
-import br.com.luisfernandez.github.client.http.model.ServerError
-import br.com.luisfernandez.github.client.pojo.Repo
+import br.com.luisfernandez.github.client.mvvm.repository.http.pojo.GitHubErrorBody
+import br.com.luisfernandez.github.client.mvvm.repository.http.pojo.ServerError
+import br.com.luisfernandez.github.client.mvvm.repository.pojo.Repo
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.SearchEvent
 import com.miguelcatalan.materialsearchview.MaterialSearchView

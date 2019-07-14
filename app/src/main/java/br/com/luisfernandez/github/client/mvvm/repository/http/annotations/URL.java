@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.http.annotations;
+package br.com.luisfernandez.github.client.mvvm.repository.http.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

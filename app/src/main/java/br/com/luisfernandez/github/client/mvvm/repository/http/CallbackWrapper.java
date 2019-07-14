@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.http;
+package br.com.luisfernandez.github.client.mvvm.repository.http;
 
 import android.util.Log;
 
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 import br.com.luisfernandez.github.client.BuildConfig;
-import br.com.luisfernandez.github.client.http.model.ServerError;
+import br.com.luisfernandez.github.client.mvvm.repository.http.pojo.ServerError;
 import io.reactivex.observers.DisposableObserver;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;

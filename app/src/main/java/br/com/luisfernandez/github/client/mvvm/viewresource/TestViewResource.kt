@@ -1,17 +1,13 @@
-package br.com.luisfernandez.github.client.mvvm
-
-import br.com.luisfernandez.github.client.mvvm.viewresource.*
-import br.com.luisfernandez.github.client.mvvm.viewresource.Status
-import br.com.luisfernandez.github.client.pojo.User
+package br.com.luisfernandez.github.client.mvvm.viewresource
 
 class TestViewResource {
 
     fun test() {
         val success = DataResource(
             Status.SUCCESS,
-            DataWrapper<TestUser, HttpError>(
-                TestUser("Luis")
-            )
+                DataWrapper<TestUser, HttpError>(
+                        TestUser("Luis")
+                )
         )
         handleResult(success)
 

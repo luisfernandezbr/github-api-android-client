@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.http.model
+package br.com.luisfernandez.github.client.mvvm.repository.http.pojo
 
 /**
  * Created by luisfernandez on 12/05/18.

@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.mvvm.event
+package br.com.luisfernandez.github.client.mvvm.view.event
 
 class OnNeedShowAlertEvent<AlertData> : ViewEvent<AlertData> {
     constructor(alertData: AlertData) : super(alertData)

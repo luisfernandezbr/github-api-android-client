@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.http.interceptor
+package br.com.luisfernandez.github.client.mvvm.repository.http.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response

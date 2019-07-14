@@ -1,4 +1,4 @@
-package br.com.luisfernandez.github.client.misc
+package br.com.luisfernandez.github.client.android
 
 import android.graphics.Color
 import android.widget.ImageView

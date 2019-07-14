@@ -1,6 +1,6 @@
 package br.com.luisfernandez.github.client.koin
 
-import br.com.luisfernandez.github.client.api.GitHubService
+import br.com.luisfernandez.github.client.mvvm.repository.api.GitHubService
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 
 import okhttp3.OkHttpClient
