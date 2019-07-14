@@ -1,7 +1,7 @@
 package br.com.luisfernandez.github.client.http.v2.jw
 
 import android.util.Log
-import br.com.luisfernandez.github.client.http.ResultWrapper
+import br.com.luisfernandez.github.client.mvvm.repository.ResultWrapper
 import com.google.gson.Gson
 import kotlinx.coroutines.Deferred
 import retrofit2.Response

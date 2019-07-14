@@ -15,7 +15,7 @@
         <activity
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:name=".repolist.RepoListActivity_">
+            android:name="br.com.luisfernandez.github.client.feature.repolist.RepoListActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,12 +26,12 @@
         <activity
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:name=".pullrequest.PullRequestListActivity_" />
+            android:name="br.com.luisfernandez.github.client.feature.pullrequest.PullRequestListActivity_" />
 
         <activity
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:name=".issuelist.IssueListActivity_" />
+            android:name="br.com.luisfernandez.github.client.feature.issuelist.IssueListActivity_" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

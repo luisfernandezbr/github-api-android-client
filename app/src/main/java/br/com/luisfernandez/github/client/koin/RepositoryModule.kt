@@ -1,12 +1,10 @@
 package br.com.luisfernandez.github.client.koin
 
-import br.com.luisfernandez.github.client.http.GitHubService
-import br.com.luisfernandez.github.client.pullrequest.PullRequestModel
-import br.com.luisfernandez.github.client.pullrequest.PullRequestModelImpl
-import br.com.luisfernandez.github.client.pullrequest.PullRequestRepository
-import br.com.luisfernandez.github.client.pullrequest.PullRequestRepositoryImpl
-import br.com.luisfernandez.github.client.repolist.RepoListRepository
-import br.com.luisfernandez.github.client.repolist.RepoListRepositoryImpl
+import br.com.luisfernandez.github.client.api.GitHubService
+import br.com.luisfernandez.github.client.feature.pullrequest.PullRequestRepository
+import br.com.luisfernandez.github.client.feature.pullrequest.PullRequestRepositoryImpl
+import br.com.luisfernandez.github.client.feature.repolist.RepoListRepository
+import br.com.luisfernandez.github.client.feature.repolist.RepoListRepositoryImpl
 import org.koin.dsl.module.module
 
 val repositoryModule = module {
