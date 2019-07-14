@@ -14,7 +14,7 @@ class RepoListRepositoryImpl(
 
     override suspend fun loadRepoListCoroutineAsync(page: Int, language: String): ResultWrapper<List<Repo>, GitHubErrorBody> {
         val resultWrapper = DeferredResponseHandler().handle<RepoListResponse, GitHubErrorBody>(
-                deferredResponse = gitHubService.listReposCoroutine(page, language)
+                deferredResponse = gitHubService.listReposCoroutineAsync(page, language)
         )
         return this.getResultWrapperAdapter().adapt(resultWrapper)
     }
