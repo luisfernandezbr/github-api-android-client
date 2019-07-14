@@ -15,8 +15,7 @@ import java.util.*
  */
 class IssueListAdapter(
         private val issueList: ArrayList<IssueResponse> = ArrayList()
-) : androidx.recyclerview.widget.RecyclerView.Adapter<IssueListAdapter.IssueViewHolder>()
-{
+) : androidx.recyclerview.widget.RecyclerView.Adapter<IssueListAdapter.IssueViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IssueViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_issue_list, parent, false)
         return IssueViewHolder(view)

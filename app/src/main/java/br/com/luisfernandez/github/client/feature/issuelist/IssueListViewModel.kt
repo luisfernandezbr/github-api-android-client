@@ -9,10 +9,9 @@ import br.com.luisfernandez.github.client.mvvm.repository.pojo.IssueResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class IssueListViewModel (
-    private val issueListRepository: IssueListRepository
-) : ViewModel()
-{
+class IssueListViewModel(
+        private val issueListRepository: IssueListRepository
+) : ViewModel() {
 
     val issueList = MutableLiveData<List<IssueResponse>>()
     val serverError = MutableLiveData<ServerError<GitHubErrorBody>>()

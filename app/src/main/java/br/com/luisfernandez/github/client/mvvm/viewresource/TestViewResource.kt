@@ -4,7 +4,7 @@ class TestViewResource {
 
     fun test() {
         val success = DataResource(
-            Status.SUCCESS,
+                Status.SUCCESS,
                 DataWrapper<TestUser, HttpError>(
                         TestUser("Luis")
                 )
@@ -25,7 +25,7 @@ class TestViewResource {
     }
 
     private fun handleResult(dataResource: DataResource<DataWrapper<TestUser, HttpError>>) {
-        when(dataResource.status) {
+        when (dataResource.status) {
             Status.SUCCESS -> {
                 val success = dataResource.payloadData?.success
             }
@@ -51,8 +51,8 @@ class TestViewResource {
 }
 
 data class DataWrapper<out Success, out Error>(
-    val success: Success? = null,
-    val error: Error? = null
+        val success: Success? = null,
+        val error: Error? = null
 )
 
 data class TestUser(

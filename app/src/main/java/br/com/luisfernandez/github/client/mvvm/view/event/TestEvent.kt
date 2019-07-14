@@ -4,7 +4,7 @@ import br.com.luisfernandez.github.client.mvvm.view.event.AlertData
 import br.com.luisfernandez.github.client.mvvm.view.event.OnNeedShowAlertEvent
 import br.com.luisfernandez.github.client.mvvm.view.event.OnNeedUpdateEvent
 
-class TestEvent{
+class TestEvent {
 
     fun test() {
         val onNeedUpdateEvent = OnNeedUpdateEvent<Void>()

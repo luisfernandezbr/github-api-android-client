@@ -6,7 +6,7 @@ data class ResultWrapper<SUCCESS, ERROR>(
         var success: SUCCESS? = null,
         var error: ERROR? = null,
         var keyValueMap: MutableMap<String, String>? = null,
-        var statusCode: Int  = -1,
+        var statusCode: Int = -1,
         var genericErrorMessage: String? = null
 ) {
     fun addKeyValue(key: String, value: String) {

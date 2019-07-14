@@ -20,7 +20,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_issues_list)
-class IssueListActivity : AppCompatActivity(), IssueListView  {
+class IssueListActivity : AppCompatActivity(), IssueListView {
 
     @Extra
     lateinit var owner: String
@@ -45,13 +45,11 @@ class IssueListActivity : AppCompatActivity(), IssueListView  {
     }
 
     private fun setupViewModel() {
-        viewModel.issueList.observe(this, Observer {
-            issueList ->
+        viewModel.issueList.observe(this, Observer { issueList ->
             showContent(issueList!!)
         })
 
-        viewModel.serverError.observe(this, Observer {
-            serverError ->
+        viewModel.serverError.observe(this, Observer { serverError ->
             handleError(serverError!!)
         })
     }

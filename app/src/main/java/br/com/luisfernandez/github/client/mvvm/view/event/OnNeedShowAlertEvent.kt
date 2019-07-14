@@ -5,6 +5,6 @@ class OnNeedShowAlertEvent<AlertData> : ViewEvent<AlertData> {
 }
 
 data class AlertData(
-    val title: String,
-    val message: String
+        val title: String,
+        val message: String
 )

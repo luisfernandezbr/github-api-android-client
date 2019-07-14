@@ -11,8 +11,8 @@ import java.net.NoRouteToHostException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-class DeferredResponseHandler{
-    suspend inline fun <SUCCESS, reified ERROR: Any> handle(
+class DeferredResponseHandler {
+    suspend inline fun <SUCCESS, reified ERROR : Any> handle(
             deferredResponse: Deferred<Response<SUCCESS>>
     ): ResultWrapper<SUCCESS, ERROR> {
 
@@ -49,11 +49,10 @@ class DeferredResponseHandler{
                 resultWrapper.addKeyValue(headerKey, headerValue ?: "")
             }
 
-
         } catch (exception: Exception) {
             Log.e(TAG, "Error doing request. Error: ${exception.message}", exception)
 
-            val customStatusCode = when(exception) {
+            val customStatusCode = when (exception) {
                 is SocketTimeoutException -> {
                     2100
                 }

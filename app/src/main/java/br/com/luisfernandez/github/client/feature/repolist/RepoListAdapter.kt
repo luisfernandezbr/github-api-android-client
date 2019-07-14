@@ -19,8 +19,7 @@ class RepoListAdapter(
         private val onItemClickListener: OnItemClickListener<Repo>,
         private val onRetryClickListener: OnItemClickListener<String>,
         private val onIssueClickListener: OnItemClickListener<Repo>
-) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>()
-{
+) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
     companion object {
         const val TAG = "RepoListAdapter"
         const val CONTENT = 1
@@ -48,7 +47,7 @@ class RepoListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
-        return when(viewType) {
+        return when (viewType) {
             CONTENT -> ContentViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_repository_list, parent, false))
             FOOTER -> FooterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_loading_more, parent, false))
             else -> ErrorFooterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.endless_adapter_footer_error, parent, false))

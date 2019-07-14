@@ -9,10 +9,9 @@ import br.com.luisfernandez.github.client.mvvm.repository.pojo.PullRequestRespon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PullRequestViewModel (
-    private val pullRequestRepository: PullRequestRepository
-) : ViewModel()
-{
+class PullRequestViewModel(
+        private val pullRequestRepository: PullRequestRepository
+) : ViewModel() {
 
     val listPullRequest = MutableLiveData<List<PullRequestResponse>>()
     val serverError = MutableLiveData<ServerError<GitHubErrorBody>>()
@@ -22,7 +21,7 @@ class PullRequestViewModel (
             val resultWrapper = pullRequestRepository.loadPullRequestList(owner, repoName)
 
             if (resultWrapper.success != null) {
-              listPullRequest.postValue(resultWrapper.success)
+                listPullRequest.postValue(resultWrapper.success)
             }
         }
     }

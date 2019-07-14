@@ -17,8 +17,7 @@ import java.util.*
 class PullRequestListAdapter(
         private val pullRequestList: ArrayList<PullRequestResponse> = ArrayList(),
         private val onItemClickListener: OnItemClickListener<PullRequestResponse>
-) : androidx.recyclerview.widget.RecyclerView.Adapter<PullRequestListAdapter.PullRequestViewHolder>()
-{
+) : androidx.recyclerview.widget.RecyclerView.Adapter<PullRequestListAdapter.PullRequestViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pull_request_list, parent, false)
         return PullRequestViewHolder(view)

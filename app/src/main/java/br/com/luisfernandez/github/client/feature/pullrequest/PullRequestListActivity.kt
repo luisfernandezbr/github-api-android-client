@@ -48,13 +48,11 @@ class PullRequestListActivity : AppCompatActivity(), PullRequestListView {
     }
 
     private fun setupViewModel() {
-        viewModel.listPullRequest.observe(this, Observer {
-            listPullRequest ->
+        viewModel.listPullRequest.observe(this, Observer { listPullRequest ->
             showContent(listPullRequest!!)
         })
 
-        viewModel.serverError.observe(this, Observer {
-            serverError ->
+        viewModel.serverError.observe(this, Observer { serverError ->
             handleError(serverError!!)
         })
     }

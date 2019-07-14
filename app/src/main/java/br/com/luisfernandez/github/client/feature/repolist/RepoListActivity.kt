@@ -79,13 +79,11 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
     }
 
     private fun setupViewModel() {
-        viewModel.listRepo.observe(this, Observer {
-            listRepo ->
+        viewModel.listRepo.observe(this, Observer { listRepo ->
             showContent(listRepo!!)
         })
 
-        viewModel.serverError.observe(this, Observer {
-            serverError ->
+        viewModel.serverError.observe(this, Observer { serverError ->
             handleError(serverError!!)
         })
     }
@@ -176,7 +174,7 @@ class RepoListActivity : AppCompatActivity(), RepoListView {
         if (currentPage == 1) {
             this.showErrorState()
 
-            when(serverError.httpStatus) {
+            when (serverError.httpStatus) {
                 422 -> {
                     textErrorMessage.text = String.format(getString(R.string.error_message_invalid_language), querySearch)
                     buttonRetry.setGone()

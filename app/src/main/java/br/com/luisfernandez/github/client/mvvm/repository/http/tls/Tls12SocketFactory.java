@@ -11,8 +11,7 @@ import javax.net.ssl.SSLSocketFactory;
 /**
  * Solution from https://github.com/square/okhttp/issues/2372
  */
-public class Tls12SocketFactory extends SSLSocketFactory
-{
+public class Tls12SocketFactory extends SSLSocketFactory {
     private static final String[] TLS_V12_ONLY = {"TLSv1.2"};
 
     final SSLSocketFactory delegate;
@@ -32,14 +31,12 @@ public class Tls12SocketFactory extends SSLSocketFactory
     }
 
     @Override
-    public Socket createSocket(Socket s, String host, int port, boolean autoClose) throws IOException
-    {
+    public Socket createSocket(Socket s, String host, int port, boolean autoClose) throws IOException {
         return patch(delegate.createSocket(s, host, port, autoClose));
     }
 
     @Override
-    public Socket createSocket(String host, int port) throws IOException, UnknownHostException
-    {
+    public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
         return patch(delegate.createSocket(host, port));
     }
 

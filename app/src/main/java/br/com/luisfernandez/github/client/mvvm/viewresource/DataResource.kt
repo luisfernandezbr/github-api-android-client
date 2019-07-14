@@ -2,11 +2,11 @@ package br.com.luisfernandez.github.client.mvvm.viewresource
 
 
 data class DataResource<PayloadData>(
-    var status: Status,
-    val payloadData: PayloadData? = null
+        var status: Status,
+        val payloadData: PayloadData? = null
 ) {
     companion object {
-        fun <T>loading() = DataResource<T>(
+        fun <T> loading() = DataResource<T>(
                 Status.LOADING
         )
     }

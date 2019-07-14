@@ -13,13 +13,13 @@ val repositoryModule = module {
 
     single<RepoListRepository> {
         RepoListRepositoryImpl(
-            get() as GitHubService
+                get() as GitHubService
         )
     }
 
     single<PullRequestRepository> {
         PullRequestRepositoryImpl(
-            get() as GitHubService
+                get() as GitHubService
         )
     }
 

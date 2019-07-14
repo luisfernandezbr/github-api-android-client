@@ -7,6 +7,6 @@ open class ViewEvent<EventPayload> {
     constructor()
 
     constructor(eventPayload: EventPayload) {
-        this.payload= eventPayload
+        this.payload = eventPayload
     }
 }

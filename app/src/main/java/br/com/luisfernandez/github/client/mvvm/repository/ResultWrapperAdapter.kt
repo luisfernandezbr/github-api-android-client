@@ -22,11 +22,11 @@ abstract class ResultWrapperAdapter<FROM_SUCCESS, FROM_ERROR, TO_SUCCESS, TO_ERR
         return wrapper
     }
 
-    private fun adaptStatusCode(statusCode: Int) : Int {
+    private fun adaptStatusCode(statusCode: Int): Int {
         return statusCode
     }
 
-    open fun adaptKeyValueMap(fromKeyValueMap: MutableMap<String, String>) : MutableMap<String, String>? {
+    open fun adaptKeyValueMap(fromKeyValueMap: MutableMap<String, String>): MutableMap<String, String>? {
         return fromKeyValueMap
     }
 

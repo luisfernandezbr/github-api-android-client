@@ -7,14 +7,11 @@ import okhttp3.Response
  * Solution from https://gist.github.com/polbins/1c7f9303d2b7d169a3b1
  * https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.4
  */
-class ForceCacheInterceptor() : Interceptor
-{
-    override fun intercept(chain: Interceptor.Chain?): Response
-    {
+class ForceCacheInterceptor() : Interceptor {
+    override fun intercept(chain: Interceptor.Chain?): Response {
         val request = chain!!.request()
 
-        if (request.method().equals("GET"))
-        {
+        if (request.method().equals("GET")) {
             request.newBuilder()
                     .header("Cache-Control", "public, only-if-cached, max-stale=2419200")
                     .build()
