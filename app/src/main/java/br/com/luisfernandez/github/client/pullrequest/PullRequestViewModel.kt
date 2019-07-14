@@ -2,15 +2,18 @@ package br.com.luisfernandez.github.client.pullrequest
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import br.com.luisfernandez.github.client.http.CallbackWrapper
 import br.com.luisfernandez.github.client.http.model.GitHubErrorBody
 import br.com.luisfernandez.github.client.http.model.ServerError
 import br.com.luisfernandez.github.client.pojo.PullRequestResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PullRequestViewModel (
-    private val pullRequestModel: PullRequestModel
+    private val pullRequestRepository: PullRequestRepository
 ) : ViewModel()
 {
 
@@ -18,18 +21,12 @@ class PullRequestViewModel (
     val serverError = MutableLiveData<ServerError<GitHubErrorBody>>()
 
     fun loadPullRequestList(owner: String, repoName: String) {
-        pullRequestModel
-                .loadPullRequestList(owner, repoName)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object: CallbackWrapper<List<PullRequestResponse>, GitHubErrorBody>(GitHubErrorBody::class.java) {
-                    override fun onError(error: ServerError<GitHubErrorBody>) {
-                        serverError.postValue(error)
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            val resultWrapper = pullRequestRepository.loadPullRequestList(owner, repoName)
 
-                    override fun onSuccess(pullRequestList: List<PullRequestResponse>) {
-                        listPullRequest.postValue(pullRequestList)
-                    }
-                })
+            if (resultWrapper.success != null) {
+              listPullRequest.postValue(resultWrapper.success)
+            }
+        }
     }
 }
