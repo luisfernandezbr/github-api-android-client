@@ -1,12 +1,12 @@
 package br.com.luisfernandez.github.client.koin
 
-import br.com.luisfernandez.github.client.http.GitHubService
+import br.com.luisfernandez.github.client.mvvm.repository.api.GitHubService
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.applicationContext
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -31,6 +31,6 @@ inline fun <reified T> createWebService(okHttpClient: OkHttpClient, url: String)
             .baseUrl(url)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).build()
     return retrofit.create(T::class.java)
 }
