@@ -10,8 +10,6 @@ import br.com.luisfernandez.github.client.mvvm.repository.pojo.Repo
 import kotlinx.android.synthetic.main.endless_adapter_footer_error.view.*
 import kotlinx.android.synthetic.main.item_repository_list.view.*
 
-import kotlin.collections.ArrayList
-
 /**
  * Created by luisfernandez on 10/05/18.
  */

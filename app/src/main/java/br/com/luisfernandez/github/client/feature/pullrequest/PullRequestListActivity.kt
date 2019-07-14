@@ -1,16 +1,16 @@
 package br.com.luisfernandez.github.client.feature.pullrequest
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.Observer
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import br.com.luisfernandez.github.client.OnItemClickListener
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
-import br.com.luisfernandez.github.client.mvvm.repository.http.pojo.ServerError
 import br.com.luisfernandez.github.client.mvvm.repository.http.pojo.GitHubErrorBody
+import br.com.luisfernandez.github.client.mvvm.repository.http.pojo.ServerError
 import br.com.luisfernandez.github.client.mvvm.repository.pojo.PullRequestResponse
 import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.view_state_empty.*

@@ -1,7 +1,7 @@
 package br.com.luisfernandez.github.client.mvvm.repository.pojo
 
 import com.google.gson.annotations.SerializedName
-import java.util.Date
+import java.util.*
 
 data class PullRequestResponse(
         @SerializedName("html_url") val htmlUrl: String,

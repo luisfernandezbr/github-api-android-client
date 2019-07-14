@@ -1,9 +1,9 @@
 package br.com.luisfernandez.github.client.android
 
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import android.graphics.drawable.ColorDrawable
 import com.bumptech.glide.request.RequestOptions
 import java.util.*
 

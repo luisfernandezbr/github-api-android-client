@@ -1,6 +1,6 @@
 package br.com.luisfernandez.github.client.mvvm.repository
 
-import java.util.HashMap
+import java.util.*
 
 data class ResultWrapper<SUCCESS, ERROR>(
         var success: SUCCESS? = null,

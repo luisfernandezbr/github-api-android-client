@@ -1,8 +1,8 @@
 package br.com.luisfernandez.github.client.feature.issuelist
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import br.com.luisfernandez.github.client.R
 import br.com.luisfernandez.github.client.extensions.setGone
 import br.com.luisfernandez.github.client.extensions.setVisible
